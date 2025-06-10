@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated Analysis: Smart Fleet Management Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues & Oranges (Primary: #003f5c, Accent: #ff7c43, Secondary Blue: #5899DA) -->
+    <!-- 
+        Application Structure Plan: A hybrid single-page application. It begins with an infographic-style "Hero" section for immediate impact. A sticky top navigation allows users to jump to detailed sections. The flow is: 1) Hero/Snapshot, 2) Market Deep Dive (visuals + text), 3) Platform's Unique Edge (interactive), 4) Competitor Benchmarking (interactive table), 5) Value Chain & Branding, 6) Strategic Fit (SWOT, Vision 2030), 7) Revenue Streams, 8) Glossary. This structure blends the infographic's visual storytelling with the website's depth and interactivity.
+    -->
+    <!-- 
+        Visualization & Content Choices: 
+        - Hero Stats (Goal: Inform): Big Number display.
+        - KSA Growth (Goal: Change): Line Chart (Chart.js).
+        - Market Segments (Goal: Compare): Bar Chart (Chart.js).
+        - Platform USPs (Goal: Organize/Compare): Interactive Card Grid (HTML/JS).
+        - Competitor Table (Goal: Compare): A comprehensive, single HTML table for direct side-by-side comparison of all key players.
+        - Value Chain (Goal: Organize): CSS-based flowchart.
+        - SWOT (Goal: Organize): 4-quadrant HTML/CSS.
+        - TCO Donut (Goal: Inform): Donut Chart (Chart.js).
+        All choices use the "Brilliant Blues & Oranges" palette and adhere to NO SVG/Mermaid JS. Label wrapping and tooltip configs for Chart.js are maintained.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light Blue-Gray Background */
+            color: #003f5c; /* Primary Dark Blue for text */
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #ff7c43; /* Accent Orange */
+            border-bottom-color: #ff7c43; /* Accent Orange */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 400px;
+            }
+        }
+        .hero-stat-highlight {
+            color: #ff7c43; /* Accent Orange */
+            font-weight: 800; /* extrabold */
+        }
+        .section-title {
+            color: #003f5c; /* Primary Dark Blue */
+            font-weight: 700; /* bold */
+        }
+        .sub-section-title {
+            color: #2c7fb8; /* Lighter, secondary blue */
+            font-weight: 600; /* semibold */
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem; /* 16px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb; /* slate-200 equivalent */
+        }
+        .feature-card.active {
+            background-color: #ff7c43; /* Accent Orange */
+            color: #ffffff;
+        }
+        .feature-card.active h3 {
+            color: #ffffff;
+        }
+        .flowchart-arrow {
+            font-size: 2rem;
+            color: #9ca3af; /* gray-400 */
+            line-height: 1;
+        }
+        .value-chain-stage {
+            border-left: 3px solid #ff7c43; /* Accent Orange */
+        }
+         .swot-quadrant h4 { margin-bottom: 0.5rem; }
+        .swot-quadrant ul { list-style-position: inside; padding-left: 0.5rem; }
+        .competitor-table-container {
+            overflow-x: auto;
+        }
+        .competitor-table th, .competitor-table td {
+            white-space: normal;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 lg:px-6 py-3">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl md:text-2xl font-bold text-[#003f5c]">Smart Fleet Platform: Integrated Analysis</h1>
+                <div class="hidden lg:flex space-x-5">
+                    <a href="#hero" class="nav-link font-medium pb-1 text-sm">Snapshot</a>
+                    <a href="#market" class="nav-link font-medium pb-1 text-sm">Market</a>
+                    <a href="#platform" class="nav-link font-medium pb-1 text-sm">Platform</a>
+                    <a href="#competitors" class="nav-link font-medium pb-1 text-sm">Competitors</a>
+                    <a href="#valuechain" class="nav-link font-medium pb-1 text-sm">Value</a>
+                    <a href="#strategy" class="nav-link font-medium pb-1 text-sm">Strategy</a>
+                    <a href="#revenue" class="nav-link font-medium pb-1 text-sm">Revenue</a>
+                    <a href="#glossary" class="nav-link font-medium pb-1 text-sm">Glossary</a>
+                </div>
+                <div class="lg:hidden">
+                    <select id="mobile-nav" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#ff7c43] focus:ring-[#ff7c43] text-sm py-2 text-[#003f5c]">
+                        <option value="#hero">Snapshot</option>
+                        <option value="#market">Market Deep Dive</option>
+                        <option value="#platform">Platform Edge</option>
+                        <option value="#competitors">Competitors</option>
+                        <option value="#valuechain">Value & Branding</option>
+                        <option value="#strategy">Strategic Fit</option>
+                        <option value="#revenue">Revenue Streams</option>
+                        <option value="#glossary">Glossary</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 lg:px-6 py-8 md:py-12">
+
+        <!-- Hero Section / Infographic Snapshot -->
+        <section id="hero" class="text-center pt-12 mb-16 md:mb-24">
+            <h2 class="text-4xl md:text-5xl font-extrabold section-title mb-6">The Future of Mobility: A <span class="hero-stat-highlight">Multi-Billion Dollar</span> Opportunity</h2>
+            <p class="text-lg md:text-xl text-slate-600 mb-10 max-w-3xl mx-auto">The Smart Fleet & Vehicle Management market in GCC & MENA is experiencing explosive growth, driven by technological innovation and strategic national visions. Our platform is poised to capture significant share.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+                <div class="card p-6 transform hover:scale-105 transition-transform">
+                    <p class="text-sm font-semibold text-slate-500 mb-1">KSA Market CAGR</p>
+                    <p class="text-5xl hero-stat-highlight">14.2%</p>
+                    <p class="text-slate-600 mt-1">Projected by 2032 (DataBridge)</p>
+                </div>
+                <div class="card p-6 transform hover:scale-105 transition-transform">
+                    <p class="text-sm font-semibold text-slate-500 mb-1">Platform TCO Reduction</p>
+                    <p class="text-5xl hero-stat-highlight">35%</p>
+                    <p class="text-slate-600 mt-1">Target for B2B Fleet Clients</p>
+                </div>
+                <div class="card p-6 transform hover:scale-105 transition-transform">
+                    <p class="text-sm font-semibold text-slate-500 mb-1">MENA Market Size</p>
+                    <p class="text-5xl hero-stat-highlight">$6.6B+</p>
+                    <p class="text-slate-600 mt-1">Projected by 2032 (DataBridge)</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="space-y-20 md:space-y-24">
+
+            <!-- Market Deep Dive -->
+            <section id="market" class="pt-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl section-title">Market Deep Dive: KSA & Regional Dynamics</h2>
+                    <p class="max-w-2xl mx-auto mt-3 text-slate-600">Saudi Arabia is a key growth engine, with specific segments and drivers accelerating market expansion.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-start">
+                    <div class="lg:col-span-3 card p-6 md:p-8">
+                        <h3 class="text-xl sub-section-title mb-1 text-center">KSA Fleet Management Market Growth (USD Millions)</h3>
+                        <div class="mt-4 text-sm text-slate-600">
+                             <p class="mb-2">This chart visualizes two independent forecasts for the total market value in Saudi Arabia. The variation between sources like **IMARC** (a global research firm) and **Data Bridge Market Research** is common and highlights a potential range of market growth.</p>
+                             <p><strong>Key Insight:</strong> Despite differences in exact numbers, both analyses confirm the market's strong, upward trajectory, underscoring a significant and reliable growth opportunity.</p>
+                        </div>
+                        <div class="chart-container h-[320px] md:h-[350px] mt-4">
+                            <canvas id="ksaGrowthChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 card p-6 md:p-8">
+                        <h3 class="text-xl sub-section-title mb-1 text-center">KSA: Key Growth Segments</h3>
+                         <div class="mt-4 text-sm text-slate-600">
+                             <p class="mb-2">This chart shows the fastest-growing niches within the KSA market, measured by Compound Annual Growth Rate (CAGR). A higher CAGR indicates a more rapidly expanding segment.</p>
+                             <p><strong>Key Insight:</strong> While traditional commercial telematics is a large market, specialized areas like **Last-Mile Delivery** (driven by e-commerce) and **EV Fleet Management** are growing even faster, representing key future opportunities.</p>
+                        </div>
+                        <div class="chart-container h-[320px] md:h-[350px] mt-4">
+                            <canvas id="segmentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl sub-section-title text-center mb-8">Core Market Drivers</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="card p-6 text-center hover:shadow-xl transition-shadow">
+                            <p class="text-4xl md:text-5xl mb-3">🇸🇦</p>
+                            <h4 class="text-lg font-semibold text-[#003f5c]">Vision 2030 & NTLS</h4>
+                            <p class="text-sm mt-1 text-slate-600">National strategies boosting logistics and tech adoption.</p>
+                        </div>
+                        <div class="card p-6 text-center hover:shadow-xl transition-shadow">
+                            <p class="text-4xl md:text-5xl mb-3">🚚</p>
+                            <h4 class="text-lg font-semibold text-[#003f5c]">E-commerce Expansion</h4>
+                            <p class="text-sm mt-1 text-slate-600">Fueling demand for last-mile delivery optimization.</p>
+                        </div>
+                        <div class="card p-6 text-center hover:shadow-xl transition-shadow">
+                            <p class="text-4xl md:text-5xl mb-3">📜</p>
+                            <h4 class="text-lg font-semibold text-[#003f5c]">Regulatory Mandates</h4>
+                            <p class="text-sm mt-1 text-slate-600">Compulsory telematics (e.g., WASL) driving adoption.</p>
+                        </div>
+                         <div class="card p-6 text-center hover:shadow-xl transition-shadow">
+                            <p class="text-4xl md:text-5xl mb-3">💡</p>
+                            <h4 class="text-lg font-semibold text-[#003f5c]">IoT & AI Integration</h4>
+                            <p class="text-sm mt-1 text-slate-600">Smart technologies enhancing efficiency and insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Platform Edge -->
+            <section id="platform" class="pt-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl section-title">Our Platform: A Unique Value Proposition</h2>
+                    <p class="max-w-2xl mx-auto mt-3 text-slate-600">Engineered for comprehensive management and significant cost savings, our platform stands out with its integrated B2B/B2C approach and advanced AI capabilities. Click a feature to learn more.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                    <div class="lg:col-span-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+                        <div id="feature-card-ai" class="feature-card card cursor-pointer p-4 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-[#003f5c]">AI Predictive Maintenance</h3>
+                        </div>
+                        <div id="feature-card-cost" class="feature-card card cursor-pointer p-4 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-[#003f5c]">Granular Cost Intelligence</h3>
+                        </div>
+                        <div id="feature-card-parts" class="feature-card card cursor-pointer p-4 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-[#003f5c]">Blockchain Part Validation</h3>
+                        </div>
+                         <div id="feature-card-b2c" class="feature-card card cursor-pointer p-4 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-[#003f5c]">Integrated B2C/Household</h3>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 card p-6 md:p-8 min-h-[320px]">
+                        <div id="feature-display">
+                        </div>
+                    </div>
+                </div>
+                 <div class="mt-12 card p-6 md:p-8 lg:col-span-3">
+                    <h3 class="text-xl sub-section-title mb-1 text-center">Projected B2B Fleet TCO Reduction</h3>
+                     <p class="text-sm text-center text-slate-600 mt-2 max-w-xl mx-auto"><strong>Total Cost of Ownership (TCO)</strong> is the full cost of a vehicle over its life, including fuel, maintenance, insurance, and depreciation. Our platform's goal is to reduce this total cost for businesses by up to 35% through smarter operations.</p>
+                    <div class="chart-container mx-auto h-[280px] md:h-[300px] mt-4">
+                        <canvas id="tcoDonutChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Competitor Benchmarking -->
+            <section id="competitors" class="pt-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl section-title">Competitive Landscape Analysis</h2>
+                    <p class="max-w-2xl mx-auto mt-3 text-slate-600">A side-by-side comparison of our platform against key local and international players reveals our distinct advantages in technology and market focus.</p>
+                </div>
+                <div class="card p-6 md:p-8">
+                     <div class="competitor-table-container">
+                        <table class="min-w-full divide-y divide-gray-200 competitor-table">
+                            <thead class="bg-slate-50">
+                                <tr id="competitor-table-head">
+                                </tr>
+                            </thead>
+                            <tbody id="competitor-table-body" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+                     <p class="text-xs text-slate-500 mt-4">Note: ✅ Advanced/Core Feature, ⚠️ Basic/Partial Functionality, ❌ Not Typically Offered.</p>
+                </div>
+            </section>
+
+            <!-- Value Chain & Branding -->
+            <section id="valuechain" class="pt-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl section-title">Value Creation & Strategic Branding</h2>
+                    <p class="max-w-2xl mx-auto mt-3 text-slate-600">Our end-to-end value chain and targeted branding strategy are designed for market leadership.</p>
+                </div>
+                <div class="card p-6 md:p-8 mb-12">
+                    <h3 class="text-xl sub-section-title mb-6 text-center">Smart Vehicle Management Value Chain</h3>
+                    <div id="value-chain-display" class="flex flex-col md:flex-row items-stretch justify-around gap-4 text-center">
+                    </div>
+                </div>
+                <div class="card p-6 md:p-8">
+                    <h3 class="text-xl sub-section-title mb-6 text-center">Value-Based Branding Pillars</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-semibold text-[#ff7c43] mb-2">Inspired by Apple: Innovation & UX</h4>
+                            <p class="text-slate-600 text-sm">Focus on cutting-edge AI, seamless integration, and an intuitive, elegant user experience that simplifies complexity and empowers users.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-[#2c7fb8] mb-2">Inspired by Google: Information & Intelligence</h4>
+                            <p class="text-slate-600 text-sm">Position as the central hub for vehicle intelligence, transforming data into actionable insights for all user types.</p>
+                        </div>
+                    </div>
+                     <p class="text-slate-700 mt-6 font-medium text-center"><strong>Core Branding Message:</strong> "Unified Intelligence for Proactive Mastery."</p>
+                </div>
+            </section>
+
+            <!-- Strategic Fit -->
+            <section id="strategy" class="pt-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl section-title">Strategic Fit & Future Outlook</h2>
+                    <p class="max-w-2xl mx-auto mt-3 text-slate-600">Aligning with national goals and leveraging market opportunities for sustainable growth.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                    <div class="card p-6 md:p-8">
+                        <h3 class="text-xl sub-section-title mb-6 text-center">SWOT Analysis</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-green-50 p-4 rounded-lg swot-quadrant">
+                                <h4 class="font-bold text-green-700">Strengths</h4>
+                                <ul id="swot-strengths" class="mt-1 text-slate-700 space-y-0.5"></ul>
+                            </div>
+                            <div class="bg-red-50 p-4 rounded-lg swot-quadrant">
+                                <h4 class="font-bold text-red-700">Weaknesses</h4>
+                                <ul id="swot-weaknesses" class="mt-1 text-slate-700 space-y-0.5"></ul>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg swot-quadrant">
+                                <h4 class="font-bold text-blue-700">Opportunities</h4>
+                                <ul id="swot-opportunities" class="mt-1 text-slate-700 space-y-0.5"></ul>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded-lg swot-quadrant">
+                                <h4 class="font-bold text-yellow-700">Threats</h4>
+                                <ul id="swot-threats" class="mt-1 text-slate-700 space-y-0.5"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-6 md:p-8">
+                        <h3 class="text-xl sub-section-title mb-6 text-center">Alignment with Saudi Vision 2030</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="text-3xl md:text-4xl p-2 bg-orange-100 rounded-full text-[#ff7c43]">📈</div>
+                                <div><h4 class="font-semibold text-[#003f5c]">Economic Diversification</h4><p class="text-sm text-slate-600">Supports logistics and tech sectors, reducing oil dependency.</p></div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="text-3xl md:text-4xl p-2 bg-green-100 rounded-full text-green-600">♻️</div>
+                                <div><h4 class="font-semibold text-[#003f5c]">Sustainability Goals</h4><p class="text-sm text-slate-600">Optimizes fuel use and reduces emissions via smart operations.</p></div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="text-3xl md:text-4xl p-2 bg-sky-100 rounded-full text-sky-600">🌐</div>
+                                <div><h4 class="font-semibold text-[#003f5c]">Digital Transformation</h4><p class="text-sm text-slate-600">Drives digitalization in transport, a key national objective.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Revenue Streams -->
+            <section id="revenue" class="pt-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl section-title">Monetization Strategy: Diverse Revenue Streams</h2>
+                    <p class="max-w-2xl mx-auto mt-3 text-slate-600">A flexible and scalable model designed to capture value across different market segments.</p>
+                </div>
+                <div id="revenue-streams-display" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                </div>
+            </section>
+
+            <!-- Glossary -->
+            <section id="glossary" class="pt-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl section-title">Glossary of Key Terms</h2>
+                    <p class="max-w-2xl mx-auto mt-3 text-slate-600">Understanding the terminology used in fleet management and market analysis.</p>
+                </div>
+                <div id="glossary-display" class="card p-6 md:p-8 columns-1 md:columns-2 lg:columns-3 gap-x-8 text-sm">
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-[#003f5c] text-white mt-16 md:mt-24">
+        <div class="container mx-auto px-6 py-6 text-center text-slate-300 text-xs md:text-sm">
+            <p>&copy; 2025 Smart Fleet Platform Strategic Analysis. Data for illustrative and discussion purposes only.</p>
+            <p>This document combines market research insights into an integrated analytical format.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const appData = {
+                marketForecast: {
+                    years: [2024, 2026, 2028, 2030, 2032],
+                    imarc: [259.2, 308.8, 367.9, 438.3, 522.2],
+                    dataBridge: [726.47, 951.8, 1247, 1634.3, 2112.14],
+                },
+                segmentGrowth: {
+                    labels: [['Last-Mile', 'Delivery Tech'], ['EV Fleet', 'Management'], ['Commercial', 'Telematics'], ['Passenger Car', 'Solutions']],
+                    cagrs: [16.5, 15.99, 15.10, 14.95]
+                },
+                features: {
+                    ai: {
+                        title: 'AI Predictive Maintenance',
+                        description: 'Utilizes environmental data (temperature, dust), operational metrics, driver behavior, and service history. Generates dynamic, condition-based maintenance schedules and predictive alerts for component failures, specifically tuned for GCC conditions.',
+                        kpi: '🎯 Target: ≥90% predictive accuracy, reducing unscheduled repairs by 40%.'
+                    },
+                    cost: {
+                        title: 'Granular Cost Intelligence',
+                        description: 'Deep analysis and attribution of all vehicle-related expenses, including fuel and maintenance. Links costs to influential variables such as route type (desert vs. mountain), weather, driver behavior, and part quality (OEM vs. aftermarket).',
+                        kpi: '🎯 Target: Deliver actionable cost-saving insights with ≥95% correlation between predicted and actual expenses.'
+                    },
+                    parts: {
+                        title: 'Blockchain Part Validation',
+                        description: 'A unique feature to combat fraud. The workflow involves photo capture, barcode/QR scanning, and cross-referencing with manufacturer databases. An immutable log is created on a blockchain for ultimate traceability and warranty enforcement.',
+                        kpi: '🎯 Target: ≥99% accuracy in detecting fraudulent parts, building trust and reducing long-term costs.'
+                    },
+                    b2c: {
+                        title: 'Integrated B2C/Household Management',
+                        description: 'Unlike most competitors, our platform features a dedicated, comprehensive module for household users. It allows management of multiple family vehicles, individual driver profiles, shared expense tracking, and direct integration with service centers.',
+                        kpi: '🎯 Target: A significant "blue ocean" opportunity, targeting 20% TCO reduction for consumers.'
+                    }
+                },
+                competitors: {
+                    ourPlatform: { 
+                        name: 'Our Platform', 
+                        details: { 
+                            ai: '✅ Advanced', 
+                            cost: '✅ Granular', 
+                            b2c: '✅ Comprehensive', 
+                            parts: '✅ Blockchain', 
+                            local: '✅ Deep Regional',
+                        } 
+                    },
+                    stc: { name: 'STC (Local)', details: { ai: '⚠️ Basic', cost: '⚠️ Basic', b2c: '❌ No', parts: '❌ No', local: '✅ Strong'} },
+                    zain: { name: 'Zain (Local)', details: { ai: '⚠️ Basic', cost: '⚠️ Basic', b2c: '❌ No', parts: '❌ No', local: '✅ Strong'} },
+                    sts: { name: 'STS (Local)', details: { ai: '⚠️ AI Focus', cost: '⚠️ Basic', b2c: '❌ No', parts: '❌ No', local: '✅ Strong'} },
+                    geotab: { name: 'Geotab (Intl)', details: { ai: '⚠️ Partner', cost: '⚠️ Basic', b2c: '❌ No', parts: '❌ No', local: '⚠️ Varies'} },
+                    samsara: { name: 'Samsara (Intl)', details: { ai: '⚠️ Partner', cost: '⚠️ Basic', b2c: '❌ No', parts: '❌ No', local: '⚠️ Varies'} },
+                },
+                featuresList: [
+                    { id: 'ai', name: 'AI Predictive Maintenance' },
+                    { id: 'cost', name: 'Granular Cost Intelligence' },
+                    { id: 'b2c', name: 'Comprehensive B2C Module' },
+                    { id: 'parts', name: 'Blockchain Part Validation' },
+                    { id: 'local', name: 'Deep Regional Tuning' },
+                ],
+                swot: {
+                    strengths: ['Dual B2B/B2C Model', 'Advanced AI Suite', 'Blockchain Part Validation', 'Strong Regional Focus'],
+                    weaknesses: ['New Market Entrant', 'Brand Building Required', 'Hardware Dependencies'],
+                    opportunities: ['High KSA/GCC Growth', 'Vision 2030 Alignment', 'Underserved B2C Segment', 'Strategic Partnerships'],
+                    threats: ['Incumbent Competition', 'Rapid Tech Evolution', 'Data Privacy Regulations']
+                },
+                valueChain: [
+                    { name: 'Tech R&D & Inputs', description: 'AI model dev, software architecture, IoT hardware, data source integration.', icon: '🔬' },
+                    { name: 'Core Platform', description: 'Data ingestion, AI analytics, hosting, security, UI/UX dev, blockchain ops.', icon: '💻' },
+                    { name: 'Service & Support', description: 'Sales, marketing, onboarding, multilingual support, 3rd-party integrations.', icon: '🤝' },
+                    { name: 'End-User Value', description: 'Actionable insights, TCO reduction, efficiency, safety, compliance.', icon: '🏆' }
+                ],
+                revenueStreams: [
+                    { name: 'B2B SaaS Tiers', description: 'Monthly/annual fees for corporate fleets, tiered by size & features.', icon: '🏢'},
+                    { name: 'B2C Subscriptions', description: 'Plans for household users, multi-vehicle management.', icon: '👨‍👩‍👧‍👦'},
+                    { name: 'Hardware Sales/Lease', description: 'Proprietary or certified IoT devices (OBD-II, GPS).', icon: '📡'},
+                    { name: 'Premium Add-ons', description: 'Advanced AI reports, forensic cost analysis, compliance modules.', icon: '⭐'},
+                    { name: 'Data Insights (Aggregated)', description: 'Anonymized data for urban planning, market research (ethical).', icon: '📊'},
+                    { name: 'Partnership Referrals', description: 'Commissions from service centers, insurance, part suppliers.', icon: '🔗'}
+                ],
+                glossary: {
+                    'IMARC Group': 'A global market research and business consulting firm providing industry analysis and forecasts.',
+                    'Data Bridge': 'Data Bridge Market Research is another major firm that produces reports and analytics on global markets.',
+                    'Last-Mile Delivery': 'The final step of the delivery process from a distribution center to the end-user.',
+                    'EV Fleet Management': 'Specialized software for managing fleets of Electric Vehicles, focusing on battery, charging, and range.',
+                    'Commercial Telematics': 'The use of GPS and on-board diagnostics to monitor commercial vehicles like trucks and vans.',
+                    'Passenger Car Solutions': 'Fleet management features tailored for individual consumers and households.',
+                    'TCO': 'Total Cost of Ownership - The full lifecycle cost of a vehicle, including purchase, fuel, maintenance, insurance, etc.',
+                    'CAGR': 'Compound Annual Growth Rate - The average annual growth of a market over a specified period.',
+                    'KSA': 'Kingdom of Saudi Arabia.',
+                    'GCC': 'Gulf Cooperation Council.',
+                    'NTLS': 'National Transport and Logistics Strategy (KSA).',
+                    'WASL': 'A KSA government platform for vehicle tracking data.',
+                },
+                chartColors: {
+                    primary: '#003f5c',
+                    accent: '#ff7c43',
+                    secondaryBlue: '#5899DA',
+                    tertiaryBlue: '#a05195',
+                    neutralLight: '#f0f4f8',
+                    neutralGrid: '#d1dce8'
+                }
+            };
+            
+            const globalChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: { family: "'Inter', sans-serif", size: 11 },
+                            color: appData.chartColors.primary,
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 63, 92, 0.9)',
+                        titleFont: { family: "'Inter', sans-serif", weight: 'bold', size: 13 },
+                        bodyFont: { family: "'Inter', sans-serif", size: 12 },
+                        padding: 10,
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                if (!item) return '';
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) { return label.join(' '); }
+                                return String(label);
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: { font: { family: "'Inter', sans-serif", size: 10 }, color: appData.chartColors.primary },
+                        grid: { color: appData.chartColors.neutralGrid }
+                    },
+                    x: {
+                        ticks: { font: { family: "'Inter', sans-serif", size: 10 }, color: appData.chartColors.primary },
+                        grid: { display: false }
+                    }
+                }
+            };
+
+            function renderKsaGrowthChart() {
+                const ctx = document.getElementById('ksaGrowthChart')?.getContext('2d');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: appData.marketForecast.years,
+                        datasets: [
+                            {
+                                label: 'Low Est. (IMARC)',
+                                data: appData.marketForecast.imarc,
+                                borderColor: appData.chartColors.secondaryBlue,
+                                backgroundColor: 'rgba(88, 153, 218, 0.1)',
+                                fill: true,
+                                tension: 0.3,
+                                pointRadius: 3,
+                                pointBackgroundColor: appData.chartColors.secondaryBlue
+                            },
+                            {
+                                label: 'High Est. (DataBridge)',
+                                data: appData.marketForecast.dataBridge,
+                                borderColor: appData.chartColors.accent,
+                                backgroundColor: 'rgba(255, 124, 67, 0.1)',
+                                fill: true,
+                                tension: 0.3,
+                                pointRadius: 3,
+                                pointBackgroundColor: appData.chartColors.accent
+                            }
+                        ]
+                    },
+                    options: globalChartOptions
+                });
+            }
+
+            function renderSegmentChart() {
+                const ctx = document.getElementById('segmentChart')?.getContext('2d');
+                if (!ctx) return;
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: appData.segmentGrowth.labels,
+                        datasets: [{
+                            label: 'Projected CAGR (%)',
+                            data: appData.segmentGrowth.cagrs,
+                            backgroundColor: [
+                                appData.chartColors.accent, 
+                                appData.chartColors.primary, 
+                                appData.chartColors.secondaryBlue, 
+                                appData.chartColors.tertiaryBlue
+                            ],
+                            borderRadius: 4,
+                            barPercentage: 0.7,
+                            categoryPercentage: 0.6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: { ...globalChartOptions.plugins.tooltip,
+                                callbacks: { ...globalChartOptions.plugins.tooltip.callbacks,
+                                    label: function(context) {
+                                        return `Projected CAGR: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: { font: { family: "'Inter', sans-serif", size: 10 }, color: appData.chartColors.primary },
+                                grid: { color: appData.chartColors.neutralGrid }
+                            },
+                            y: {
+                                ticks: { font: { family: "'Inter', sans-serif", size: 10 }, color: appData.chartColors.primary },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            function renderTcoDonutChart() {
+                const ctx = document.getElementById('tcoDonutChart')?.getContext('2d');
+                if(!ctx) return;
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Target TCO Reduction', 'Remaining Cost'],
+                        datasets: [{
+                            data: [35, 65],
+                            backgroundColor: [appData.chartColors.accent, appData.chartColors.neutralLight],
+                            borderColor: [appData.chartColors.accent, appData.chartColors.neutralGrid],
+                            borderWidth: 2,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                             tooltip: { ...globalChartOptions.plugins.tooltip,
+                                callbacks: { ...globalChartOptions.plugins.tooltip.callbacks,
+                                    title: function(tooltipItems) { return ''; },
+                                    label: function(context) {
+                                        return `${context.label}: ${context.raw}%`;
+                                    }
+                                }
+                            },
+                            legend: { display: true, position: 'bottom', labels: {...globalChartOptions.plugins.legend.labels, font: {size:10}} }
+                        }
+                    }
+                });
+            }
+
+            function updateFeatureDisplay(featureKey) {
+                const feature = appData.features[featureKey];
+                const display = document.getElementById('feature-display');
+                if (!feature || !display) return;
+
+                display.innerHTML = `
+                    <h3 class="text-2xl font-bold text-[#003f5c] mb-3">${feature.title}</h3>
+                    <p class="text-slate-600 mb-4 text-base">${feature.description}</p>
+                    <p class="text-[#ff7c43] bg-orange-50 p-3 rounded-lg font-medium">${feature.kpi}</p>
+                `;
+                
+                document.querySelectorAll('.feature-card').forEach(card => card.classList.remove('active'));
+                const activeCard = document.getElementById(`feature-card-${featureKey}`);
+                if (activeCard) activeCard.classList.add('active');
+            }
+            
+            function renderCompetitorTable() {
+                const head = document.getElementById('competitor-table-head');
+                const body = document.getElementById('competitor-table-body');
+                if(!head || !body) return;
+                
+                const competitorKeys = Object.keys(appData.competitors);
+                
+                head.innerHTML = `
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-[#003f5c] sm:pl-6 sticky left-0 bg-slate-100 z-10">Feature</th>
+                    ${competitorKeys.map(key => `<th scope="col" class="px-3 py-3.5 text-center text-sm font-semibold text-[#003f5c] min-w-[150px]">${appData.competitors[key].name}</th>`).join('')}
+                `;
+
+                body.innerHTML = appData.featuresList.map(featureItem => `
+                    <tr>
+                        <td class="py-4 pl-4 pr-3 text-sm font-medium text-[#003f5c] sm:pl-6 sticky left-0 bg-white z-10">${featureItem.name}</td>
+                        ${competitorKeys.map(key => {
+                            const competitorFeatureDetail = appData.competitors[key].details[featureItem.id] || 'N/A';
+                            return `<td class="px-3 py-4 text-sm text-slate-600 text-center">${competitorFeatureDetail}</td>`;
+                        }).join('')}
+                    </tr>
+                `).join('');
+            }
+            
+            function renderSwot() {
+                const strengthsEl = document.getElementById('swot-strengths');
+                if (strengthsEl) strengthsEl.innerHTML = appData.swot.strengths.map(item => `<li>${item}</li>`).join('');
+                
+                const weaknessesEl = document.getElementById('swot-weaknesses');
+                if (weaknessesEl) weaknessesEl.innerHTML = appData.swot.weaknesses.map(item => `<li>${item}</li>`).join('');
+
+                const opportunitiesEl = document.getElementById('swot-opportunities');
+                if (opportunitiesEl) opportunitiesEl.innerHTML = appData.swot.opportunities.map(item => `<li>${item}</li>`).join('');
+
+                const threatsEl = document.getElementById('swot-threats');
+                if (threatsEl) threatsEl.innerHTML = appData.swot.threats.map(item => `<li>${item}</li>`).join('');
+            }
+
+            function renderValueChain() {
+                const container = document.getElementById('value-chain-display');
+                if(!container) return;
+                let html = '';
+                appData.valueChain.forEach((stage, index) => {
+                    html += `
+                        <div class="value-chain-stage card p-4 w-full md:w-auto flex-1 hover:shadow-lg transition-shadow">
+                            <p class="text-3xl mb-2">${stage.icon}</p>
+                            <h4 class="font-semibold text-md text-[#003f5c] mb-1">${stage.name}</h4>
+                            <p class="text-slate-600 text-xs">${stage.description}</p>
+                        </div>
+                    `;
+                    if (index < appData.valueChain.length - 1) {
+                        html += `<div class="flowchart-arrow hidden md:flex items-center justify-center mx-2 self-center text-3xl text-gray-300">&rarr;</div>
+                                 <div class="md:hidden text-3xl text-gray-300 self-center my-2">&darr;</div>`;
+                    }
+                });
+                container.innerHTML = html;
+            }
+
+            function renderRevenueStreams() {
+                const container = document.getElementById('revenue-streams-display');
+                if(!container) return;
+                container.innerHTML = appData.revenueStreams.map(stream => `
+                    <div class="card p-6 hover:shadow-xl transition-shadow">
+                         <p class="text-3xl mb-2">${stream.icon}</p>
+                        <h4 class="font-semibold text-lg text-[#003f5c] mb-2">${stream.name}</h4>
+                        <p class="text-slate-600 text-sm">${stream.description}</p>
+                    </div>
+                `).join('');
+            }
+
+            function renderGlossary() {
+                const container = document.getElementById('glossary-display');
+                if(!container) return;
+                container.innerHTML = Object.entries(appData.glossary).map(([term, definition]) => `
+                    <div class="mb-4 break-inside-avoid">
+                        <h4 class="font-semibold text-[#003f5c]">${term}</h4>
+                        <p class="text-slate-600">${definition}</p>
+                    </div>
+                `).join('');
+            }
+            
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const featureKey = card.id.replace('feature-card-', '');
+                    updateFeatureDisplay(featureKey);
+                });
+            });
+            
+            const mobileNav = document.getElementById('mobile-nav');
+            if(mobileNav) {
+                mobileNav.addEventListener('change', (e) => {
+                    const targetId = e.target.value;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            }
+            
+            document.querySelectorAll('header nav a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if(targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            renderKsaGrowthChart();
+            renderSegmentChart();
+            renderTcoDonutChart();
+            updateFeatureDisplay('ai'); 
+            renderCompetitorTable();
+            renderSwot();
+            renderValueChain();
+            renderRevenueStreams();
+            renderGlossary();
+        });
+    </script>
+</body>
+</html>
