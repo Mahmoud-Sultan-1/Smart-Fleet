@@ -3,37 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physical AI — Robotics Manufacturing for Saudi Arabia</title>
+    <title>Physical AI — Intelligent Robots for Hospitality, Education & Service</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #03030a;
-            --bg-subtle: #080816;
-            --bg-card: #0c0c1d;
-            --surface: rgba(255,255,255,0.03);
-            --surface-hover: rgba(255,255,255,0.06);
-            --border: rgba(255,255,255,0.07);
-            --border-light: rgba(255,255,255,0.12);
-            --text: #f0f0f5;
-            --text-muted: #9495a5;
-            --text-dim: #5d5e72;
+            --bg: #010108;
+            --bg-subtle: #060612;
+            --bg-card: #0a0a1a;
+            --surface: rgba(255,255,255,0.025);
+            --surface-hover: rgba(255,255,255,0.05);
+            --border: rgba(255,255,255,0.06);
+            --border-light: rgba(255,255,255,0.1);
+            --text: #eef0f6;
+            --text-muted: #8b8da0;
+            --text-dim: #52536a;
             --primary: #6c5ce7;
             --primary-light: #a29bfe;
-            --primary-glow: rgba(108,92,231,0.15);
-            --primary-glow-strong: rgba(108,92,231,0.35);
+            --primary-glow: rgba(108,92,231,0.12);
             --secondary: #00cec9;
             --secondary-light: #55efc4;
             --gold: #fdcb6e;
             --coral: #ff7675;
             --emerald: #00b894;
             --radius: 20px;
-            --radius-sm: 12px;
+            --radius-sm: 14px;
             --radius-xs: 8px;
         }
 
@@ -47,60 +45,41 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', 'Inter', sans-serif; line-height: 1.2; }
+        h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', 'Inter', sans-serif; line-height: 1.15; }
         a { color: var(--primary-light); text-decoration: none; transition: all 0.3s; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-
-        .glass {
-            background: rgba(255,255,255,0.025);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-        }
+        .container-narrow { max-width: 960px; margin: 0 auto; padding: 0 32px; }
 
         .gradient-text {
             background: linear-gradient(135deg, #a29bfe 0%, #00cec9 50%, #55efc4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .gradient-text-warm {
-            background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
 
         /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 16px 0; transition: all 0.4s;
+            padding: 18px 0; transition: all 0.4s;
         }
         nav.scrolled {
-            background: rgba(3,3,10,0.92);
-            backdrop-filter: blur(30px);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 0;
+            background: rgba(1,1,8,0.94); backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border); padding: 12px 0;
         }
         nav .container { display: flex; justify-content: space-between; align-items: center; }
         .nav-logo {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.4rem; font-weight: 700;
-            display: flex; align-items: center; gap: 10px;
+            font-size: 1.35rem; font-weight: 700;
+            display: flex; align-items: center; gap: 10px; color: var(--text);
         }
         .nav-logo-icon {
-            width: 38px; height: 38px;
+            width: 36px; height: 36px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem; color: #fff;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; color: #fff;
         }
-        .nav-logo .brand-physical { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; margin-left: 8px; }
-        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
         .nav-links a {
-            color: var(--text-muted); font-size: 0.85rem; font-weight: 500;
+            color: var(--text-muted); font-size: 0.84rem; font-weight: 500;
             transition: color 0.3s; position: relative;
         }
         .nav-links a:hover { color: var(--text); }
@@ -111,37 +90,38 @@
         .nav-links a:hover::after { width: 100%; }
         .nav-cta {
             background: linear-gradient(135deg, var(--primary), #8b7cf7) !important;
-            color: #fff !important; padding: 10px 22px;
-            border-radius: 999px; font-weight: 600; font-size: 0.85rem;
+            color: #fff !important; padding: 10px 24px;
+            border-radius: 999px; font-weight: 600; font-size: 0.84rem;
             border: none; transition: transform 0.3s, box-shadow 0.3s;
         }
         .nav-cta::after { display: none !important; }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--primary-glow-strong); }
-        .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--primary-glow); }
+        .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; }
 
         /* HERO */
         .hero {
             position: relative; min-height: 100vh;
             display: flex; align-items: center;
-            padding: 140px 0 100px; overflow: hidden;
+            padding: 140px 0 120px; overflow: hidden;
         }
-        .hero-bg-glow {
+        .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+        .hero-bg .orb {
             position: absolute; border-radius: 50%;
-            filter: blur(160px); opacity: 0.25; pointer-events: none;
+            filter: blur(140px); opacity: 0.2;
         }
-        .hero-bg-glow.g1 { width: 700px; height: 700px; top: -200px; right: -150px; background: var(--primary); }
-        .hero-bg-glow.g2 { width: 500px; height: 500px; bottom: -200px; left: -100px; background: var(--secondary); opacity: 0.12; }
-        .hero-bg-glow.g3 { width: 300px; height: 300px; top: 40%; left: 30%; background: #e17055; opacity: 0.06; }
+        .hero-bg .orb1 { width: 600px; height: 600px; top: -150px; right: -100px; background: var(--primary); }
+        .hero-bg .orb2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: var(--secondary); opacity: 0.1; }
+        .hero-bg .orb3 { width: 250px; height: 250px; top: 35%; left: 25%; background: #e17055; opacity: 0.05; }
         .hero .container {
             display: grid; grid-template-columns: 1fr 1fr;
             gap: 60px; align-items: center; position: relative; z-index: 1;
         }
-        .hero-text { max-width: 560px; }
+        .hero-text { max-width: 540px; }
         .hero-pill {
             display: inline-flex; align-items: center; gap: 8px;
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: 999px; padding: 6px 18px 6px 8px;
-            font-size: 0.8rem; color: var(--text-muted); margin-bottom: 24px;
+            border-radius: 999px; padding: 6px 16px 6px 8px;
+            font-size: 0.78rem; color: var(--text-muted); margin-bottom: 28px;
         }
         .hero-pill .dot {
             width: 8px; height: 8px; border-radius: 50%;
@@ -153,49 +133,33 @@
             50% { box-shadow: 0 0 0 6px rgba(0,206,201,0); }
         }
         .hero-text h1 {
-            font-size: clamp(2.8rem, 5vw, 4.2rem);
-            font-weight: 700; letter-spacing: -2px; margin-bottom: 20px;
+            font-size: clamp(2.6rem, 4.8vw, 4rem);
+            font-weight: 800; letter-spacing: -2px; margin-bottom: 22px;
         }
         .hero-text h1 .line2 { display: block; }
         .hero-text .sub {
-            font-size: 1.1rem; color: var(--text-muted);
-            margin-bottom: 36px; max-width: 480px; line-height: 1.8;
+            font-size: 1.08rem; color: var(--text-muted);
+            margin-bottom: 36px; max-width: 460px; line-height: 1.8;
         }
-        .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+        .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), #8b7cf7);
             color: #fff; padding: 15px 32px;
-            border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+            border-radius: 999px; font-weight: 700; font-size: 0.92rem;
             border: none; cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
             display: inline-flex; align-items: center; gap: 10px;
-            position: relative; overflow: hidden;
         }
-        .btn-primary::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15));
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .btn-primary:hover::before { opacity: 1; }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px var(--primary-glow-strong); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(108,92,231,0.35); }
         .btn-outline {
             background: transparent; color: var(--text);
             padding: 15px 32px; border-radius: 999px;
-            font-weight: 600; font-size: 0.95rem;
+            font-weight: 600; font-size: 0.92rem;
             border: 1px solid var(--border-light); cursor: pointer;
             transition: all 0.3s;
             display: inline-flex; align-items: center; gap: 10px;
         }
         .btn-outline:hover { border-color: var(--primary-light); background: var(--surface); }
-        .btn-secondary {
-            background: linear-gradient(135deg, var(--secondary), var(--emerald));
-            color: #fff; padding: 15px 32px;
-            border-radius: 999px; font-weight: 700; font-size: 0.95rem;
-            border: none; cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,206,201,0.3); }
 
         .hero-visual { position: relative; }
         .hero-img-wrapper {
@@ -204,20 +168,20 @@
         }
         .hero-img-wrapper::after {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(3,3,10,0.6) 100%);
+            background: linear-gradient(180deg, transparent 60%, rgba(1,1,8,0.5) 100%);
             pointer-events: none;
         }
         .hero-img-wrapper img { width: 100%; display: block; }
         .hero-float-card {
             position: absolute; padding: 14px 20px;
-            background: rgba(10,10,26,0.88); backdrop-filter: blur(20px);
+            background: rgba(6,6,18,0.88); backdrop-filter: blur(20px);
             border: 1px solid var(--border); border-radius: var(--radius-sm);
             font-size: 0.82rem; z-index: 2;
             animation: float-card 4s ease-in-out infinite;
         }
-        .hero-float-card.card1 { bottom: 40px; left: -30px; animation-delay: 0s; }
+        .hero-float-card.card1 { bottom: 40px; left: -30px; }
         .hero-float-card.card2 { top: 30px; right: -20px; animation-delay: 1.5s; }
-        .hero-float-card .card-label { color: var(--text-dim); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-float-card .card-label { color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
         .hero-float-card .card-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; margin-top: 2px; }
         @keyframes float-card {
             0%, 100% { transform: translateY(0); }
@@ -225,43 +189,31 @@
         }
 
         /* PARTICLES */
-        .particles-canvas {
-            position: absolute; inset: 0; pointer-events: none; z-index: 0;
-        }
+        .particles-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 
         /* TRUST BAR */
-        .trust-bar { padding: 60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .trust-bar { padding: 56px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .trust-bar .container { text-align: center; }
-        .trust-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 24px; }
-        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .trust-label { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 24px; }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .stat-card {
-            text-align: center; padding: 28px 16px;
+            text-align: center; padding: 24px 12px;
             border-radius: var(--radius); background: var(--surface);
             border: 1px solid var(--border); transition: all 0.4s;
-            position: relative; overflow: hidden;
         }
-        .stat-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .stat-card:hover::before { opacity: 1; }
-        .stat-card:hover { border-color: var(--primary); transform: translateY(-4px); }
-        .stat-icon { font-size: 1.6rem; margin-bottom: 10px; opacity: 0.9; }
-        .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem; font-weight: 700; margin-bottom: 4px;
-        }
-        .stat-label { font-size: 0.8rem; color: var(--text-dim); }
+        .stat-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .stat-icon { font-size: 1.4rem; margin-bottom: 8px; }
+        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 700; margin-bottom: 2px; }
+        .stat-label { font-size: 0.78rem; color: var(--text-dim); }
 
         /* SECTIONS */
         section { padding: 110px 0; position: relative; }
-        .section-header { margin-bottom: 64px; }
+        .section-header { margin-bottom: 60px; }
         .section-header.centered { text-align: center; }
         .section-header.centered .section-sub { margin-left: auto; margin-right: auto; }
         .section-eyebrow {
             display: inline-flex; align-items: center; gap: 8px;
-            font-size: 0.75rem; font-weight: 600;
+            font-size: 0.72rem; font-weight: 600;
             color: var(--primary-light);
             text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px;
         }
@@ -270,103 +222,81 @@
             background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
         .section-title {
-            font-size: clamp(2rem, 3.8vw, 3rem);
+            font-size: clamp(2rem, 3.6vw, 2.8rem);
             font-weight: 700; letter-spacing: -1.5px; margin-bottom: 14px;
         }
         .section-sub {
-            font-size: 1.05rem; color: var(--text-muted);
-            max-width: 560px; line-height: 1.8;
+            font-size: 1.02rem; color: var(--text-muted);
+            max-width: 540px; line-height: 1.8;
         }
 
-        /* ABOUT PHYSICAL AI */
-        .about-pai { background: var(--bg-subtle); }
-        .about-pai::before {
+        /* ABOUT / VALUE PROP */
+        .value-section { background: var(--bg-subtle); overflow: hidden; }
+        .value-section::before {
             content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
             width: 600px; height: 400px; border-radius: 50%;
-            background: var(--primary); filter: blur(200px); opacity: 0.06; pointer-events: none;
+            background: var(--primary); filter: blur(200px); opacity: 0.05; pointer-events: none;
         }
-        .about-grid {
+        .value-grid {
             display: grid; grid-template-columns: 1fr 1fr;
             gap: 60px; align-items: center;
         }
-        .about-text p { color: var(--text-muted); margin-bottom: 20px; font-size: 1rem; line-height: 1.8; }
-        .about-pillars {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 16px; margin-top: 32px;
-        }
+        .value-text p { color: var(--text-muted); margin-bottom: 18px; font-size: 0.98rem; line-height: 1.8; }
+        .value-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
         .pillar {
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius-sm); padding: 20px;
-            transition: all 0.3s;
+            border-radius: var(--radius-sm); padding: 18px; transition: all 0.3s;
         }
-        .pillar:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .pillar i { color: var(--primary-light); margin-bottom: 8px; display: block; font-size: 1.2rem; }
-        .pillar h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
-        .pillar p { font-size: 0.78rem; color: var(--text-dim); }
+        .pillar:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .pillar i { color: var(--primary-light); margin-bottom: 6px; display: block; font-size: 1.1rem; }
+        .pillar h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 3px; }
+        .pillar p { font-size: 0.76rem; color: var(--text-dim); line-height: 1.5; }
 
-        .about-visual {
-            position: relative;
-        }
         .vision-card {
-            background: linear-gradient(135deg, rgba(108,92,231,0.1), rgba(0,206,201,0.05));
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 40px;
-            position: relative; overflow: hidden;
+            background: linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,206,201,0.04));
+            border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 36px; position: relative; overflow: hidden;
         }
         .vision-card::before {
             content: ''; position: absolute; top: -50%; right: -50%;
             width: 200px; height: 200px; border-radius: 50%;
-            background: var(--primary); filter: blur(100px); opacity: 0.1;
+            background: var(--primary); filter: blur(100px); opacity: 0.08;
         }
-        .vision-card .big-icon { font-size: 3rem; margin-bottom: 20px; }
-        .vision-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
-        .vision-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; }
-        .vision-stats {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px;
+        .vision-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+        .vision-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.8; }
+        .vision-badges {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
         }
-        .v-stat {
-            background: rgba(255,255,255,0.03); border-radius: var(--radius-xs);
-            padding: 16px; text-align: center;
+        .v-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            border-radius: 999px; padding: 6px 14px;
+            font-size: 0.72rem; color: var(--text-muted);
         }
-        .v-stat .v-num {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.6rem; font-weight: 700;
-        }
-        .v-stat .v-label { font-size: 0.72rem; color: var(--text-dim); margin-top: 2px; }
+        .v-badge i { color: var(--secondary); font-size: 0.65rem; }
 
-        /* VIDEO */
-        .video-section { background: var(--bg-subtle); }
-        .video-section::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 600px; border-radius: 50%;
-            background: var(--primary); filter: blur(200px); opacity: 0.06; pointer-events: none;
+        /* PRODUCT LINEUP */
+        .product-lineup-section { overflow: hidden; }
+        .product-tabs {
+            display: flex; justify-content: center; gap: 8px;
+            margin-bottom: 60px; flex-wrap: wrap;
         }
-        .video-wrapper {
-            max-width: 900px; margin: 0 auto;
-            border-radius: var(--radius); overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 60px var(--primary-glow);
+        .product-tab {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 999px; padding: 10px 24px;
+            font-size: 0.85rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s; color: var(--text-muted);
         }
-        .video-wrapper video { width: 100%; display: block; }
-
-        /* PRODUCT CARDS */
-        .products-section { overflow: hidden; }
-        .products-section::before {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 800px; height: 600px; border-radius: 50%;
-            background: var(--secondary); filter: blur(250px); opacity: 0.04; pointer-events: none;
+        .product-tab.active, .product-tab:hover {
+            border-color: var(--primary); color: var(--text);
+            background: rgba(108,92,231,0.1);
         }
-        .product-showcase {
-            display: grid; grid-template-columns: 1fr;
-            gap: 80px;
-        }
-        .product-item {
+        .product-panel { display: none; }
+        .product-panel.active { display: block; }
+        .product-hero-grid {
             display: grid; grid-template-columns: 1fr 1fr;
             gap: 60px; align-items: center;
         }
-        .product-item.reverse .product-info { order: 2; }
-        .product-item.reverse .product-media { order: 1; }
         .product-badge {
             display: inline-flex; align-items: center; gap: 6px;
             padding: 5px 14px; border-radius: 999px;
@@ -374,46 +304,83 @@
             text-transform: uppercase; letter-spacing: 1px;
             margin-bottom: 16px;
         }
-        .badge-launching { background: rgba(85,239,196,0.12); color: var(--secondary-light); border: 1px solid rgba(85,239,196,0.2); }
-        .badge-pipeline { background: rgba(162,155,254,0.12); color: var(--primary-light); border: 1px solid rgba(162,155,254,0.2); }
-        .product-info h3 {
-            font-size: 2rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -1px;
+        .badge-live { background: rgba(85,239,196,0.12); color: var(--secondary-light); border: 1px solid rgba(85,239,196,0.2); }
+        .badge-dev { background: rgba(162,155,254,0.12); color: var(--primary-light); border: 1px solid rgba(162,155,254,0.2); }
+        .product-info h3 { font-size: 2rem; font-weight: 700; margin-bottom: 14px; letter-spacing: -1px; }
+        .product-info > p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.8; margin-bottom: 24px; }
+        .product-specs {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
         }
-        .product-info > p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; margin-bottom: 24px; }
-        .product-features {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-        }
-        .p-feature {
+        .p-spec {
             display: flex; align-items: center; gap: 10px;
-            font-size: 0.88rem; color: var(--text-muted);
+            font-size: 0.85rem; color: var(--text-muted);
             padding: 10px 14px;
             background: var(--surface); border-radius: var(--radius-xs);
             border: 1px solid var(--border);
         }
-        .p-feature i { color: var(--secondary); font-size: 0.85rem; }
-        .product-media {
-            position: relative;
-        }
+        .p-spec i { color: var(--secondary); font-size: 0.8rem; width: 16px; text-align: center; }
+        .product-media { position: relative; }
         .product-img-wrap {
             border-radius: var(--radius); overflow: hidden;
             border: 1px solid var(--border);
             box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-            position: relative;
-        }
-        .product-img-wrap::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(3,3,10,0.5));
-            pointer-events: none;
         }
         .product-img-wrap img { width: 100%; display: block; }
-        .product-label-overlay {
-            position: absolute; bottom: 20px; left: 20px; z-index: 2;
-            background: rgba(3,3,10,0.8); backdrop-filter: blur(10px);
-            padding: 10px 18px; border-radius: var(--radius-xs);
+
+        /* MINI BOT SCENARIOS */
+        .scenarios-section { background: var(--bg-subtle); overflow: hidden; }
+        .scenarios-section::before {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 400px; border-radius: 50%;
+            background: var(--secondary); filter: blur(250px); opacity: 0.04; pointer-events: none;
+        }
+        .scenario-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+        }
+        .scenario-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); overflow: hidden;
+            transition: all 0.4s; position: relative;
+        }
+        .scenario-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
+        .scenario-img { height: 200px; overflow: hidden; position: relative; }
+        .scenario-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .scenario-card:hover .scenario-img img { transform: scale(1.06); }
+        .scenario-tag {
+            position: absolute; top: 12px; left: 12px;
+            background: rgba(1,1,8,0.8); backdrop-filter: blur(10px);
+            padding: 4px 12px; border-radius: 999px;
+            font-size: 0.7rem; font-weight: 600; color: var(--primary-light);
             border: 1px solid var(--border);
         }
-        .product-label-overlay h4 { font-size: 0.9rem; font-weight: 700; }
-        .product-label-overlay span { font-size: 0.72rem; color: var(--text-dim); }
+        .scenario-body { padding: 24px; }
+        .scenario-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+        .scenario-body p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
+        .scenario-benefits {
+            display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px;
+        }
+        .s-benefit {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 0.72rem; color: var(--text-dim);
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            border-radius: 999px; padding: 4px 10px;
+        }
+        .s-benefit i { color: var(--secondary); font-size: 0.6rem; }
+
+        /* VIDEO */
+        .video-section { overflow: hidden; }
+        .video-section::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 500px; height: 500px; border-radius: 50%;
+            background: var(--primary); filter: blur(200px); opacity: 0.05; pointer-events: none;
+        }
+        .video-wrapper {
+            max-width: 880px; margin: 0 auto;
+            border-radius: var(--radius); overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 60px var(--primary-glow);
+        }
+        .video-wrapper video { width: 100%; display: block; }
 
         /* HOW IT WORKS */
         .how-section { background: var(--bg-subtle); }
@@ -422,77 +389,50 @@
             gap: 20px; position: relative;
         }
         .steps-row::before {
-            content: ''; position: absolute;
-            top: 44px; left: 60px; right: 60px; height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            opacity: 0.2;
+            content: ''; position: absolute; top: 36px; left: 60px; right: 60px; height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); opacity: 0.15;
         }
-        .step { text-align: center; padding: 32px 16px; position: relative; }
+        .step { text-align: center; padding: 28px 14px; position: relative; }
         .step-num {
-            width: 56px; height: 56px;
+            width: 48px; height: 48px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: #fff; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 1.3rem;
-            margin: 0 auto 18px;
-            position: relative; z-index: 1;
-            box-shadow: 0 8px 25px var(--primary-glow-strong);
+            font-weight: 700; font-size: 1.15rem;
+            margin: 0 auto 16px; position: relative; z-index: 1;
+            box-shadow: 0 6px 20px rgba(108,92,231,0.3);
         }
-        .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
-        .step p { font-size: 0.85rem; color: var(--text-muted); }
+        .step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+        .step p { font-size: 0.82rem; color: var(--text-muted); }
 
-        /* SHOWCASE */
-        .showcase-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-        }
-        .showcase-grid .img-card {
-            border-radius: var(--radius-sm); overflow: hidden;
-            position: relative; border: 1px solid var(--border); transition: all 0.4s;
-        }
-        .showcase-grid .img-card:hover { transform: scale(1.03); box-shadow: 0 20px 50px rgba(0,0,0,0.4); border-color: var(--primary); }
-        .showcase-grid .img-card img {
-            width: 100%; height: 240px; object-fit: cover; display: block;
-            transition: transform 0.6s;
-        }
-        .showcase-grid .img-card:hover img { transform: scale(1.08); }
-        .img-card .img-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            padding: 18px;
-            background: linear-gradient(transparent, rgba(3,3,10,0.9));
-            transform: translateY(100%); transition: transform 0.4s;
-        }
-        .img-card:hover .img-overlay { transform: translateY(0); }
-        .img-overlay span { font-size: 0.82rem; font-weight: 600; }
-
-        /* ENGAGEMENT */
-        .engage-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
-        }
+        /* ENGAGEMENT FEATURES */
+        .engage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .engage-card {
             background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 32px;
-            display: flex; gap: 20px; align-items: flex-start;
-            transition: all 0.4s;
+            border-radius: var(--radius); padding: 28px;
+            display: flex; gap: 18px; align-items: flex-start; transition: all 0.4s;
         }
-        .engage-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.2); }
+        .engage-card:hover { border-color: var(--primary); transform: translateY(-3px); }
         .engage-icon {
-            width: 48px; height: 48px; border-radius: 12px;
+            width: 44px; height: 44px; border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; font-size: 1.2rem;
+            flex-shrink: 0; font-size: 1.1rem;
         }
         .engage-icon.i1 { background: rgba(108,92,231,0.12); color: var(--primary-light); }
         .engage-icon.i2 { background: rgba(0,206,201,0.12); color: var(--secondary); }
         .engage-icon.i3 { background: rgba(253,203,110,0.12); color: var(--gold); }
         .engage-icon.i4 { background: rgba(255,118,117,0.12); color: var(--coral); }
-        .engage-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
-        .engage-card p { font-size: 0.88rem; color: var(--text-muted); }
+        .engage-icon.i5 { background: rgba(85,239,196,0.12); color: var(--emerald); }
+        .engage-icon.i6 { background: rgba(162,155,254,0.12); color: var(--primary-light); }
+        .engage-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+        .engage-card p { font-size: 0.84rem; color: var(--text-muted); }
 
         /* GALLERY */
         .gallery-section { background: var(--bg-subtle); }
         .gallery-masonry {
             display: grid; grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 200px; gap: 16px;
+            grid-auto-rows: 200px; gap: 14px;
         }
         .gallery-masonry .g-item {
             border-radius: var(--radius-sm); overflow: hidden;
@@ -503,176 +443,70 @@
         .gallery-masonry .g-item:hover img { transform: scale(1.06); }
         .gallery-masonry .g-tall { grid-row: span 2; }
         .gallery-masonry .g-wide { grid-column: span 2; }
+        .g-item .g-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 16px;
+            background: linear-gradient(transparent, rgba(1,1,8,0.85));
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .g-item:hover .g-caption { opacity: 1; }
+        .g-caption span { font-size: 0.8rem; font-weight: 600; }
 
-        /* SUBSCRIPTION */
-        .sub-section { overflow: hidden; }
-        .sub-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-            max-width: 960px; margin: 0 auto;
+        /* NOOR & SAQR SECTIONS */
+        .product-spotlight {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 60px; align-items: center;
+            margin-bottom: 80px;
         }
-        .sub-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 40px 32px;
-            text-align: center; transition: all 0.4s;
-            position: relative; overflow: hidden;
+        .product-spotlight:last-child { margin-bottom: 0; }
+        .product-spotlight.reverse .ps-info { order: 2; }
+        .product-spotlight.reverse .ps-media { order: 1; }
+        .ps-info h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 14px; letter-spacing: -1px; }
+        .ps-info > p { color: var(--text-muted); font-size: 0.96rem; line-height: 1.8; margin-bottom: 20px; }
+        .ps-uses { list-style: none; }
+        .ps-uses li {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 10px 0; font-size: 0.9rem; color: var(--text-muted);
         }
-        .sub-card.featured {
-            border-color: var(--primary);
-            background: linear-gradient(180deg, rgba(108,92,231,0.08), var(--surface));
+        .ps-uses li i { color: var(--secondary); margin-top: 4px; font-size: 0.8rem; }
+        .ps-media { position: relative; }
+        .ps-img-wrap {
+            border-radius: var(--radius); overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
-        .sub-card.featured::before {
-            content: 'Most Popular'; position: absolute; top: 16px; right: -32px;
-            background: linear-gradient(135deg, var(--primary), #8b7cf7);
-            color: #fff; padding: 4px 40px; font-size: 0.68rem; font-weight: 700;
-            transform: rotate(45deg); letter-spacing: 0.5px;
-        }
-        .sub-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
-        .sub-card .sub-icon { font-size: 2.2rem; margin-bottom: 16px; }
-        .sub-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
-        .sub-card .sub-desc { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 20px; }
-        .sub-price {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.4rem; font-weight: 700; margin-bottom: 4px;
-        }
-        .sub-period { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 24px; }
-        .sub-features { text-align: left; list-style: none; margin-bottom: 28px; }
-        .sub-features li {
-            font-size: 0.85rem; color: var(--text-muted);
-            padding: 8px 0; border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; gap: 10px;
-        }
-        .sub-features li:last-child { border-bottom: none; }
-        .sub-features li i { color: var(--secondary); font-size: 0.75rem; }
-
-        /* CHARTS */
-        .charts-section { background: var(--bg-subtle); }
-        .charts-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
-        }
-        .chart-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 32px;
-        }
-        .chart-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
-        .chart-card canvas { max-height: 280px; }
-
-        /* BUSINESS MODEL */
-        .biz-section { background: var(--bg-subtle); }
-        .biz-section::before {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 800px; height: 400px; border-radius: 50%;
-            background: var(--secondary); filter: blur(200px); opacity: 0.04; pointer-events: none;
-        }
-        .biz-streams {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-        }
-        .biz-stream {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 28px; text-align: center;
-            transition: all 0.3s;
-        }
-        .biz-stream:hover { border-color: var(--primary); transform: translateY(-4px); }
-        .biz-stream i { font-size: 1.6rem; color: var(--primary-light); margin-bottom: 12px; display: block; }
-        .biz-stream h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
-        .biz-stream p { font-size: 0.78rem; color: var(--text-dim); }
-        .metrics-row {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 24px; margin-top: 48px;
-        }
-        .metric-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 32px;
-            text-align: center; position: relative; overflow: hidden;
-        }
-        .metric-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-        .metric-card:nth-child(1)::before { background: linear-gradient(90deg, #55efc4, #00cec9); }
-        .metric-card:nth-child(2)::before { background: linear-gradient(90deg, #fdcb6e, #f39c12); }
-        .metric-card:nth-child(3)::before { background: linear-gradient(90deg, #a29bfe, #6c5ce7); }
-        .metric-val {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.4rem; font-weight: 700; margin-bottom: 4px;
-        }
-        .metric-card:nth-child(1) .metric-val { color: var(--secondary); }
-        .metric-card:nth-child(2) .metric-val { color: var(--gold); }
-        .metric-card:nth-child(3) .metric-val { color: var(--primary-light); }
-        .metric-label { font-size: 0.8rem; color: var(--text-dim); }
-
-        /* ROADMAP */
-        .roadmap-section { overflow: hidden; }
-        .timeline {
-            position: relative; max-width: 800px; margin: 0 auto;
-            padding-left: 40px;
-        }
-        .timeline::before {
-            content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary), var(--secondary), var(--gold));
-        }
-        .timeline-item {
-            position: relative; margin-bottom: 48px;
-            padding-left: 36px;
-        }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -32px; top: 6px;
-            width: 14px; height: 14px; border-radius: 50%;
-            background: var(--primary);
-            box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--primary);
-        }
-        .timeline-item.active::before {
-            background: var(--secondary);
-            box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--secondary), 0 0 20px rgba(0,206,201,0.3);
-        }
-        .timeline-date {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.78rem; font-weight: 700; color: var(--primary-light);
-            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
-        }
-        .timeline-item h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
-        .timeline-item p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+        .ps-img-wrap img { width: 100%; display: block; }
 
         /* TEAM */
         .team-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 32px; max-width: 960px; margin: 0 auto;
+            gap: 28px; max-width: 900px; margin: 0 auto;
         }
         .team-card {
             text-align: center; background: var(--surface);
             border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 40px 24px; transition: all 0.4s;
+            padding: 36px 20px; transition: all 0.4s;
             position: relative; overflow: hidden;
         }
         .team-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 80px;
-            background: linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,206,201,0.05));
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 70px;
+            background: linear-gradient(135deg, rgba(108,92,231,0.07), rgba(0,206,201,0.04));
         }
-        .team-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .team-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
         .team-avatar {
-            width: 100px; height: 100px;
-            border-radius: 50%; margin: 0 auto 20px;
-            position: relative; z-index: 1;
-            border: 3px solid var(--border);
-            overflow: hidden;
+            width: 90px; height: 90px; border-radius: 50%;
+            margin: 0 auto 16px; position: relative; z-index: 1;
+            border: 3px solid var(--border); overflow: hidden;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex; align-items: center; justify-content: center;
         }
-        .team-avatar img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
         .team-avatar .initials {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem; font-weight: 700; color: #fff;
+            font-size: 1.6rem; font-weight: 700; color: #fff;
         }
-        .team-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; position: relative; z-index: 1; }
-        .team-role { font-size: 0.82rem; color: var(--primary-light); margin-bottom: 10px; font-weight: 600; }
-        .team-card .team-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
-        .team-social { margin-top: 14px; display: flex; justify-content: center; gap: 10px; }
-        .team-social a {
-            width: 32px; height: 32px; border-radius: 50%;
-            background: var(--surface); border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-dim); font-size: 0.8rem; transition: all 0.3s;
-        }
-        .team-social a:hover { border-color: var(--primary); color: var(--primary-light); }
+        .team-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; position: relative; z-index: 1; }
+        .team-role { font-size: 0.78rem; color: var(--primary-light); margin-bottom: 8px; font-weight: 600; }
+        .team-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.6; }
 
         /* CTA */
         .cta-section {
@@ -681,159 +515,120 @@
         }
         .cta-section::before {
             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 800px; height: 800px; border-radius: 50%;
-            background: var(--primary); filter: blur(200px); opacity: 0.1; pointer-events: none;
+            width: 700px; height: 700px; border-radius: 50%;
+            background: var(--primary); filter: blur(200px); opacity: 0.08; pointer-events: none;
         }
         .cta-section .container { position: relative; z-index: 1; }
         .cta-section h2 {
-            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            font-size: clamp(2rem, 3.8vw, 3rem);
             font-weight: 700; letter-spacing: -1.5px; margin-bottom: 16px;
         }
         .cta-section p {
-            font-size: 1.1rem; color: var(--text-muted);
-            max-width: 520px; margin: 0 auto 36px; line-height: 1.8;
+            font-size: 1.05rem; color: var(--text-muted);
+            max-width: 500px; margin: 0 auto 32px; line-height: 1.8;
         }
         .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .cta-contact-info {
+            display: flex; gap: 32px; justify-content: center; margin-top: 32px; flex-wrap: wrap;
+        }
+        .cta-contact-item {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.88rem; color: var(--text-muted);
+        }
+        .cta-contact-item i { color: var(--primary-light); font-size: 0.9rem; }
         .cta-badges {
-            display: flex; gap: 20px; justify-content: center; margin-top: 36px;
-            flex-wrap: wrap;
+            display: flex; gap: 18px; justify-content: center; margin-top: 28px; flex-wrap: wrap;
         }
         .cta-badge {
-            display: flex; align-items: center; gap: 8px;
-            font-size: 0.8rem; color: var(--text-dim);
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.78rem; color: var(--text-dim);
         }
-        .cta-badge i { color: var(--secondary); font-size: 0.7rem; }
+        .cta-badge i { color: var(--secondary); font-size: 0.65rem; }
 
         /* FOOTER */
         footer {
-            padding: 60px 0 36px;
+            padding: 56px 0 32px;
             border-top: 1px solid var(--border);
             background: var(--bg-subtle);
         }
         .footer-grid {
             display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px; margin-bottom: 40px;
+            gap: 36px; margin-bottom: 36px;
         }
         .footer-brand-block .footer-brand-name {
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 1.3rem; margin-bottom: 12px;
+            font-weight: 700; font-size: 1.2rem; margin-bottom: 10px;
         }
-        .footer-brand-block p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; max-width: 280px; }
+        .footer-brand-block p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.7; max-width: 260px; }
         .footer-col h4 {
-            font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 2px; color: var(--text-muted); margin-bottom: 16px;
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--text-muted); margin-bottom: 14px;
         }
-        .footer-col a {
-            display: block; color: var(--text-dim); font-size: 0.85rem;
-            padding: 4px 0; transition: color 0.3s;
-        }
+        .footer-col a { display: block; color: var(--text-dim); font-size: 0.82rem; padding: 3px 0; transition: color 0.3s; }
         .footer-col a:hover { color: var(--text); }
         .footer-bottom {
-            border-top: 1px solid var(--border);
-            padding-top: 24px;
+            border-top: 1px solid var(--border); padding-top: 20px;
             display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 12px;
+            flex-wrap: wrap; gap: 10px;
         }
-        .footer-copy { color: var(--text-dim); font-size: 0.78rem; }
-        .footer-socials { display: flex; gap: 12px; }
+        .footer-copy { color: var(--text-dim); font-size: 0.75rem; }
+        .footer-socials { display: flex; gap: 10px; }
         .footer-socials a {
-            width: 36px; height: 36px; border-radius: 50%;
+            width: 34px; height: 34px; border-radius: 50%;
             background: var(--surface); border: 1px solid var(--border);
             display: flex; align-items: center; justify-content: center;
-            color: var(--text-dim); font-size: 0.85rem; transition: all 0.3s;
+            color: var(--text-dim); font-size: 0.82rem; transition: all 0.3s;
         }
         .footer-socials a:hover { border-color: var(--primary); color: var(--primary-light); }
 
-        /* PROBLEM CARDS */
-        .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .problem-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 36px 28px;
-            transition: all 0.4s; position: relative; overflow: hidden;
-        }
-        .problem-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            opacity: 0; transition: opacity 0.4s;
-        }
-        .problem-card:hover::before { opacity: 1; }
-        .problem-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-        .problem-card i { font-size: 1.5rem; margin-bottom: 16px; display: block; }
-        .problem-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-        .problem-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
-
-        /* USE CASES */
-        .usecase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .usecase-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); overflow: hidden; transition: all 0.4s;
-        }
-        .usecase-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
-        .usecase-img { position: relative; height: 200px; overflow: hidden; }
-        .usecase-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .usecase-card:hover .usecase-img img { transform: scale(1.06); }
-        .usecase-img .usecase-tag {
-            position: absolute; top: 14px; left: 14px;
-            background: rgba(3,3,10,0.8); backdrop-filter: blur(10px);
-            padding: 5px 12px; border-radius: 999px;
-            font-size: 0.72rem; font-weight: 600;
-            color: var(--primary-light); border: 1px solid var(--border);
-        }
-        .usecase-body { padding: 24px; }
-        .usecase-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-        .usecase-body p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
-
         /* FADE-IN */
         .fade-in {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
         }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
         .fade-in-delay-1 { transition-delay: 0.1s; }
         .fade-in-delay-2 { transition-delay: 0.2s; }
         .fade-in-delay-3 { transition-delay: 0.3s; }
 
-        /* COUNTER ANIMATION */
-        .count-up { display: inline-block; }
-
         /* RESPONSIVE */
         @media (max-width: 900px) {
             .hero .container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
             .hero-text { max-width: 100%; }
-            .hero-text .sub { margin: 0 auto 36px; }
+            .hero-text .sub { margin: 0 auto 32px; }
             .hero-buttons { justify-content: center; }
-            .hero-visual { order: -1; max-width: 500px; margin: 0 auto; }
+            .hero-visual { order: -1; max-width: 480px; margin: 0 auto; }
             .hero-float-card { display: none; }
             .nav-links { display: none; }
             .nav-links.active {
                 display: flex; flex-direction: column;
                 position: absolute; top: 100%; left: 0; right: 0;
-                background: rgba(3,3,10,0.97); backdrop-filter: blur(30px);
+                background: rgba(1,1,8,0.97); backdrop-filter: blur(30px);
                 border-bottom: 1px solid var(--border);
-                padding: 24px 32px; gap: 16px;
+                padding: 20px 32px; gap: 14px;
             }
             .hamburger { display: block; }
-            .stats-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .problem-grid, .steps-row, .biz-streams { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .value-grid, .product-hero-grid, .product-spotlight { grid-template-columns: 1fr; }
+            .product-spotlight.reverse .ps-info { order: 1; }
+            .product-spotlight.reverse .ps-media { order: 2; }
+            .scenario-grid { grid-template-columns: 1fr; }
+            .steps-row { grid-template-columns: repeat(2, 1fr); }
             .steps-row::before { display: none; }
-            .engage-grid, .usecase-grid { grid-template-columns: 1fr; }
-            .showcase-grid, .gallery-masonry { grid-template-columns: 1fr; }
+            .engage-grid { grid-template-columns: 1fr; }
+            .gallery-masonry { grid-template-columns: 1fr; }
             .gallery-masonry .g-tall, .gallery-masonry .g-wide { grid-row: span 1; grid-column: span 1; }
-            .about-grid, .product-item { grid-template-columns: 1fr; }
-            .product-item.reverse .product-info { order: 1; }
-            .product-item.reverse .product-media { order: 2; }
-            .charts-grid { grid-template-columns: 1fr; }
-            .sub-grid { grid-template-columns: 1fr; }
-            .metrics-row, .team-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
+            .product-specs { grid-template-columns: 1fr; }
+            .value-pillars { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 480px) {
             .stats-row { grid-template-columns: 1fr; }
             section { padding: 72px 0; }
-            .product-features { grid-template-columns: 1fr; }
+            .steps-row { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; }
-            .about-pillars { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -844,17 +639,16 @@
     <div class="container">
         <div class="nav-logo">
             <div class="nav-logo-icon"><i class="fa-solid fa-robot"></i></div>
-            <span>Physical AI</span>
+            Physical AI
         </div>
         <div class="nav-links" id="navLinks">
             <a href="#about">About</a>
-            <a href="#products">Products</a>
             <a href="#minibot">Mini Bot</a>
+            <a href="#scenarios">Use Cases</a>
+            <a href="#noor-saqr">Our Robots</a>
             <a href="#gallery">Gallery</a>
-            <a href="#business">Business</a>
-            <a href="#roadmap">Roadmap</a>
             <a href="#team">Team</a>
-            <a href="#contact" class="nav-cta">Get In Touch</a>
+            <a href="#contact" class="nav-cta">Contact Us</a>
         </div>
         <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('active')"><i class="fa-solid fa-bars"></i></button>
     </div>
@@ -863,124 +657,115 @@
 <!-- HERO -->
 <section class="hero">
     <canvas class="particles-canvas" id="particles"></canvas>
-    <div class="hero-bg-glow g1"></div>
-    <div class="hero-bg-glow g2"></div>
-    <div class="hero-bg-glow g3"></div>
+    <div class="hero-bg">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
     <div class="container">
         <div class="hero-text">
             <div class="hero-pill">
                 <span class="dot"></span>
-                Saudi National Robotics &bull; Vision 2030
+                Made in Saudi Arabia &bull; Arabic-First AI
             </div>
             <h1>
-                Building the Future
-                <span class="line2">of <span class="gradient-text">Physical AI</span></span>
+                Intelligent Robots
+                <span class="line2">for <span class="gradient-text">Every Space</span></span>
             </h1>
-            <p class="sub">Saudi Arabia's first robotics venture studio &mdash; designing, manufacturing, and deploying AI-powered robots for hospitality, services, and everyday life.</p>
+            <p class="sub">From cafe tables to hotel lobbies &mdash; our robots entertain guests, assist visitors, and deliver service with Saudi-built intelligence.</p>
             <div class="hero-buttons">
-                <a href="#products" class="btn-primary">Explore Our Robots <span>&rarr;</span></a>
+                <a href="#minibot" class="btn-primary">Discover Mini Bot <span>&rarr;</span></a>
                 <a href="#video" class="btn-outline"><i class="fa-solid fa-play"></i>&ensp;Watch Demo</a>
             </div>
         </div>
         <div class="hero-visual">
             <div class="hero-img-wrapper">
-                <img src="images/album_01.png" alt="UVAII Robot in a luxury lobby">
+                <img src="images/album_01.png" alt="UVAII Robot in action">
             </div>
             <div class="hero-float-card card1">
-                <div class="card-label">Products in Pipeline</div>
-                <div class="card-value" style="color:var(--secondary);">3 Robots</div>
+                <div class="card-label">Guest Engagement</div>
+                <div class="card-value" style="color:var(--secondary);">+40%</div>
             </div>
             <div class="hero-float-card card2">
-                <div class="card-label">Target Market</div>
-                <div class="card-value" style="color:var(--gold);">$12B+</div>
+                <div class="card-label">Satisfaction</div>
+                <div class="card-value" style="color:var(--gold);"><i class="fa-solid fa-star" style="font-size:0.85rem"></i> 4.9</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- STATS -->
+<!-- TRUST BAR -->
 <div class="trust-bar fade-in">
     <div class="container">
-        <div class="trust-label">The Saudi Robotics Opportunity</div>
+        <div class="trust-label">Why Physical AI</div>
         <div class="stats-row">
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-mug-hot" style="color:var(--secondary)"></i></div>
-                <div class="stat-number gradient-text">5,130+</div>
-                <div class="stat-label">Branded Coffee Outlets in KSA</div>
+                <div class="stat-icon"><i class="fa-solid fa-robot" style="color:var(--primary-light)"></i></div>
+                <div class="stat-number gradient-text">3</div>
+                <div class="stat-label">Purpose-Built Robots</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-hotel" style="color:var(--gold)"></i></div>
-                <div class="stat-number gradient-text">780+</div>
-                <div class="stat-label">Hotels & Resorts</div>
+                <div class="stat-icon"><i class="fa-solid fa-language" style="color:var(--secondary)"></i></div>
+                <div class="stat-number gradient-text">Arabic</div>
+                <div class="stat-label">First AI &amp; Dialect</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-users" style="color:var(--coral)"></i></div>
-                <div class="stat-number gradient-text">~70%</div>
-                <div class="stat-label">Population Under 35</div>
+                <div class="stat-icon"><i class="fa-solid fa-industry" style="color:var(--gold)"></i></div>
+                <div class="stat-number gradient-text">KSA</div>
+                <div class="stat-label">Designed &amp; Manufactured</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-chart-line" style="color:var(--primary-light)"></i></div>
-                <div class="stat-number gradient-text">$12B</div>
-                <div class="stat-label">Total Addressable Market</div>
+                <div class="stat-icon"><i class="fa-solid fa-shield-halved" style="color:var(--coral)"></i></div>
+                <div class="stat-number gradient-text">PDPL</div>
+                <div class="stat-label">Data Compliant</div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ABOUT PHYSICAL AI -->
-<section id="about" class="about-pai fade-in">
+<!-- ABOUT -->
+<section id="about" class="value-section fade-in">
     <div class="container">
-        <div class="about-grid">
-            <div class="about-text">
-                <div class="section-eyebrow">About Us</div>
-                <h2 class="section-title">We Are <span class="gradient-text">Physical AI</span></h2>
-                <p>Physical AI is Saudi Arabia's pioneering robotics venture studio, dedicated to designing, manufacturing, and deploying intelligent robots that enhance everyday life. We're building a national robotics ecosystem aligned with Vision 2030's technology and innovation pillars.</p>
-                <p>Our mission is to make Saudi Arabia a regional leader in robotics manufacturing &mdash; creating jobs, attracting investment, and developing homegrown technology that competes on the global stage.</p>
-                <div class="about-pillars">
+        <div class="value-grid">
+            <div class="value-text">
+                <div class="section-eyebrow">Who We Are</div>
+                <h2 class="section-title">Saudi Arabia's <span class="gradient-text">Robotics Studio</span></h2>
+                <p>Physical AI is the Kingdom's first venture studio dedicated to designing, manufacturing, and deploying intelligent robots. We build technology that speaks your language, understands your culture, and enhances your business &mdash; from day one.</p>
+                <p>Our robots are more than machines. They are brand ambassadors, guest companions, and tireless team members designed for the hospitality, education, and service sectors across Saudi Arabia and the Gulf.</p>
+                <div class="value-pillars">
                     <div class="pillar">
-                        <i class="fa-solid fa-industry"></i>
-                        <h4>Local Manufacturing</h4>
-                        <p>MODON-based production facility</p>
+                        <i class="fa-solid fa-comments"></i>
+                        <h4>Saudi Dialect AI</h4>
+                        <p>Speaks, jokes, and connects in your guests' own dialect</p>
                     </div>
                     <div class="pillar">
-                        <i class="fa-solid fa-microchip"></i>
-                        <h4>AI-First Design</h4>
-                        <p>Arabic-native NLP & computer vision</p>
+                        <i class="fa-solid fa-flag"></i>
+                        <h4>Made in KSA</h4>
+                        <p>Designed, assembled, and supported locally</p>
                     </div>
                     <div class="pillar">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <h4>Data Sovereignty</h4>
-                        <p>PDPL-compliant, on-kingdom data</p>
+                        <i class="fa-solid fa-lock"></i>
+                        <h4>Data Stays Here</h4>
+                        <p>PDPL-compliant, on-kingdom data processing</p>
                     </div>
                     <div class="pillar">
-                        <i class="fa-solid fa-handshake"></i>
-                        <h4>Vision 2030</h4>
-                        <p>Aligned with national strategy</p>
+                        <i class="fa-solid fa-headset"></i>
+                        <h4>Full Support</h4>
+                        <p>Deployment, training, maintenance &mdash; we handle it all</p>
                     </div>
                 </div>
             </div>
-            <div class="about-visual">
+            <div>
                 <div class="vision-card">
-                    <div class="big-icon"><i class="fa-solid fa-robot" style="color:var(--primary-light)"></i></div>
-                    <h3>National Robotics Strategy</h3>
-                    <p>From concept to deployment &mdash; we own the full stack: hardware design, AI software, cloud platform, and on-ground operations. Every robot is conceived, engineered, and assembled in the Kingdom.</p>
-                    <div class="vision-stats">
-                        <div class="v-stat">
-                            <div class="v-num gradient-text">3</div>
-                            <div class="v-label">Robot Products</div>
-                        </div>
-                        <div class="v-stat">
-                            <div class="v-num gradient-text">8+</div>
-                            <div class="v-label">Revenue Streams</div>
-                        </div>
-                        <div class="v-stat">
-                            <div class="v-num gradient-text">40%</div>
-                            <div class="v-label">Local Content Target</div>
-                        </div>
-                        <div class="v-stat">
-                            <div class="v-num gradient-text">2025</div>
-                            <div class="v-label">First Launch</div>
-                        </div>
+                    <h3><i class="fa-solid fa-lightbulb" style="color:var(--gold);margin-right:8px;"></i>Our Approach</h3>
+                    <p>We own the full stack: hardware design, AI software, Arabic NLP, cloud platform, and on-ground operations. Every robot is conceived in the Kingdom, for the Kingdom &mdash; then engineered for the world.</p>
+                    <div class="vision-badges">
+                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Vision 2030 Aligned</div>
+                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Arabic-First NLP</div>
+                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> MODON Manufacturing</div>
+                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Saudization</div>
+                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Full-Stack Robotics</div>
+                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Local Content 40%+</div>
                     </div>
                 </div>
             </div>
@@ -988,91 +773,34 @@
     </div>
 </section>
 
-<!-- PRODUCTS LINEUP -->
-<section id="products" class="products-section fade-in">
+<!-- MINI BOT DEEP DIVE -->
+<section id="minibot" class="product-lineup-section fade-in">
     <div class="container">
         <div class="section-header centered">
-            <div class="section-eyebrow">Product Lineup</div>
-            <h2 class="section-title">Three Robots. <span class="gradient-text">One Vision.</span></h2>
-            <p class="section-sub">Each robot is purpose-built for its environment &mdash; from tabletop companions to full-size service robots navigating complex spaces.</p>
+            <div class="section-eyebrow">Our Flagship</div>
+            <h2 class="section-title">Meet <span class="gradient-text">Mini Bot</span></h2>
+            <p class="section-sub">A tabletop AI companion that turns any table into an interactive experience. No app download. No screen on the robot. Just scan and play.</p>
         </div>
 
-        <div class="product-showcase">
-            <!-- MINI BOT -->
-            <div class="product-item" id="minibot">
-                <div class="product-info">
-                    <div class="product-badge badge-launching"><i class="fa-solid fa-rocket"></i> First to Launch</div>
-                    <h3>UVAII <span class="gradient-text">Mini Bot</span></h3>
-                    <p>A tabletop AI companion that transforms every cafe seat into an interactive experience. Guests scan a QR code and their phone becomes the controller &mdash; play games, order food, earn rewards &mdash; while Mini Bot reacts, celebrates, and entertains.</p>
-                    <div class="product-features">
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Phone-first interface</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Interactive games</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Smart ordering</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Loyalty & rewards</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Arabic-first AI</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Venue analytics</div>
-                    </div>
-                </div>
-                <div class="product-media">
-                    <div class="product-img-wrap">
-                        <img src="images/album_03.jpg" alt="Mini Bot at cafe table">
-                        <div class="product-label-overlay">
-                            <h4>Mini Bot</h4>
-                            <span>Tabletop AI Companion</span>
-                        </div>
-                    </div>
+        <div class="product-hero-grid">
+            <div class="product-info">
+                <div class="product-badge badge-live"><i class="fa-solid fa-circle" style="font-size:0.45rem"></i> Now Available</div>
+                <h3>Your Smartest <span class="gradient-text">Team Member</span></h3>
+                <p>Mini Bot sits on the table and creates unforgettable moments. Guests interact through their phones &mdash; playing games, browsing menus, earning rewards &mdash; while the robot reacts, dances, and brings the space to life. It's entertainment, education, and service all in one expressive little robot.</p>
+                <div class="product-specs">
+                    <div class="p-spec"><i class="fa-solid fa-qrcode"></i> QR Phone Interface</div>
+                    <div class="p-spec"><i class="fa-solid fa-gamepad"></i> Interactive Games</div>
+                    <div class="p-spec"><i class="fa-solid fa-utensils"></i> Smart Ordering</div>
+                    <div class="p-spec"><i class="fa-solid fa-trophy"></i> Loyalty & Rewards</div>
+                    <div class="p-spec"><i class="fa-solid fa-comments"></i> Saudi Dialect AI</div>
+                    <div class="p-spec"><i class="fa-solid fa-chart-simple"></i> Venue Analytics</div>
+                    <div class="p-spec"><i class="fa-solid fa-camera"></i> HD Camera 13MP</div>
+                    <div class="p-spec"><i class="fa-solid fa-gears"></i> 14 Micro Motors</div>
                 </div>
             </div>
-
-            <!-- NOOR -->
-            <div class="product-item reverse">
-                <div class="product-info">
-                    <div class="product-badge badge-pipeline"><i class="fa-solid fa-flask"></i> In Development</div>
-                    <h3>UVAII <span class="gradient-text-warm">Noor</span></h3>
-                    <p>An intelligent reception and concierge robot designed for hotel lobbies, corporate offices, and government service centers. Noor handles visitor check-in, wayfinding, appointment scheduling, and multilingual guest assistance with grace and warmth.</p>
-                    <div class="product-features">
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Facial recognition</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Multilingual NLP</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Visitor management</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Wayfinding & maps</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Appointment booking</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> CRM integration</div>
-                    </div>
-                </div>
-                <div class="product-media">
-                    <div class="product-img-wrap">
-                        <img src="images/album_02.png" alt="Noor reception robot">
-                        <div class="product-label-overlay">
-                            <h4>Noor</h4>
-                            <span>Reception & Concierge Robot</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SAQR -->
-            <div class="product-item">
-                <div class="product-info">
-                    <div class="product-badge badge-pipeline"><i class="fa-solid fa-flask"></i> In Development</div>
-                    <h3>UVAII <span style="background:linear-gradient(135deg,#fdcb6e,#e17055);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Saqr</span></h3>
-                    <p>A rugged autonomous service and delivery robot built for large-scale venues &mdash; malls, airports, hospitals, and smart cities. Saqr navigates complex environments to deliver goods, patrol spaces, and provide on-demand assistance with full autonomy.</p>
-                    <div class="product-features">
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Autonomous navigation</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Last-mile delivery</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Obstacle avoidance</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Fleet management</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Elevator integration</div>
-                        <div class="p-feature"><i class="fa-solid fa-check"></i> Real-time tracking</div>
-                    </div>
-                </div>
-                <div class="product-media">
-                    <div class="product-img-wrap">
-                        <img src="images/album_01.png" alt="Saqr delivery robot">
-                        <div class="product-label-overlay">
-                            <h4>Saqr</h4>
-                            <span>Service & Delivery Robot</span>
-                        </div>
-                    </div>
+            <div class="product-media">
+                <div class="product-img-wrap">
+                    <img src="images/album_03.jpg" alt="Mini Bot at a cafe table">
                 </div>
             </div>
         </div>
@@ -1084,127 +812,208 @@
     <div class="container">
         <div class="section-header centered">
             <div class="section-eyebrow">See It In Action</div>
-            <h2 class="section-title">Meet <span class="gradient-text">Mini Bot</span></h2>
-            <p class="section-sub">A friendly AI companion that sits on your table, reacts to your games, helps you order, and keeps you coming back.</p>
+            <h2 class="section-title">Mini Bot <span class="gradient-text">Live Demo</span></h2>
+            <p class="section-sub">Watch how Mini Bot transforms a simple cafe visit into a memorable, interactive experience for every guest.</p>
         </div>
         <div class="video-wrapper">
-            <video controls poster="images/album_03.jpg">
+            <video controls poster="images/album_04.jpg">
                 <source src="images/minibot_video.mp4" type="video/mp4">
             </video>
         </div>
     </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="fade-in">
+<!-- SCENARIOS: MINI BOT USE CASES -->
+<section id="scenarios" class="scenarios-section fade-in">
     <div class="container">
         <div class="section-header centered">
-            <div class="section-eyebrow">The Problem</div>
-            <h2 class="section-title">Venues Are Losing the <span class="gradient-text">Engagement Battle</span></h2>
-            <p class="section-sub">Hospitality venues struggle with low dwell time, weak loyalty, and zero data on guest preferences.</p>
+            <div class="section-eyebrow">Where Mini Bot Shines</div>
+            <h2 class="section-title">One Robot. <span class="gradient-text">Endless Possibilities.</span></h2>
+            <p class="section-sub">From specialty coffee shops to living rooms, Mini Bot adapts to any environment and creates value for every user.</p>
         </div>
-        <div class="problem-grid">
-            <div class="problem-card fade-in fade-in-delay-1">
-                <i class="fa-solid fa-clock" style="color:var(--coral)"></i>
-                <h3>Low Dwell Time</h3>
-                <p>Average cafe visits last under 30 minutes. Short visits mean lower revenue per customer and underutilized seats.</p>
+        <div class="scenario-grid">
+            <!-- Cafe -->
+            <div class="scenario-card fade-in fade-in-delay-1">
+                <div class="scenario-img">
+                    <img src="images/album_03.jpg" alt="Mini Bot in a cafe" loading="lazy">
+                    <span class="scenario-tag"><i class="fa-solid fa-mug-hot"></i>&ensp;Cafes</span>
+                </div>
+                <div class="scenario-body">
+                    <h3>Cafes &amp; Coffee Shops</h3>
+                    <p>Guests scan, play trivia, order food, and earn loyalty rewards &mdash; all while Mini Bot dances, celebrates wins, and keeps them at the table 40% longer.</p>
+                    <div class="scenario-benefits">
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> +40% dwell time</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Smart upselling</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Loyalty engine</span>
+                    </div>
+                </div>
             </div>
-            <div class="problem-card fade-in fade-in-delay-2">
-                <i class="fa-solid fa-user-xmark" style="color:var(--gold)"></i>
-                <h3>Weak Loyalty</h3>
-                <p>Paper stamp cards and generic apps fail to keep customers engaged. Repeat visit rates remain stubbornly low.</p>
+            <!-- Restaurant -->
+            <div class="scenario-card fade-in fade-in-delay-2">
+                <div class="scenario-img">
+                    <img src="images/album_04.jpg" alt="Mini Bot in a restaurant" loading="lazy">
+                    <span class="scenario-tag"><i class="fa-solid fa-utensils"></i>&ensp;Restaurants</span>
+                </div>
+                <div class="scenario-body">
+                    <h3>Restaurants &amp; Dining</h3>
+                    <p>Interactive menu browsing, wait-time entertainment, and tableside ordering. Mini Bot turns waiting into playing and browsing into buying.</p>
+                    <div class="scenario-benefits">
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Digital menu</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Wait-time fun</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Higher check size</span>
+                    </div>
+                </div>
             </div>
-            <div class="problem-card fade-in fade-in-delay-3">
-                <i class="fa-solid fa-chart-column" style="color:var(--primary-light)"></i>
-                <h3>Zero Guest Data</h3>
-                <p>Venues have no insight into preferences, visit patterns, or what drives repeat visits. They fly blind on every decision.</p>
+            <!-- Hotel -->
+            <div class="scenario-card fade-in fade-in-delay-3">
+                <div class="scenario-img">
+                    <img src="images/album_01.png" alt="Mini Bot in a hotel lobby" loading="lazy">
+                    <span class="scenario-tag"><i class="fa-solid fa-hotel"></i>&ensp;Hotels</span>
+                </div>
+                <div class="scenario-body">
+                    <h3>Hotels &amp; Resorts</h3>
+                    <p>Lobby concierge, in-room entertainment, and guest experience enhancement. Guests discover services and engage with the brand through interactive play.</p>
+                    <div class="scenario-benefits">
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Concierge</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Brand engagement</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Service discovery</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Kids at Home -->
+            <div class="scenario-card fade-in fade-in-delay-1">
+                <div class="scenario-img">
+                    <img src="images/album_05.png" alt="Mini Bot with children" loading="lazy">
+                    <span class="scenario-tag"><i class="fa-solid fa-children"></i>&ensp;Kids</span>
+                </div>
+                <div class="scenario-body">
+                    <h3>Home &mdash; Kids &amp; Education</h3>
+                    <p>A patient AI tutor that explains lessons in a child-friendly way, listens carefully, gently corrects mistakes, and makes learning feel like play. Arabic content aligned with Saudi curriculum.</p>
+                    <div class="scenario-benefits">
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Saudi curriculum</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Patient tutor</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Safe &amp; PDPL</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Adults at Home -->
+            <div class="scenario-card fade-in fade-in-delay-2">
+                <div class="scenario-img">
+                    <img src="images/album_07.jpg" alt="Mini Bot entertainment at home" loading="lazy">
+                    <span class="scenario-tag"><i class="fa-solid fa-house"></i>&ensp;Home</span>
+                </div>
+                <div class="scenario-body">
+                    <h3>Home &mdash; Adult Entertainment</h3>
+                    <p>Game nights, trivia parties, and interactive storytelling for adults. Mini Bot hosts the fun, keeps score, and makes every gathering more memorable.</p>
+                    <div class="scenario-benefits">
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Game night host</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Trivia battles</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Social catalyst</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Skills Assessment -->
+            <div class="scenario-card fade-in fade-in-delay-3">
+                <div class="scenario-img">
+                    <img src="images/album_08.jpg" alt="Mini Bot skills assessment" loading="lazy">
+                    <span class="scenario-tag"><i class="fa-solid fa-graduation-cap"></i>&ensp;Training</span>
+                </div>
+                <div class="scenario-body">
+                    <h3>Skills Assessment &amp; Training</h3>
+                    <p>Deployed in cafes for training academies &mdash; Mini Bot interacts with visitors in Saudi dialect, assesses skills, identifies gaps, and delivers personalized development reports.</p>
+                    <div class="scenario-benefits">
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> AI assessment</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Data reports</span>
+                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Scalable</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section id="how-it-works" class="how-section fade-in">
+<section class="how-section fade-in">
     <div class="container">
         <div class="section-header centered">
-            <div class="section-eyebrow">Phone-First Architecture</div>
+            <div class="section-eyebrow">Seamless Experience</div>
             <h2 class="section-title">How <span class="gradient-text">Mini Bot</span> Works</h2>
-            <p class="section-sub">No screen on the robot. Guests scan a QR code and their phone becomes the interface. No app download needed.</p>
+            <p class="section-sub">No app download. No screen on the robot. Your phone is the interface &mdash; Mini Bot is the personality.</p>
         </div>
         <div class="steps-row">
             <div class="step">
                 <div class="step-num">1</div>
                 <h3>Scan</h3>
-                <p>Scan Mini Bot's QR code. Your phone connects instantly.</p>
+                <p>Scan Mini Bot's QR code &mdash; your phone connects instantly via the web.</p>
             </div>
             <div class="step">
                 <div class="step-num">2</div>
-                <h3>Play & Order</h3>
-                <p>Challenge friends to trivia, browse the menu, and order.</p>
+                <h3>Play &amp; Order</h3>
+                <p>Challenge friends to games, browse the menu, and order directly from your phone.</p>
             </div>
             <div class="step">
                 <div class="step-num">3</div>
                 <h3>Mini Bot Reacts</h3>
-                <p>The robot celebrates wins, dances, and brings the table to life.</p>
+                <p>The robot celebrates your wins, dances, and creates unforgettable table moments.</p>
             </div>
             <div class="step">
                 <div class="step-num">4</div>
-                <h3>Earn & Return</h3>
-                <p>Collect points, unlock rewards, climb leaderboards.</p>
-            </div>
-        </div>
-        <div class="showcase-grid">
-            <div class="img-card">
-                <img src="images/album_04.jpg" alt="Smart menu ordering" loading="lazy">
-                <div class="img-overlay"><span>Smart Ordering</span></div>
-            </div>
-            <div class="img-card">
-                <img src="images/album_05.png" alt="Family fun with Mini Bot" loading="lazy">
-                <div class="img-overlay"><span>Family Friendly</span></div>
-            </div>
-            <div class="img-card">
-                <img src="images/album_06.jpg" alt="Interactive entertainment" loading="lazy">
-                <div class="img-overlay"><span>Guest Interaction</span></div>
+                <h3>Earn &amp; Return</h3>
+                <p>Collect points, unlock rewards, climb leaderboards &mdash; reasons to come back.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ENGAGEMENT GAMES -->
+<!-- ENGAGEMENT -->
 <section class="fade-in">
     <div class="container">
         <div class="section-header centered">
-            <div class="section-eyebrow">Engagement Engine</div>
-            <h2 class="section-title">Games That Keep Guests <span class="gradient-text">at the Table</span></h2>
-            <p class="section-sub">A library of interactive games designed to boost dwell time, spark social moments, and drive repeat visits.</p>
+            <div class="section-eyebrow">Built-In Intelligence</div>
+            <h2 class="section-title">What Mini Bot <span class="gradient-text">Can Do</span></h2>
+            <p class="section-sub">A comprehensive platform of features designed to delight guests and deliver business value simultaneously.</p>
         </div>
         <div class="engage-grid">
             <div class="engage-card">
                 <div class="engage-icon i1"><i class="fa-solid fa-brain"></i></div>
                 <div>
-                    <h3>Trivia Challenges</h3>
-                    <p>Brand-themed and general knowledge questions, played head-to-head or solo against the clock.</p>
+                    <h3>Trivia &amp; Knowledge Games</h3>
+                    <p>Brand-themed quizzes, general knowledge, and custom questions &mdash; head-to-head or solo mode.</p>
                 </div>
             </div>
             <div class="engage-card">
-                <div class="engage-icon i2"><i class="fa-solid fa-gamepad"></i></div>
+                <div class="engage-icon i2"><i class="fa-solid fa-utensils"></i></div>
                 <div>
-                    <h3>Head-to-Head VS</h3>
-                    <p>Real-time multiplayer showdowns. Compete against your table or the entire cafe.</p>
+                    <h3>Smart Menu &amp; Ordering</h3>
+                    <p>Visual menu browsing with AI recommendations. Order and pay without waiting for a waiter.</p>
                 </div>
             </div>
             <div class="engage-card">
-                <div class="engage-icon i3"><i class="fa-solid fa-puzzle-piece"></i></div>
+                <div class="engage-icon i3"><i class="fa-solid fa-trophy"></i></div>
                 <div>
-                    <h3>Memory Match</h3>
-                    <p>Classic memory games with branded cards that reinforce menu items and promotions.</p>
+                    <h3>Loyalty &amp; Leaderboards</h3>
+                    <p>Points, badges, and venue-wide leaderboards that gamify every visit and drive repeat traffic.</p>
                 </div>
             </div>
             <div class="engage-card">
-                <div class="engage-icon i4"><i class="fa-solid fa-children"></i></div>
+                <div class="engage-icon i4"><i class="fa-solid fa-graduation-cap"></i></div>
                 <div>
-                    <h3>Kids & Family</h3>
-                    <p>Age-appropriate games that keep families entertained and ordering longer.</p>
+                    <h3>Educational Content</h3>
+                    <p>Arabic curriculum-aligned lessons for kids. A tutor that explains, listens, and gently corrects.</p>
+                </div>
+            </div>
+            <div class="engage-card">
+                <div class="engage-icon i5"><i class="fa-solid fa-chart-column"></i></div>
+                <div>
+                    <h3>Venue Analytics</h3>
+                    <p>Real-time dashboard with guest preferences, dwell time, popular items, and visit patterns.</p>
+                </div>
+            </div>
+            <div class="engage-card">
+                <div class="engage-icon i6"><i class="fa-solid fa-palette"></i></div>
+                <div>
+                    <h3>Custom Branding</h3>
+                    <p>White-label the experience with your logo, colors, menu, and loyalty program.</p>
                 </div>
             </div>
         </div>
@@ -1215,291 +1024,112 @@
 <section id="gallery" class="gallery-section fade-in">
     <div class="container">
         <div class="section-header centered">
-            <div class="section-eyebrow">In Action</div>
-            <h2 class="section-title">Our Robots in <span class="gradient-text">the Real World</span></h2>
-            <p class="section-sub">From luxury lobbies to family-friendly cafes &mdash; see our robots creating memorable experiences.</p>
+            <div class="section-eyebrow">In the Wild</div>
+            <h2 class="section-title">Moments with <span class="gradient-text">Our Robots</span></h2>
+            <p class="section-sub">From luxury lobbies to family tables &mdash; see how our robots create unforgettable experiences.</p>
         </div>
         <div class="gallery-masonry">
             <div class="g-item g-tall">
-                <img src="images/album_02.png" alt="Noor at Al Olaya Tower" loading="lazy">
+                <img src="images/album_02.png" alt="Noor at a corporate lobby" loading="lazy">
+                <div class="g-caption"><span>Noor &mdash; Corporate Reception</span></div>
+            </div>
+            <div class="g-item">
+                <img src="images/album_06.jpg" alt="Interactive family time" loading="lazy">
+                <div class="g-caption"><span>Family Entertainment</span></div>
             </div>
             <div class="g-item">
                 <img src="images/album_07.jpg" alt="Friends playing trivia" loading="lazy">
+                <div class="g-caption"><span>Trivia Night</span></div>
             </div>
             <div class="g-item">
-                <img src="images/album_08.jpg" alt="Leaderboard competition" loading="lazy">
-            </div>
-            <div class="g-item">
-                <img src="images/album_09.jpg" alt="Knowledge quiz" loading="lazy">
+                <img src="images/album_08.jpg" alt="Knowledge challenge" loading="lazy">
+                <div class="g-caption"><span>Knowledge Challenge</span></div>
             </div>
             <div class="g-item g-wide">
-                <img src="images/album_05.png" alt="Family interaction at mall" loading="lazy">
+                <img src="images/album_09.jpg" alt="Group activity" loading="lazy">
+                <div class="g-caption"><span>Group Activities &amp; Team Building</span></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- SUBSCRIPTION MODEL (B2B only) -->
-<section class="sub-section fade-in">
+<!-- NOOR & SAQR -->
+<section id="noor-saqr" class="fade-in">
     <div class="container">
         <div class="section-header centered">
-            <div class="section-eyebrow">Subscription Plans</div>
-            <h2 class="section-title">Robot-as-a-<span class="gradient-text">Service</span></h2>
-            <p class="section-sub">Flexible monthly subscriptions for venues. No large upfront cost &mdash; just plug in and play.</p>
+            <div class="section-eyebrow">Coming Soon</div>
+            <h2 class="section-title">More Robots. <span class="gradient-text">Bigger Impact.</span></h2>
+            <p class="section-sub">Mini Bot is just the beginning. Meet the next generation of Physical AI robots expanding into new spaces.</p>
         </div>
-        <div class="sub-grid">
-            <div class="sub-card">
-                <div class="sub-icon"><i class="fa-solid fa-mug-saucer" style="color:var(--secondary)"></i></div>
-                <h3>Starter</h3>
-                <div class="sub-desc">Small cafes & restaurants</div>
-                <div class="sub-price gradient-text">SAR 800</div>
-                <div class="sub-period">per robot / month</div>
-                <ul class="sub-features">
-                    <li><i class="fa-solid fa-check"></i> 1 Mini Bot unit</li>
-                    <li><i class="fa-solid fa-check"></i> Core game library</li>
-                    <li><i class="fa-solid fa-check"></i> Basic analytics</li>
-                    <li><i class="fa-solid fa-check"></i> QR-based ordering</li>
-                    <li><i class="fa-solid fa-check"></i> Email support</li>
+
+        <!-- NOOR -->
+        <div class="product-spotlight">
+            <div class="ps-info">
+                <div class="product-badge badge-dev"><i class="fa-solid fa-flask"></i> In Development</div>
+                <h3>Noor <span class="gradient-text">&mdash; The Face of Hospitality</span></h3>
+                <p>A humanoid reception robot with lifelike expressions, designed for hotel lobbies, corporate offices, and government service centers. Noor greets visitors by name, manages check-ins, provides wayfinding, and delivers concierge services &mdash; all in fluent Arabic dialect.</p>
+                <ul class="ps-uses">
+                    <li><i class="fa-solid fa-check"></i> <strong>Hotels:</strong> Welcome guests, manage check-in queues, recommend services, and provide 24/7 lobby presence.</li>
+                    <li><i class="fa-solid fa-check"></i> <strong>Corporate Offices:</strong> Visitor registration, badge printing, meeting room wayfinding, and employee notifications.</li>
+                    <li><i class="fa-solid fa-check"></i> <strong>Government Centers:</strong> Queue management, form assistance, multilingual support for citizens and residents.</li>
+                    <li><i class="fa-solid fa-check"></i> <strong>Healthcare:</strong> Patient check-in, department wayfinding, and appointment scheduling at hospital reception.</li>
                 </ul>
-                <a href="#contact" class="btn-outline" style="width:100%;justify-content:center;">Get Started</a>
             </div>
-            <div class="sub-card featured">
-                <div class="sub-icon"><i class="fa-solid fa-store" style="color:var(--primary-light)"></i></div>
-                <h3>Growth</h3>
-                <div class="sub-desc">Multi-branch operations</div>
-                <div class="sub-price gradient-text">SAR 1,200</div>
-                <div class="sub-period">per robot / month</div>
-                <ul class="sub-features">
-                    <li><i class="fa-solid fa-check"></i> 3-10 Mini Bot units</li>
-                    <li><i class="fa-solid fa-check"></i> Full game library</li>
-                    <li><i class="fa-solid fa-check"></i> Advanced analytics dashboard</li>
-                    <li><i class="fa-solid fa-check"></i> Custom branding</li>
-                    <li><i class="fa-solid fa-check"></i> Priority support</li>
+            <div class="ps-media">
+                <div class="ps-img-wrap">
+                    <img src="images/album_02.png" alt="Noor reception robot in action">
+                </div>
+            </div>
+        </div>
+
+        <!-- SAQR -->
+        <div class="product-spotlight reverse">
+            <div class="ps-info">
+                <div class="product-badge badge-dev"><i class="fa-solid fa-flask"></i> In Development</div>
+                <h3>Saqr <span style="background:linear-gradient(135deg,#fdcb6e,#e17055);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">&mdash; Service &amp; Delivery</span></h3>
+                <p>An autonomous multi-compartment service robot built for indoor logistics. Saqr navigates complex environments to deliver room service, transport goods between floors, and provide on-demand assistance &mdash; tirelessly and precisely.</p>
+                <ul class="ps-uses">
+                    <li><i class="fa-solid fa-check"></i> <strong>Hotels:</strong> Room service delivery, amenity transport, and housekeeping supply runs &mdash; 24/7 with no complaints.</li>
+                    <li><i class="fa-solid fa-check"></i> <strong>Restaurants:</strong> Food delivery from kitchen to table, dirty dish return, and multi-table serving in busy hours.</li>
+                    <li><i class="fa-solid fa-check"></i> <strong>Hospitals:</strong> Medicine delivery, lab sample transport, and supply distribution across departments.</li>
+                    <li><i class="fa-solid fa-check"></i> <strong>Malls &amp; Airports:</strong> Passenger assistance, last-mile delivery, and patrol &mdash; autonomous and always on.</li>
                 </ul>
-                <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">Get Started</a>
             </div>
-            <div class="sub-card">
-                <div class="sub-icon"><i class="fa-solid fa-building" style="color:var(--gold)"></i></div>
-                <h3>Enterprise</h3>
-                <div class="sub-desc">Hotels, malls & chains</div>
-                <div class="sub-price gradient-text">Custom</div>
-                <div class="sub-period">volume pricing</div>
-                <ul class="sub-features">
-                    <li><i class="fa-solid fa-check"></i> 10+ units fleet</li>
-                    <li><i class="fa-solid fa-check"></i> API integrations</li>
-                    <li><i class="fa-solid fa-check"></i> White-label options</li>
-                    <li><i class="fa-solid fa-check"></i> Dedicated account manager</li>
-                    <li><i class="fa-solid fa-check"></i> SLA guarantee</li>
-                </ul>
-                <a href="#contact" class="btn-outline" style="width:100%;justify-content:center;">Contact Sales</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- USE CASES -->
-<section class="fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Where Our Robots Live</div>
-            <h2 class="section-title">Built for <span class="gradient-text">Every Environment</span></h2>
-            <p class="section-sub">From specialty coffee shops to luxury hotel lobbies, our robots adapt to any setting.</p>
-        </div>
-        <div class="usecase-grid">
-            <div class="usecase-card">
-                <div class="usecase-img">
-                    <img src="images/album_03.jpg" alt="Cafe setting" loading="lazy">
-                    <span class="usecase-tag"><i class="fa-solid fa-mug-hot"></i>&ensp;Mini Bot</span>
+            <div class="ps-media">
+                <div class="ps-img-wrap">
+                    <img src="images/album_01.png" alt="Saqr delivery robot">
                 </div>
-                <div class="usecase-body">
-                    <h3>Cafes & Restaurants</h3>
-                    <p>Boost dwell time by 40%+, drive upsells through interactive menu recommendations, and build lasting loyalty.</p>
-                </div>
-            </div>
-            <div class="usecase-card">
-                <div class="usecase-img">
-                    <img src="images/album_02.png" alt="Hotel setting" loading="lazy">
-                    <span class="usecase-tag"><i class="fa-solid fa-concierge-bell"></i>&ensp;Noor</span>
-                </div>
-                <div class="usecase-body">
-                    <h3>Hotels & Corporate</h3>
-                    <p>Smart reception, visitor check-in, wayfinding, and multilingual concierge services at lobby and front desk.</p>
-                </div>
-            </div>
-            <div class="usecase-card">
-                <div class="usecase-img">
-                    <img src="images/album_05.png" alt="Mall setting" loading="lazy">
-                    <span class="usecase-tag"><i class="fa-solid fa-truck-fast"></i>&ensp;Saqr</span>
-                </div>
-                <div class="usecase-body">
-                    <h3>Malls & Smart Cities</h3>
-                    <p>Autonomous delivery, patrol, and assistance across large-scale commercial and urban environments.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CHARTS & DATA -->
-<section class="charts-section fade-in" id="business">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Market & Financials</div>
-            <h2 class="section-title">Data-Driven <span class="gradient-text">Growth</span></h2>
-            <p class="section-sub">Backed by strong market fundamentals in Saudi Arabia's rapidly growing hospitality and technology sectors.</p>
-        </div>
-        <div class="charts-grid">
-            <div class="chart-card">
-                <h3><i class="fa-solid fa-chart-line" style="color:var(--secondary);margin-right:8px;"></i>Revenue Projection (5 Years)</h3>
-                <canvas id="revenueChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <h3><i class="fa-solid fa-chart-pie" style="color:var(--primary-light);margin-right:8px;"></i>Revenue Streams Breakdown</h3>
-                <canvas id="streamsChart"></canvas>
-            </div>
-        </div>
-        <div class="metrics-row" style="margin-top:40px;">
-            <div class="metric-card">
-                <div class="metric-val">$65M</div>
-                <div class="metric-label">Serviceable Obtainable Market</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-val">~68%</div>
-                <div class="metric-label">Gross Margin</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-val">$67M</div>
-                <div class="metric-label">Year 5 Revenue Target</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- BUSINESS MODEL -->
-<section class="biz-section fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Revenue Model</div>
-            <h2 class="section-title"><span class="gradient-text">8 Revenue Streams</span></h2>
-            <p class="section-sub">EBITDA-positive by Year 3. Built for scale across KSA and the GCC region.</p>
-        </div>
-        <div class="biz-streams">
-            <div class="biz-stream">
-                <i class="fa-solid fa-coins"></i>
-                <h4>F&B Commissions</h4>
-                <p>Revenue share on orders placed through Mini Bot</p>
-            </div>
-            <div class="biz-stream">
-                <i class="fa-solid fa-rotate"></i>
-                <h4>SaaS / RaaS</h4>
-                <p>Monthly subscription for hardware + software</p>
-            </div>
-            <div class="biz-stream">
-                <i class="fa-solid fa-bullhorn"></i>
-                <h4>Sponsored Content</h4>
-                <p>Brands sponsor in-game content and campaigns</p>
-            </div>
-            <div class="biz-stream">
-                <i class="fa-solid fa-database"></i>
-                <h4>Data Products</h4>
-                <p>Anonymized guest insights for operators</p>
-            </div>
-            <div class="biz-stream">
-                <i class="fa-solid fa-trophy"></i>
-                <h4>Loyalty Platform</h4>
-                <p>Fees on loyalty integrations & redemptions</p>
-            </div>
-            <div class="biz-stream">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <h4>In-App Purchases</h4>
-                <p>Premium game modes, skins, event access</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ROADMAP -->
-<section id="roadmap" class="roadmap-section fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Roadmap</div>
-            <h2 class="section-title">The Path <span class="gradient-text">Forward</span></h2>
-            <p class="section-sub">From first prototype to national deployment &mdash; our milestones and timeline.</p>
-        </div>
-        <div class="timeline">
-            <div class="timeline-item active">
-                <div class="timeline-date">2025 &mdash; Now</div>
-                <h3>Mini Bot Launch</h3>
-                <p>First commercial deployment of Mini Bot in select cafes across Riyadh. Seed funding round, pilot partnerships with major F&B brands.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">Q3 2025</div>
-                <h3>Scale & Expand</h3>
-                <p>Expand to 50+ venues across KSA. Launch Mini Bot subscription platform. Begin Noor prototype development.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2026</div>
-                <h3>Noor Beta</h3>
-                <p>Deploy Noor reception robot in pilot hotel and corporate locations. Begin Saqr R&D. Establish MODON manufacturing facility.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2027</div>
-                <h3>Full Fleet</h3>
-                <p>All three robots in commercial production. GCC market expansion. 500+ units deployed. Series A funding.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">2028+</div>
-                <h3>Regional Leadership</h3>
-                <p>Become the leading robotics manufacturer in the MENA region. International partnerships and licensing deals.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- TEAM -->
-<section id="team" class="fade-in">
+<section id="team" class="fade-in" style="background:var(--bg-subtle);">
     <div class="container">
         <div class="section-header centered">
             <div class="section-eyebrow">Leadership</div>
             <h2 class="section-title">The <span class="gradient-text">Team</span></h2>
-            <p class="section-sub">Built by Physical AI &mdash; a Saudi-based team at the intersection of AI, robotics, and hospitality innovation.</p>
+            <p class="section-sub">A Saudi-based team at the intersection of AI, robotics, and hospitality innovation.</p>
         </div>
         <div class="team-grid">
             <div class="team-card">
-                <div class="team-avatar">
-                    <span class="initials">MS</span>
-                </div>
+                <div class="team-avatar"><span class="initials">MS</span></div>
                 <h3>Mahmoud Sultan</h3>
                 <div class="team-role">CEO & Founder</div>
-                <p class="team-desc">Visionary entrepreneur driving Physical AI's strategy, product vision, and investor relations. Expert in scaling technology ventures in the MENA region.</p>
-                <div class="team-social">
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                </div>
+                <p class="team-desc">Visionary entrepreneur driving Physical AI's strategy, product vision, and partnerships across the MENA region.</p>
             </div>
             <div class="team-card">
-                <div class="team-avatar">
-                    <span class="initials">AZ</span>
-                </div>
+                <div class="team-avatar"><span class="initials">AZ</span></div>
                 <h3>Dr. Ahmad Zalat</h3>
                 <div class="team-role">COO</div>
-                <p class="team-desc">Seasoned operations leader overseeing partnerships, supply chain, and go-to-market execution. Brings deep expertise in enterprise operations and strategic growth.</p>
-                <div class="team-social">
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                </div>
+                <p class="team-desc">Operations leader overseeing supply chain, manufacturing partnerships, and go-to-market execution.</p>
             </div>
             <div class="team-card">
-                <div class="team-avatar">
-                    <span class="initials">SG</span>
-                </div>
+                <div class="team-avatar"><span class="initials">SG</span></div>
                 <h3>Saleh Al Gheznawy</h3>
                 <div class="team-role">CTO</div>
-                <p class="team-desc">Full-stack technologist leading engineering, AI/ML systems, and hardware-software integration. Architect of the Physical AI platform and robot intelligence stack.</p>
-                <div class="team-social">
-                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                </div>
+                <p class="team-desc">Full-stack technologist leading AI/ML systems, Arabic NLP, and hardware-software integration.</p>
             </div>
         </div>
     </div>
@@ -1508,19 +1138,28 @@
 <!-- CTA -->
 <section class="cta-section fade-in" id="contact">
     <div class="container">
-        <div class="section-eyebrow" style="justify-content:center;">Now Raising</div>
-        <h2>Build the Future of <span class="gradient-text">Robotics</span> With Us</h2>
-        <p>Raising $1.5M seed at $10M post-money valuation. Whether you're a venue operator, investor, or partner &mdash; let's build the future of Physical AI together.</p>
+        <div class="section-eyebrow" style="justify-content:center;">Let's Talk</div>
+        <h2>Ready to Bring <span class="gradient-text">AI to Your Space?</span></h2>
+        <p>Whether you run a cafe, manage a hotel, lead a school, or want Mini Bot at home &mdash; we'd love to show you what's possible.</p>
         <div class="cta-buttons">
-            <a href="mailto:info@physicalai.sa" class="btn-primary"><i class="fa-solid fa-envelope"></i>&ensp;Contact Us</a>
-            <a href="#video" class="btn-outline"><i class="fa-solid fa-play"></i>&ensp;Watch the Demo</a>
+            <a href="mailto:sultan@uvaii.com" class="btn-primary"><i class="fa-solid fa-envelope"></i>&ensp;Email Us</a>
+            <a href="tel:+9660558590710" class="btn-outline"><i class="fa-solid fa-phone"></i>&ensp;Call Us</a>
+        </div>
+        <div class="cta-contact-info">
+            <div class="cta-contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>sultan@uvaii.com</span>
+            </div>
+            <div class="cta-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <span>+966 055 859 0710</span>
+            </div>
         </div>
         <div class="cta-badges">
             <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> Vision 2030 Aligned</div>
-            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> PDPL-Ready</div>
-            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> MODON Manufacturing</div>
+            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> PDPL-Compliant</div>
+            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> Made in Saudi Arabia</div>
             <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> Arabic-First AI</div>
-            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> Saudi-Founded</div>
         </div>
     </div>
 </section>
@@ -1531,35 +1170,33 @@
         <div class="footer-grid">
             <div class="footer-brand-block">
                 <div class="footer-brand-name"><span class="gradient-text">Physical AI</span></div>
-                <p>Saudi Arabia's pioneering robotics venture studio. Designing, manufacturing, and deploying intelligent robots for a smarter world.</p>
+                <p>Saudi Arabia's first robotics venture studio. Designing, manufacturing, and deploying intelligent robots for hospitality, education, and service.</p>
             </div>
             <div class="footer-col">
-                <h4>Products</h4>
+                <h4>Robots</h4>
                 <a href="#minibot">Mini Bot</a>
-                <a href="#products">Noor</a>
-                <a href="#products">Saqr</a>
+                <a href="#noor-saqr">Noor</a>
+                <a href="#noor-saqr">Saqr</a>
             </div>
             <div class="footer-col">
                 <h4>Company</h4>
-                <a href="#about">About Us</a>
+                <a href="#about">About</a>
                 <a href="#team">Team</a>
-                <a href="#roadmap">Roadmap</a>
-                <a href="#business">Business</a>
+                <a href="#scenarios">Use Cases</a>
             </div>
             <div class="footer-col">
-                <h4>Connect</h4>
-                <a href="mailto:info@physicalai.sa">info@physicalai.sa</a>
-                <a href="#contact">Partner With Us</a>
-                <a href="#contact">Invest</a>
+                <h4>Contact</h4>
+                <a href="mailto:sultan@uvaii.com">sultan@uvaii.com</a>
+                <a href="tel:+9660558590710">+966 055 859 0710</a>
+                <a href="#contact">Request Demo</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <div class="footer-copy">&copy; 2025 Physical AI Venture Studio. All rights reserved. Made in Saudi Arabia.</div>
+            <div class="footer-copy">&copy; 2025 Physical AI &mdash; UVAII Venture Studio. All rights reserved. Made with care in Saudi Arabia.</div>
             <div class="footer-socials">
                 <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
                 <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-youtube"></i></a>
             </div>
         </div>
     </div>
@@ -1568,148 +1205,49 @@
 <script>
 // Particles
 (function() {
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    function resize() {
-        canvas.width = canvas.parentElement.offsetWidth;
-        canvas.height = canvas.parentElement.offsetHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-    for (let i = 0; i < 60; i++) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: Math.random() * 1.5 + 0.5,
-            dx: (Math.random() - 0.5) * 0.4,
-            dy: (Math.random() - 0.5) * 0.4,
-            o: Math.random() * 0.3 + 0.1
+    const c = document.getElementById('particles');
+    const ctx = c.getContext('2d');
+    let pts = [];
+    function resize() { c.width = c.parentElement.offsetWidth; c.height = c.parentElement.offsetHeight; }
+    resize(); window.addEventListener('resize', resize);
+    for (let i = 0; i < 50; i++) {
+        pts.push({
+            x: Math.random() * c.width, y: Math.random() * c.height,
+            r: Math.random() * 1.2 + 0.4,
+            dx: (Math.random() - 0.5) * 0.3, dy: (Math.random() - 0.5) * 0.3,
+            o: Math.random() * 0.25 + 0.05
         });
     }
     function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(162,155,254,${p.o})`;
-            ctx.fill();
+        ctx.clearRect(0, 0, c.width, c.height);
+        pts.forEach(p => {
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(162,155,254,${p.o})`; ctx.fill();
             p.x += p.dx; p.y += p.dy;
-            if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+            if (p.x < 0 || p.x > c.width) p.dx *= -1;
+            if (p.y < 0 || p.y > c.height) p.dy *= -1;
         });
         requestAnimationFrame(draw);
     }
     draw();
 })();
 
-// Scroll-triggered fade-in
+// Scroll fade-in
 const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
 document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
 
-// Nav scroll effect
+// Nav scroll
 const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-});
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); });
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            document.getElementById('navLinks').classList.remove('active');
-        }
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); document.getElementById('navLinks').classList.remove('active'); }
     });
-});
-
-// Charts
-const chartDefaults = {
-    color: '#9495a5',
-    borderColor: 'rgba(255,255,255,0.07)',
-};
-Chart.defaults.color = chartDefaults.color;
-Chart.defaults.borderColor = chartDefaults.borderColor;
-
-// Revenue Chart
-new Chart(document.getElementById('revenueChart'), {
-    type: 'bar',
-    data: {
-        labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
-        datasets: [{
-            label: 'Revenue ($M)',
-            data: [2.5, 8, 22, 42, 67],
-            backgroundColor: [
-                'rgba(108,92,231,0.6)',
-                'rgba(108,92,231,0.65)',
-                'rgba(0,206,201,0.6)',
-                'rgba(0,206,201,0.65)',
-                'rgba(85,239,196,0.7)'
-            ],
-            borderColor: [
-                'rgba(108,92,231,0.9)',
-                'rgba(108,92,231,0.9)',
-                'rgba(0,206,201,0.9)',
-                'rgba(0,206,201,0.9)',
-                'rgba(85,239,196,0.9)'
-            ],
-            borderWidth: 1,
-            borderRadius: 8,
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { display: false },
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                ticks: { callback: v => '$' + v + 'M' },
-                grid: { color: 'rgba(255,255,255,0.04)' }
-            },
-            x: {
-                grid: { display: false }
-            }
-        }
-    }
-});
-
-// Revenue Streams Doughnut
-new Chart(document.getElementById('streamsChart'), {
-    type: 'doughnut',
-    data: {
-        labels: ['SaaS/RaaS', 'F&B Commissions', 'Sponsored Content', 'Data Products', 'Loyalty', 'In-App'],
-        datasets: [{
-            data: [35, 25, 15, 10, 8, 7],
-            backgroundColor: [
-                'rgba(108,92,231,0.8)',
-                'rgba(0,206,201,0.8)',
-                'rgba(253,203,110,0.8)',
-                'rgba(85,239,196,0.8)',
-                'rgba(255,118,117,0.8)',
-                'rgba(162,155,254,0.6)'
-            ],
-            borderColor: 'rgba(3,3,10,0.8)',
-            borderWidth: 3,
-        }]
-    },
-    options: {
-        responsive: true,
-        cutout: '65%',
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: { padding: 16, usePointStyle: true, pointStyleWidth: 10 }
-            }
-        }
-    }
 });
 </script>
 </body>
