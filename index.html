@@ -1,1256 +1,651 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physical AI — Intelligent Robots for Hospitality, Education & Service</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physical AI — روبوتات ذكية للضيافة والتعليم والخدمة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --green-deep:#0A3D2E;--green:#006C35;--green-soft:#0E5B3E;
+  --paper:#FBFAF7;--paper-2:#F3F1EA;--ink:#14201A;--ink-soft:#41514A;
+  --gold:#C8A65D;--gold-deep:#A8843B;--tech:#1F8A9E;--tech-soft:#E2F0F2;
+  --line:rgba(20,32,26,.12);--card:#FFFFFF;
+  --shadow:0 18px 50px -28px rgba(10,61,46,.55);--shadow-sm:0 8px 24px -16px rgba(10,61,46,.45);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"IBM Plex Sans Arabic","Tajawal",sans-serif;background:var(--paper);color:var(--ink);
+  line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html[lang="en"] body{font-family:"Inter",sans-serif;line-height:1.7}
+h1,h2,h3,h4,.display{font-family:"Tajawal",sans-serif}
+html[lang="en"] h1,html[lang="en"] h2,html[lang="en"] h3,html[lang="en"] h4{font-family:"Space Grotesk","Inter",sans-serif}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
 
-        :root {
-            --bg: #0b0c0f;
-            --bg-subtle: #121317;
-            --bg-card: #181a1f;
-            --surface: rgba(255,255,255,0.022);
-            --surface-hover: rgba(255,255,255,0.05);
-            --border: rgba(255,255,255,0.07);
-            --border-light: rgba(255,255,255,0.12);
-            --text: #f0f1f5;
-            --text-muted: #9a9cab;
-            --text-dim: #5e6070;
-            --primary: #6c5ce7;
-            --primary-light: #a29bfe;
-            --primary-glow: rgba(108,92,231,0.12);
-            --secondary: #00cec9;
-            --secondary-light: #55efc4;
-            --gold: #fdcb6e;
-            --coral: #ff7675;
-            --emerald: #00b894;
-            --radius: 20px;
-            --radius-sm: 14px;
-            --radius-xs: 8px;
-        }
+/* progress + nav */
+.progress{position:fixed;top:0;inset-inline:0;height:3px;background:transparent;z-index:200}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--green))}
+.topnav{position:fixed;top:0;inset-inline:0;z-index:150;display:flex;align-items:center;justify-content:space-between;
+  padding:12px clamp(14px,4vw,54px);backdrop-filter:blur(12px);background:rgba(251,250,247,.9);
+  border-bottom:1px solid var(--line);transition:box-shadow .3s}
+.topnav.show{box-shadow:0 6px 24px -18px rgba(10,61,46,.5)}
+.topnav .brand{display:flex;align-items:center;gap:9px;font-family:"Tajawal";font-weight:800;font-size:16px;color:var(--green-deep)}
+html[lang="en"] .topnav .brand{font-family:"Space Grotesk"}
+.topnav .brand .mark{width:32px;height:32px}
+.topnav .chips{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.topnav .chips a{font-size:12.5px;font-weight:600;color:var(--ink-soft);padding:6px 11px;border-radius:30px;transition:.2s}
+.topnav .chips a:hover{background:var(--green-deep);color:#fff;transform:translateY(-1px)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.langtog{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:30px;padding:6px 12px;font-weight:700;font-size:12.5px;color:var(--green-deep);cursor:pointer;transition:.2s}
+.langtog:hover{border-color:var(--gold);box-shadow:var(--shadow-sm)}
+.cta-btn{background:var(--green-deep);color:#fff!important;padding:9px 18px;border-radius:30px;font-weight:700;font-size:12.5px;transition:.25s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px -14px rgba(10,61,46,.7)}
+@media(max-width:1000px){.topnav .chips{display:none}}
+.hamburger{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;color:var(--green-deep);font-size:16px;cursor:pointer}
+@media(max-width:1000px){.hamburger{display:block}}
+.mobnav{position:fixed;inset:0;background:rgba(10,61,46,.97);z-index:300;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.mobnav.open{display:flex}
+.mobnav a{color:#fff;font-size:20px;font-weight:700}
+.mobnav .close{position:absolute;top:20px;inset-inline-end:24px;font-size:28px;color:#fff;cursor:pointer}
 
-        html { scroll-behavior: smooth; }
+/* layout */
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,5vw,40px)}
+section{padding:clamp(54px,8vw,104px) 0;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:"Tajawal";font-weight:700;font-size:13px;color:var(--green);margin-bottom:14px}
+html[lang="en"] .eyebrow{font-family:"Space Grotesk";letter-spacing:1px;text-transform:uppercase}
+.eyebrow .ln{width:46px;height:2px;background:var(--gold)}
+h2.title{font-size:clamp(26px,4.4vw,44px);font-weight:800;line-height:1.22;color:var(--green-deep);max-width:22ch;margin-bottom:16px}
+.lead{font-size:clamp(15.5px,1.9vw,19px);color:var(--ink-soft);max-width:64ch;font-weight:400}
+.secalt{background:linear-gradient(180deg,var(--paper),#fff 50%,var(--paper))}
+.sectint{background:var(--paper-2)}
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:96px;overflow:hidden;border-bottom:1px solid var(--line);
+  background:radial-gradient(120% 90% at 85% 0%,rgba(0,108,53,.10),transparent 55%),
+  radial-gradient(90% 70% at 8% 100%,rgba(200,166,93,.12),transparent 60%),var(--paper)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;width:100%}
+@media(max-width:920px){.hero{min-height:auto;padding-top:118px;padding-bottom:46px}.hero .wrap{grid-template-columns:1fr;gap:30px}}
+.hero .tag{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:40px;
+  padding:8px 16px;font-size:12.5px;font-weight:600;color:var(--green-deep);box-shadow:var(--shadow-sm);margin-bottom:22px}
+.hero .tag .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(200,166,93,.25)}
+.hero h1{font-size:clamp(32px,5.6vw,60px);font-weight:900;line-height:1.12;color:var(--green-deep);letter-spacing:-.01em}
+.hero h1 .hl{position:relative;color:var(--green)}
+.hero h1 .hl::after{content:"";position:absolute;inset-inline:0;bottom:.06em;height:.30em;background:rgba(200,166,93,.40);z-index:-1;border-radius:3px}
+.hero .sub{margin:20px 0 26px;font-size:clamp(15px,2vw,19px);color:var(--ink-soft);max-width:50ch}
+.hero .btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn-1{background:var(--green-deep);color:#fff;padding:14px 28px;border-radius:40px;font-weight:700;display:inline-flex;align-items:center;gap:9px;transition:.25s}
+.btn-1:hover{transform:translateY(-2px);box-shadow:0 14px 32px -16px rgba(10,61,46,.7)}
+.btn-2{background:#fff;color:var(--green-deep);padding:14px 28px;border-radius:40px;font-weight:700;border:1px solid var(--line);display:inline-flex;align-items:center;gap:9px;transition:.25s}
+.btn-2:hover{border-color:var(--gold);transform:translateY(-2px)}
+.heroimg{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.heroimg img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.heroimg:hover img{transform:scale(1.05)}
+.heroimg .cap{position:absolute;bottom:0;inset-inline:0;padding:26px 22px 18px;color:#fff;background:linear-gradient(0deg,rgba(10,61,46,.86),transparent);font-family:"Tajawal"}
+html[lang="en"] .heroimg .cap{font-family:"Space Grotesk"}
+.heroimg .cap b{font-weight:800;font-size:18px;display:block}
+.heroimg .cap span{font-size:13px;opacity:.9}
+.heroimg .float{position:absolute;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:11px 16px;box-shadow:var(--shadow-sm)}
+.heroimg .float .l{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:1px}
+.heroimg .float .v{font-family:"Tajawal";font-weight:800;font-size:18px;color:var(--green)}
+.heroimg .f1{top:22px;inset-inline-start:-14px}
+.heroimg .f2{bottom:72px;inset-inline-end:-14px}
+@media(max-width:520px){.heroimg .float{display:none}}
 
-        h1, h2, h3, h4, h5 { font-family: 'Space Grotesk', 'Inter', sans-serif; line-height: 1.15; }
-        a { color: var(--primary-light); text-decoration: none; transition: all 0.3s; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-        .container-narrow { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+/* kpi */
+.kpiband{background:var(--green-deep);color:#fff;padding:clamp(34px,5vw,60px) 0}
+.kpiband .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+@media(max-width:780px){.kpiband .grid{grid-template-columns:repeat(2,1fr);gap:26px}}
+.kpi{border-top:2px solid rgba(200,166,93,.4);padding-top:14px}
+.kpi .ic{font-size:20px;color:var(--gold);margin-bottom:8px}
+.kpi .v{font-family:"Tajawal";font-weight:900;font-size:clamp(22px,3.4vw,34px);line-height:1.05;color:#fff}
+html[lang="en"] .kpi .v{font-family:"Space Grotesk"}
+.kpi .lb{font-size:13px;color:rgba(255,255,255,.74);margin-top:8px}
 
-        .gradient-text {
-            background: linear-gradient(135deg, #a29bfe 0%, #00cec9 50%, #55efc4 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
+/* generic grids/cards */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:840px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.card .ic{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;background:var(--tech-soft);font-size:20px;color:var(--tech);transition:transform .3s}
+.card:hover .ic{transform:scale(1.08) rotate(-3deg)}
+.card .ic.g{background:rgba(0,108,53,.10);color:var(--green)}
+.card .ic.gd{background:rgba(200,166,93,.15);color:var(--gold-deep)}
+.card h3{font-size:19px;font-weight:800;color:var(--green-deep);margin-bottom:9px}
+.card p{font-size:14.5px;color:var(--ink-soft)}
+.pill{display:inline-block;font-size:12px;font-weight:700;color:var(--green);background:rgba(0,108,53,.08);padding:5px 11px;border-radius:20px;margin-top:13px}
 
-        /* NAV */
-        nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            padding: 18px 0; transition: all 0.4s;
-        }
-        nav.scrolled {
-            background: rgba(8,9,12,0.94); backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-bottom: 1px solid var(--border); padding: 12px 0;
-        }
-        nav .container { display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.35rem; font-weight: 700;
-            display: flex; align-items: center; gap: 10px; color: var(--text);
-        }
-        .nav-logo-icon {
-            width: 36px; height: 36px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            font-size: 0.9rem; color: #fff;
-        }
-        .nav-links { display: flex; gap: 32px; align-items: center; }
-        .nav-links a {
-            color: var(--text-muted); font-size: 0.84rem; font-weight: 500;
-            transition: color 0.3s; position: relative;
-        }
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0; width: 0;
-            height: 2px; background: var(--primary-light); transition: width 0.3s;
-        }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-cta {
-            background: linear-gradient(135deg, var(--primary), #8b7cf7) !important;
-            color: #fff !important; padding: 10px 24px;
-            border-radius: 999px; font-weight: 600; font-size: 0.84rem;
-            border: none; transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .nav-cta::after { display: none !important; }
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--primary-glow); }
-        .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; }
+/* about visual */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-text p{color:var(--ink-soft);margin-bottom:16px}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+@media(max-width:480px){.pillars{grid-template-columns:1fr}}
+.pillar{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;transition:.3s}
+.pillar:hover{border-color:var(--gold);transform:translateY(-3px)}
+.pillar i{color:var(--green);font-size:18px;display:block;margin-bottom:8px}
+.pillar h4{font-size:15px;font-weight:800;color:var(--green-deep);margin-bottom:3px}
+.pillar p{font-size:13px;color:var(--ink-soft)}
+.vision{background:linear-gradient(135deg,rgba(0,108,53,.10),rgba(200,166,93,.07));border:1px solid var(--line);border-radius:20px;padding:34px;position:relative;overflow:hidden}
+.vision::before{content:"";position:absolute;inset-inline-start:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,166,93,.3),transparent 70%)}
+.vision h3{font-size:22px;font-weight:800;color:var(--green-deep);margin-bottom:12px;position:relative}
+.vision p{color:var(--ink-soft);position:relative}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;position:relative}
+.vbadge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:30px;padding:6px 13px;font-size:12px;font-weight:600;color:var(--green-deep)}
+.vbadge i{color:var(--gold-deep);font-size:11px}
 
-        /* HERO */
-        .hero {
-            position: relative; min-height: 100vh;
-            display: flex; align-items: center;
-            padding: 140px 0 120px; overflow: hidden;
-        }
-        .hero-bg { position: absolute; inset: 0; pointer-events: none; }
-        .hero-bg .orb {
-            position: absolute; border-radius: 50%;
-            filter: blur(140px); opacity: 0.2;
-        }
-        .hero-bg .orb1 { width: 600px; height: 600px; top: -150px; right: -100px; background: var(--primary); }
-        .hero-bg .orb2 { width: 400px; height: 400px; bottom: -100px; left: -50px; background: var(--secondary); opacity: 0.1; }
-        .hero-bg .orb3 { width: 250px; height: 250px; top: 35%; left: 25%; background: #e17055; opacity: 0.05; }
-        .hero .container {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 60px; align-items: center; position: relative; z-index: 1;
-        }
-        .hero-text { max-width: 540px; }
-        .hero-pill {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 999px; padding: 6px 16px 6px 8px;
-            font-size: 0.78rem; color: var(--text-muted); margin-bottom: 28px;
-        }
-        .hero-pill .dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--secondary); display: inline-block;
-            animation: pulse-dot 2s infinite;
-        }
-        @keyframes pulse-dot {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0,206,201,0.4); }
-            50% { box-shadow: 0 0 0 6px rgba(0,206,201,0); }
-        }
-        .hero-text h1 {
-            font-size: clamp(2.6rem, 4.8vw, 4rem);
-            font-weight: 800; letter-spacing: -2px; margin-bottom: 22px;
-        }
-        .hero-text h1 .line2 { display: block; }
-        .hero-text .sub {
-            font-size: 1.08rem; color: var(--text-muted);
-            margin-bottom: 36px; max-width: 460px; line-height: 1.8;
-        }
-        .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), #8b7cf7);
-            color: #fff; padding: 15px 32px;
-            border-radius: 999px; font-weight: 700; font-size: 0.92rem;
-            border: none; cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(108,92,231,0.35); }
-        .btn-outline {
-            background: transparent; color: var(--text);
-            padding: 15px 32px; border-radius: 999px;
-            font-weight: 600; font-size: 0.92rem;
-            border: 1px solid var(--border-light); cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex; align-items: center; gap: 10px;
-        }
-        .btn-outline:hover { border-color: var(--primary-light); background: var(--surface); }
+/* product flagship */
+.prod-hero{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+@media(max-width:900px){.prod-hero{grid-template-columns:1fr}}
+.prodbadge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;border-radius:30px;font-size:12px;font-weight:700;margin-bottom:16px}
+.bdg-live{background:rgba(0,108,53,.12);color:var(--green);border:1px solid rgba(0,108,53,.2)}
+.bdg-dev{background:rgba(200,166,93,.14);color:var(--gold-deep);border:1px solid rgba(200,166,93,.3)}
+.prod-info h3{font-size:30px;font-weight:800;color:var(--green-deep);margin-bottom:14px}
+.prod-info>p{color:var(--ink-soft);margin-bottom:22px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.spec{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-soft);background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 13px}
+.spec i{color:var(--tech);font-size:13px}
+.prodimg{border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);position:relative}
+.prodimg img{width:100%;display:block;transition:transform .6s}
+.prodimg:hover img{transform:scale(1.05)}
 
-        .hero-visual { position: relative; }
-        .hero-img-wrapper {
-            position: relative; border-radius: 24px; overflow: hidden;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
-        }
-        .hero-img-wrapper::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(8,9,12,0.5) 100%);
-            pointer-events: none;
-        }
-        .hero-img-wrapper img { width: 100%; display: block; }
-        .hero-float-card {
-            position: absolute; padding: 14px 20px;
-            background: rgba(6,6,18,0.88); backdrop-filter: blur(20px);
-            border: 1px solid var(--border); border-radius: var(--radius-sm);
-            font-size: 0.82rem; z-index: 2;
-            animation: float-card 4s ease-in-out infinite;
-        }
-        .hero-float-card.card1 { bottom: 40px; left: -30px; }
-        .hero-float-card.card2 { top: 30px; right: -20px; animation-delay: 1.5s; }
-        .hero-float-card .card-label { color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
-        .hero-float-card .card-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; margin-top: 2px; }
-        @keyframes float-card {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+/* video */
+.videobox{max-width:880px;margin:0 auto;border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.videobox video{width:100%;display:block}
 
-        /* PARTICLES */
-        .particles-canvas { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+/* scenarios */
+.scen{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .35s,box-shadow .35s;display:flex;flex-direction:column}
+.scen:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.scen .img{height:200px;overflow:hidden;position:relative}
+.scen .img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.scen:hover .img img{transform:scale(1.06)}
+.scen .tag{position:absolute;top:13px;inset-inline-start:13px;background:rgba(10,61,46,.85);backdrop-filter:blur(6px);color:#fff;padding:5px 13px;border-radius:30px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px}
+.scen .body{padding:22px;flex:1;display:flex;flex-direction:column}
+.scen h3{font-size:18px;font-weight:800;color:var(--green-deep);margin-bottom:8px}
+.scen p{font-size:14px;color:var(--ink-soft);margin-bottom:14px}
+.benefits{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto}
+.benefit{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--line);border-radius:30px;padding:5px 11px}
+.benefit i{color:var(--green);font-size:10px}
 
-        /* TRUST BAR */
-        .trust-bar { padding: 56px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .trust-bar .container { text-align: center; }
-        .trust-label { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 24px; }
-        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .stat-card {
-            text-align: center; padding: 24px 12px;
-            border-radius: var(--radius); background: var(--surface);
-            border: 1px solid var(--border); transition: all 0.4s;
-        }
-        .stat-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .stat-icon { font-size: 1.4rem; margin-bottom: 8px; }
-        .stat-number { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 700; margin-bottom: 2px; }
-        .stat-label { font-size: 0.78rem; color: var(--text-dim); }
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+@media(max-width:780px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:440px){.steps{grid-template-columns:1fr}}
+.step{text-align:center;padding:24px 14px}
+.step .n{width:50px;height:50px;background:var(--green-deep);color:#fff;border-radius:50%;display:grid;place-items:center;font-family:"Tajawal";font-weight:900;font-size:19px;margin:0 auto 16px;box-shadow:0 8px 20px -10px rgba(10,61,46,.7)}
+.step h4{font-size:16px;font-weight:800;color:var(--green-deep);margin-bottom:6px}
+.step p{font-size:13.5px;color:var(--ink-soft)}
 
-        /* SECTIONS */
-        section { padding: 110px 0; position: relative; }
-        .section-header { margin-bottom: 60px; }
-        .section-header.centered { text-align: center; }
-        .section-header.centered .section-sub { margin-left: auto; margin-right: auto; }
-        .section-eyebrow {
-            display: inline-flex; align-items: center; gap: 8px;
-            font-size: 0.72rem; font-weight: 600;
-            color: var(--primary-light);
-            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px;
-        }
-        .section-eyebrow::before {
-            content: ''; width: 24px; height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-        .section-title {
-            font-size: clamp(2rem, 3.6vw, 2.8rem);
-            font-weight: 700; letter-spacing: -1.5px; margin-bottom: 14px;
-        }
-        .section-sub {
-            font-size: 1.02rem; color: var(--text-muted);
-            max-width: 540px; line-height: 1.8;
-        }
+/* features */
+.feat{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;transition:.3s}
+.feat:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:var(--gold)}
+.feat .ic{flex:none;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:18px}
+.feat h4{font-size:16px;font-weight:800;color:var(--green-deep);margin-bottom:4px}
+.feat p{font-size:13.5px;color:var(--ink-soft)}
 
-        /* ABOUT / VALUE PROP */
-        .value-section { background: var(--bg-subtle); overflow: hidden; }
-        .value-section::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 400px; border-radius: 50%;
-            background: var(--primary); filter: blur(200px); opacity: 0.05; pointer-events: none;
-        }
-        .value-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 60px; align-items: center;
-        }
-        .value-text p { color: var(--text-muted); margin-bottom: 18px; font-size: 0.98rem; line-height: 1.8; }
-        .value-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
-        .pillar {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius-sm); padding: 18px; transition: all 0.3s;
-        }
-        .pillar:hover { border-color: var(--primary); transform: translateY(-2px); }
-        .pillar i { color: var(--primary-light); margin-bottom: 6px; display: block; font-size: 1.1rem; }
-        .pillar h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 3px; }
-        .pillar p { font-size: 0.76rem; color: var(--text-dim); line-height: 1.5; }
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:200px;gap:14px}
+@media(max-width:840px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:170px}}
+.g-item{border-radius:16px;overflow:hidden;position:relative;border:1px solid var(--line);transition:.35s}
+.g-item:hover{transform:scale(1.02);box-shadow:var(--shadow);z-index:2}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.g-item:hover img{transform:scale(1.07)}
+.g-item .cap{position:absolute;bottom:0;inset-inline:0;padding:16px;background:linear-gradient(transparent,rgba(10,61,46,.85));color:#fff;opacity:0;transition:.3s;font-size:13px;font-weight:700}
+.g-item:hover .cap{opacity:1}
+.g-tall{grid-row:span 2}.g-wide{grid-column:span 2}
+@media(max-width:840px){.g-tall,.g-wide{grid-row:span 1;grid-column:span 1}}
 
-        .vision-card {
-            background: linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,206,201,0.04));
-            border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 36px; position: relative; overflow: hidden;
-        }
-        .vision-card::before {
-            content: ''; position: absolute; top: -50%; right: -50%;
-            width: 200px; height: 200px; border-radius: 50%;
-            background: var(--primary); filter: blur(100px); opacity: 0.08;
-        }
-        .vision-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
-        .vision-card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.8; }
-        .vision-badges {
-            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
-        }
-        .v-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-            border-radius: 999px; padding: 6px 14px;
-            font-size: 0.72rem; color: var(--text-muted);
-        }
-        .v-badge i { color: var(--secondary); font-size: 0.65rem; }
+/* spotlight noor/saqr */
+.spot{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;margin-bottom:70px}
+.spot:last-child{margin-bottom:0}
+.spot.rev .si{order:2}.spot.rev .sm{order:1}
+@media(max-width:900px){.spot{grid-template-columns:1fr}.spot.rev .si{order:1}.spot.rev .sm{order:2}}
+.si h3{font-size:26px;font-weight:800;color:var(--green-deep);margin-bottom:14px}
+.si>p{color:var(--ink-soft);margin-bottom:18px}
+.uses{list-style:none}
+.uses li{display:flex;gap:11px;align-items:flex-start;padding:9px 0;font-size:14.5px;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+.uses li:last-child{border-bottom:none}
+.uses li i{color:var(--gold-deep);margin-top:5px;font-size:13px}
+.sm{border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);position:relative}
+.sm img{width:100%;display:block}
 
-        /* PRODUCT LINEUP */
-        .product-lineup-section { overflow: hidden; }
-        .product-tabs {
-            display: flex; justify-content: center; gap: 8px;
-            margin-bottom: 60px; flex-wrap: wrap;
-        }
-        .product-tab {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 999px; padding: 10px 24px;
-            font-size: 0.85rem; font-weight: 600; cursor: pointer;
-            transition: all 0.3s; color: var(--text-muted);
-        }
-        .product-tab.active, .product-tab:hover {
-            border-color: var(--primary); color: var(--text);
-            background: rgba(108,92,231,0.1);
-        }
-        .product-panel { display: none; }
-        .product-panel.active { display: block; }
-        .product-hero-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 60px; align-items: center;
-        }
-        .product-badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 5px 14px; border-radius: 999px;
-            font-size: 0.72rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 1px;
-            margin-bottom: 16px;
-        }
-        .badge-live { background: rgba(85,239,196,0.12); color: var(--secondary-light); border: 1px solid rgba(85,239,196,0.2); }
-        .badge-dev { background: rgba(162,155,254,0.12); color: var(--primary-light); border: 1px solid rgba(162,155,254,0.2); }
-        .product-info h3 { font-size: 2rem; font-weight: 700; margin-bottom: 14px; letter-spacing: -1px; }
-        .product-info > p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.8; margin-bottom: 24px; }
-        .product-specs {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-        }
-        .p-spec {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 0.85rem; color: var(--text-muted);
-            padding: 10px 14px;
-            background: var(--surface); border-radius: var(--radius-xs);
-            border: 1px solid var(--border);
-        }
-        .p-spec i { color: var(--secondary); font-size: 0.8rem; width: 16px; text-align: center; }
-        .product-media { position: relative; }
-        .product-img-wrap {
-            border-radius: var(--radius); overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-        }
-        .product-img-wrap img { width: 100%; display: block; }
+/* team */
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;max-width:920px;margin:0 auto}
+@media(max-width:780px){.team{grid-template-columns:1fr;max-width:380px}}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm);transition:.35s;text-align:center}
+.tcard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.tphoto{aspect-ratio:4/5;overflow:hidden;background:var(--paper-2)}
+.tphoto img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .5s}
+.tcard:hover .tphoto img{transform:scale(1.04)}
+.tinfo{padding:22px}
+.tinfo h3{font-size:18px;font-weight:800;color:var(--green-deep)}
+.tinfo .role{font-size:13px;color:var(--gold-deep);font-weight:700;margin:4px 0 10px}
+.tinfo p{font-size:13px;color:var(--ink-soft)}
 
-        /* MINI BOT SCENARIOS */
-        .scenarios-section { background: var(--bg-subtle); overflow: hidden; }
-        .scenarios-section::before {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 800px; height: 400px; border-radius: 50%;
-            background: var(--secondary); filter: blur(250px); opacity: 0.04; pointer-events: none;
-        }
-        .scenario-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-        }
-        .scenario-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); overflow: hidden;
-            transition: all 0.4s; position: relative;
-        }
-        .scenario-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
-        .scenario-img { height: 200px; overflow: hidden; position: relative; }
-        .scenario-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-        .scenario-card:hover .scenario-img img { transform: scale(1.06); }
-        .scenario-tag {
-            position: absolute; top: 12px; left: 12px;
-            background: rgba(8,9,12,0.8); backdrop-filter: blur(10px);
-            padding: 4px 12px; border-radius: 999px;
-            font-size: 0.7rem; font-weight: 600; color: var(--primary-light);
-            border: 1px solid var(--border);
-        }
-        .scenario-body { padding: 24px; }
-        .scenario-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-        .scenario-body p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
-        .scenario-benefits {
-            display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px;
-        }
-        .s-benefit {
-            display: inline-flex; align-items: center; gap: 5px;
-            font-size: 0.72rem; color: var(--text-dim);
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            border-radius: 999px; padding: 4px 10px;
-        }
-        .s-benefit i { color: var(--secondary); font-size: 0.6rem; }
+/* CTA / contact */
+.callout{background:linear-gradient(135deg,var(--green-deep),var(--green-soft));color:#fff;border-radius:24px;padding:clamp(30px,5vw,56px);text-align:center;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.callout::after{content:"";position:absolute;inset-inline-start:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(200,166,93,.35),transparent 70%)}
+.callout h2{color:#fff;font-size:clamp(24px,4vw,40px);font-weight:800;max-width:24ch;margin:14px auto 16px;position:relative}
+.callout p{color:rgba(255,255,255,.86);font-size:16px;max-width:54ch;margin:0 auto 28px;position:relative}
+.callout .eyebrow{color:var(--gold);justify-content:center}
+.contact-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+.cbtn{background:#fff;color:var(--green-deep);padding:14px 28px;border-radius:40px;font-weight:700;display:inline-flex;align-items:center;gap:9px;transition:.25s}
+.cbtn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -16px rgba(0,0,0,.4)}
+.cbtn.gold{background:var(--gold);color:var(--green-deep)}
+.contact-info{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin-top:28px;position:relative}
+.cinfo{display:flex;align-items:center;gap:9px;color:#fff;font-size:15px;font-weight:600}
+.cinfo i{color:var(--gold)}
+.cbadges{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:26px;position:relative}
+.cbadge{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,.85)}
+.cbadge i{color:var(--gold);font-size:11px}
 
-        /* VIDEO */
-        .video-section { overflow: hidden; }
-        .video-section::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 500px; height: 500px; border-radius: 50%;
-            background: var(--primary); filter: blur(200px); opacity: 0.05; pointer-events: none;
-        }
-        .video-wrapper {
-            max-width: 880px; margin: 0 auto;
-            border-radius: var(--radius); overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 60px var(--primary-glow);
-        }
-        .video-wrapper video { width: 100%; display: block; }
+/* footer */
+.foot{background:var(--green-deep);color:rgba(255,255,255,.8);padding:50px 0 32px;font-size:13.5px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:34px}
+@media(max-width:780px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+.foot .brand{display:flex;align-items:center;gap:10px;color:#fff;font-family:"Tajawal";font-weight:800;font-size:18px;margin-bottom:12px}
+html[lang="en"] .foot .brand{font-family:"Space Grotesk"}
+.foot-col h4{font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.9);margin-bottom:14px}
+.foot-col a{display:block;color:rgba(255,255,255,.72);font-size:13.5px;padding:4px 0;transition:.2s}
+.foot-col a:hover{color:#fff}
+.foot p.desc{max-width:36ch;line-height:1.7;opacity:.8}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+.fsoc{display:flex;gap:10px}
+.fsoc a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;color:#fff;transition:.25s}
+.fsoc a:hover{background:var(--gold);color:var(--green-deep)}
 
-        /* HOW IT WORKS */
-        .how-section { background: var(--bg-subtle); }
-        .steps-row {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 20px; position: relative;
-        }
-        .steps-row::before {
-            content: ''; position: absolute; top: 36px; left: 60px; right: 60px; height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary)); opacity: 0.15;
-        }
-        .step { text-align: center; padding: 28px 14px; position: relative; }
-        .step-num {
-            width: 48px; height: 48px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 1.15rem;
-            margin: 0 auto 16px; position: relative; z-index: 1;
-            box-shadow: 0 6px 20px rgba(108,92,231,0.3);
-        }
-        .step h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
-        .step p { font-size: 0.82rem; color: var(--text-muted); }
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
 
-        /* ENGAGEMENT FEATURES */
-        .engage-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .engage-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 28px;
-            display: flex; gap: 18px; align-items: flex-start; transition: all 0.4s;
-        }
-        .engage-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .engage-icon {
-            width: 44px; height: 44px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0; font-size: 1.1rem;
-        }
-        .engage-icon.i1 { background: rgba(108,92,231,0.12); color: var(--primary-light); }
-        .engage-icon.i2 { background: rgba(0,206,201,0.12); color: var(--secondary); }
-        .engage-icon.i3 { background: rgba(253,203,110,0.12); color: var(--gold); }
-        .engage-icon.i4 { background: rgba(255,118,117,0.12); color: var(--coral); }
-        .engage-icon.i5 { background: rgba(85,239,196,0.12); color: var(--emerald); }
-        .engage-icon.i6 { background: rgba(162,155,254,0.12); color: var(--primary-light); }
-        .engage-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
-        .engage-card p { font-size: 0.84rem; color: var(--text-muted); }
-
-        /* GALLERY */
-        .gallery-section { background: var(--bg-subtle); }
-        .gallery-masonry {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 200px; gap: 14px;
-        }
-        .gallery-masonry .g-item {
-            border-radius: var(--radius-sm); overflow: hidden;
-            position: relative; border: 1px solid var(--border); transition: all 0.4s;
-        }
-        .gallery-masonry .g-item:hover { border-color: var(--primary); transform: scale(1.02); z-index: 2; }
-        .gallery-masonry .g-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
-        .gallery-masonry .g-item:hover img { transform: scale(1.06); }
-        .gallery-masonry .g-tall { grid-row: span 2; }
-        .gallery-masonry .g-wide { grid-column: span 2; }
-        .g-item .g-caption {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            padding: 16px;
-            background: linear-gradient(transparent, rgba(8,9,12,0.85));
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .g-item:hover .g-caption { opacity: 1; }
-        .g-caption span { font-size: 0.8rem; font-weight: 600; }
-
-        /* NOOR & SAQR SECTIONS */
-        .product-spotlight {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 60px; align-items: center;
-            margin-bottom: 80px;
-        }
-        .product-spotlight:last-child { margin-bottom: 0; }
-        .product-spotlight.reverse .ps-info { order: 2; }
-        .product-spotlight.reverse .ps-media { order: 1; }
-        .ps-info h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 14px; letter-spacing: -1px; }
-        .ps-info > p { color: var(--text-muted); font-size: 0.96rem; line-height: 1.8; margin-bottom: 20px; }
-        .ps-uses { list-style: none; }
-        .ps-uses li {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 10px 0; font-size: 0.9rem; color: var(--text-muted);
-        }
-        .ps-uses li i { color: var(--secondary); margin-top: 4px; font-size: 0.8rem; }
-        .ps-media { position: relative; }
-        .ps-img-wrap {
-            border-radius: var(--radius); overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-        }
-        .ps-img-wrap img { width: 100%; display: block; }
-
-        /* TEAM */
-        .team-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 28px; max-width: 900px; margin: 0 auto;
-        }
-        .team-card {
-            text-align: center; background: var(--surface);
-            border: 1px solid var(--border); border-radius: var(--radius);
-            transition: all 0.4s;
-            position: relative; overflow: hidden;
-        }
-        .team-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-        .team-photo {
-            width: 100%; aspect-ratio: 4 / 5; overflow: hidden;
-            background: var(--bg-card); position: relative;
-        }
-        .team-photo img {
-            width: 100%; height: 100%; object-fit: cover;
-            object-position: center top; display: block;
-            transition: transform 0.5s;
-        }
-        .team-card:hover .team-photo img { transform: scale(1.04); }
-        .team-info { padding: 24px 22px 28px; }
-        .team-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 3px; }
-        .team-role { font-size: 0.8rem; color: var(--primary-light); margin-bottom: 10px; font-weight: 600; }
-        .team-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
-
-        /* CTA */
-        .cta-section {
-            padding: 130px 0; text-align: center;
-            position: relative; overflow: hidden;
-        }
-        .cta-section::before {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 700px; height: 700px; border-radius: 50%;
-            background: var(--primary); filter: blur(200px); opacity: 0.08; pointer-events: none;
-        }
-        .cta-section .container { position: relative; z-index: 1; }
-        .cta-section h2 {
-            font-size: clamp(2rem, 3.8vw, 3rem);
-            font-weight: 700; letter-spacing: -1.5px; margin-bottom: 16px;
-        }
-        .cta-section p {
-            font-size: 1.05rem; color: var(--text-muted);
-            max-width: 500px; margin: 0 auto 32px; line-height: 1.8;
-        }
-        .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-        .cta-contact-info {
-            display: flex; gap: 32px; justify-content: center; margin-top: 32px; flex-wrap: wrap;
-        }
-        .cta-contact-item {
-            display: flex; align-items: center; gap: 8px;
-            font-size: 0.88rem; color: var(--text-muted);
-        }
-        .cta-contact-item i { color: var(--primary-light); font-size: 0.9rem; }
-        .cta-badges {
-            display: flex; gap: 18px; justify-content: center; margin-top: 28px; flex-wrap: wrap;
-        }
-        .cta-badge {
-            display: flex; align-items: center; gap: 6px;
-            font-size: 0.78rem; color: var(--text-dim);
-        }
-        .cta-badge i { color: var(--secondary); font-size: 0.65rem; }
-
-        /* FOOTER */
-        footer {
-            padding: 56px 0 32px;
-            border-top: 1px solid var(--border);
-            background: var(--bg-subtle);
-        }
-        .footer-grid {
-            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 36px; margin-bottom: 36px;
-        }
-        .footer-brand-block .footer-brand-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 1.2rem; margin-bottom: 10px;
-        }
-        .footer-brand-block p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.7; max-width: 260px; }
-        .footer-col h4 {
-            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 2px; color: var(--text-muted); margin-bottom: 14px;
-        }
-        .footer-col a { display: block; color: var(--text-dim); font-size: 0.82rem; padding: 3px 0; transition: color 0.3s; }
-        .footer-col a:hover { color: var(--text); }
-        .footer-bottom {
-            border-top: 1px solid var(--border); padding-top: 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 10px;
-        }
-        .footer-copy { color: var(--text-dim); font-size: 0.75rem; }
-        .footer-socials { display: flex; gap: 10px; }
-        .footer-socials a {
-            width: 34px; height: 34px; border-radius: 50%;
-            background: var(--surface); border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-dim); font-size: 0.82rem; transition: all 0.3s;
-        }
-        .footer-socials a:hover { border-color: var(--primary); color: var(--primary-light); }
-
-        /* FADE-IN */
-        .fade-in {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-        }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .fade-in-delay-1 { transition-delay: 0.1s; }
-        .fade-in-delay-2 { transition-delay: 0.2s; }
-        .fade-in-delay-3 { transition-delay: 0.3s; }
-
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .hero .container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-            .hero-text { max-width: 100%; }
-            .hero-text .sub { margin: 0 auto 32px; }
-            .hero-buttons { justify-content: center; }
-            .hero-visual { order: -1; max-width: 480px; margin: 0 auto; }
-            .hero-float-card { display: none; }
-            .nav-links { display: none; }
-            .nav-links.active {
-                display: flex; flex-direction: column;
-                position: absolute; top: 100%; left: 0; right: 0;
-                background: rgba(8,9,12,0.97); backdrop-filter: blur(30px);
-                border-bottom: 1px solid var(--border);
-                padding: 20px 32px; gap: 14px;
-            }
-            .hamburger { display: block; }
-            .stats-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .value-grid, .product-hero-grid, .product-spotlight { grid-template-columns: 1fr; }
-            .product-spotlight.reverse .ps-info { order: 1; }
-            .product-spotlight.reverse .ps-media { order: 2; }
-            .scenario-grid { grid-template-columns: 1fr; }
-            .steps-row { grid-template-columns: repeat(2, 1fr); }
-            .steps-row::before { display: none; }
-            .engage-grid { grid-template-columns: 1fr; }
-            .gallery-masonry { grid-template-columns: 1fr; }
-            .gallery-masonry .g-tall, .gallery-masonry .g-wide { grid-row: span 1; grid-column: span 1; }
-            .team-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .product-specs { grid-template-columns: 1fr; }
-            .value-pillars { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 480px) {
-            .stats-row { grid-template-columns: 1fr; }
-            section { padding: 72px 0; }
-            .steps-row { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
 </head>
 <body>
+<div class="progress"><span id="prog"></span></div>
 
-<!-- NAV -->
-<nav id="mainNav">
-    <div class="container">
-        <div class="nav-logo">
-            <div class="nav-logo-icon"><i class="fa-solid fa-robot"></i></div>
-            Physical AI
-        </div>
-        <div class="nav-links" id="navLinks">
-            <a href="#about">About</a>
-            <a href="#minibot">Mini Bot</a>
-            <a href="#scenarios">Use Cases</a>
-            <a href="#noor-saqr">Our Robots</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#team">Team</a>
-            <a href="#contact" class="nav-cta">Contact Us</a>
-        </div>
-        <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('active')"><i class="fa-solid fa-bars"></i></button>
-    </div>
+<nav class="topnav" id="topnav">
+  <a href="#top" class="brand">
+    <svg class="mark" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#0A3D2E"/><circle cx="20" cy="15" r="6" fill="#C8A65D"/><rect x="12" y="22" width="16" height="11" rx="3" fill="#fff"/><circle cx="16" cy="14" r="1.6" fill="#0A3D2E"/><circle cx="24" cy="14" r="1.6" fill="#0A3D2E"/></svg>
+    Physical AI
+  </a>
+  <div class="chips">
+    <a href="#about" data-ar="من نحن" data-en="About">من نحن</a>
+    <a href="#minibot" data-ar="الميني بوت" data-en="Mini Bot">الميني بوت</a>
+    <a href="#scenarios" data-ar="حالات الاستخدام" data-en="Use Cases">حالات الاستخدام</a>
+    <a href="#robots" data-ar="روبوتاتنا" data-en="Our Robots">روبوتاتنا</a>
+    <a href="#gallery" data-ar="المعرض" data-en="Gallery">المعرض</a>
+    <a href="#team" data-ar="الفريق" data-en="Team">الفريق</a>
+  </div>
+  <div class="nav-right">
+    <button class="langtog" id="langtog"><i class="fa-solid fa-globe"></i><span id="langlabel">EN</span></button>
+    <a href="#contact" class="cta-btn" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+    <button class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></button>
+  </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-    <canvas class="particles-canvas" id="particles"></canvas>
-    <div class="hero-bg">
-        <div class="orb orb1"></div>
-        <div class="orb orb2"></div>
-        <div class="orb orb3"></div>
-    </div>
-    <div class="container">
-        <div class="hero-text">
-            <div class="hero-pill">
-                <span class="dot"></span>
-                Made in Saudi Arabia &bull; Arabic-First AI
-            </div>
-            <h1>
-                Intelligent Robots
-                <span class="line2">for <span class="gradient-text">Every Space</span></span>
-            </h1>
-            <p class="sub">From cafe tables to hotel lobbies &mdash; our robots entertain guests, assist visitors, and deliver service with Saudi-built intelligence.</p>
-            <div class="hero-buttons">
-                <a href="#minibot" class="btn-primary">Discover Mini Bot <span>&rarr;</span></a>
-                <a href="#video" class="btn-outline"><i class="fa-solid fa-play"></i>&ensp;Watch Demo</a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="hero-img-wrapper">
-                <img src="images/album_01.png" alt="UVAII Robot in action">
-            </div>
-            <div class="hero-float-card card1">
-                <div class="card-label">Guest Engagement</div>
-                <div class="card-value" style="color:var(--secondary);">+40%</div>
-            </div>
-            <div class="hero-float-card card2">
-                <div class="card-label">Satisfaction</div>
-                <div class="card-value" style="color:var(--gold);"><i class="fa-solid fa-star" style="font-size:0.85rem"></i> 4.9</div>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="mobnav" id="mobnav">
+  <span class="close" id="mobclose"><i class="fa-solid fa-xmark"></i></span>
+  <a href="#about" data-ar="من نحن" data-en="About">من نحن</a>
+  <a href="#minibot" data-ar="الميني بوت" data-en="Mini Bot">الميني بوت</a>
+  <a href="#scenarios" data-ar="حالات الاستخدام" data-en="Use Cases">حالات الاستخدام</a>
+  <a href="#robots" data-ar="روبوتاتنا" data-en="Our Robots">روبوتاتنا</a>
+  <a href="#gallery" data-ar="المعرض" data-en="Gallery">المعرض</a>
+  <a href="#team" data-ar="الفريق" data-en="Team">الفريق</a>
+  <a href="#contact" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+</div>
 
-<!-- TRUST BAR -->
-<div class="trust-bar fade-in">
-    <div class="container">
-        <div class="trust-label">Why Physical AI</div>
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-robot" style="color:var(--primary-light)"></i></div>
-                <div class="stat-number gradient-text">3</div>
-                <div class="stat-label">Purpose-Built Robots</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-language" style="color:var(--secondary)"></i></div>
-                <div class="stat-number gradient-text">Arabic</div>
-                <div class="stat-label">First AI &amp; Dialect</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-industry" style="color:var(--gold)"></i></div>
-                <div class="stat-number gradient-text">KSA</div>
-                <div class="stat-label">Designed &amp; Manufactured</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fa-solid fa-shield-halved" style="color:var(--coral)"></i></div>
-                <div class="stat-number gradient-text">PDPL</div>
-                <div class="stat-label">Data Compliant</div>
-            </div>
-        </div>
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <div class="tag"><span class="dot"></span><span data-ar="صُنع في السعودية · ذكاء اصطناعي باللهجة" data-en="Made in Saudi Arabia · Arabic-first AI">صُنع في السعودية · ذكاء اصطناعي باللهجة</span></div>
+      <h1 data-ar='روبوتات ذكية<br>لكل <span class="hl">مساحة</span>' data-en='Intelligent robots<br>for every <span class="hl">space</span>'>روبوتات ذكية<br>لكل <span class="hl">مساحة</span></h1>
+      <p class="sub" data-ar="من طاولة المقهى إلى بهو الفندق — روبوتاتنا تُمتِع الضيوف، وتُرشد الزوار، وتُقدّم الخدمة بذكاءٍ سعوديّ الصنع." data-en="From cafe tables to hotel lobbies — our robots entertain guests, assist visitors, and deliver service with Saudi-built intelligence.">من طاولة المقهى إلى بهو الفندق — روبوتاتنا تُمتِع الضيوف، وتُرشد الزوار، وتُقدّم الخدمة بذكاءٍ سعوديّ الصنع.</p>
+      <div class="btns">
+        <a href="#minibot" class="btn-1"><span data-ar="اكتشف الميني بوت" data-en="Discover Mini Bot">اكتشف الميني بوت</span> <i class="fa-solid fa-arrow-left" id="heroarrow"></i></a>
+        <a href="#video" class="btn-2"><i class="fa-solid fa-play"></i><span data-ar="شاهد العرض" data-en="Watch Demo">شاهد العرض</span></a>
+      </div>
     </div>
+    <div class="heroimg reveal">
+      <img src="images/noor_01.jpg" alt="Noor robot at a Riyadh corporate lobby">
+      <div class="cap"><b data-ar="نور — منصّة الاستقبال الذكية" data-en="Noor — Smart Reception Robot">نور — منصّة الاستقبال الذكية</b><span data-ar="الواجهة الراقية لرؤيتنا في الضيافة" data-en="The premium face of our hospitality vision">الواجهة الراقية لرؤيتنا في الضيافة</span></div>
+      <div class="float f1"><div class="l" data-ar="تفاعل الضيوف" data-en="Guest engagement">تفاعل الضيوف</div><div class="v">+40%</div></div>
+      <div class="float f2"><div class="l" data-ar="رضا العملاء" data-en="Satisfaction">رضا العملاء</div><div class="v">★ 4.9</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- KPI -->
+<div class="kpiband">
+  <div class="wrap"><div class="grid">
+    <div class="kpi reveal"><div class="ic"><i class="fa-solid fa-robot"></i></div><div class="v">3</div><div class="lb" data-ar="روبوتات مصمّمة لغرضٍ محدّد" data-en="Purpose-built robots">روبوتات مصمّمة لغرضٍ محدّد</div></div>
+    <div class="kpi reveal d1"><div class="ic"><i class="fa-solid fa-comments"></i></div><div class="v" data-ar="اللهجة" data-en="Arabic">اللهجة</div><div class="lb" data-ar="ذكاء يتفاعل باللهجة السعودية" data-en="AI that speaks the Saudi dialect">ذكاء يتفاعل باللهجة السعودية</div></div>
+    <div class="kpi reveal d2"><div class="ic"><i class="fa-solid fa-industry"></i></div><div class="v" data-ar="السعودية" data-en="KSA">السعودية</div><div class="lb" data-ar="تصميمٌ وتصنيعٌ ودعمٌ محلي" data-en="Designed, built & supported locally">تصميمٌ وتصنيعٌ ودعمٌ محلي</div></div>
+    <div class="kpi reveal d3"><div class="ic"><i class="fa-solid fa-shield-halved"></i></div><div class="v">PDPL</div><div class="lb" data-ar="بياناتٌ تبقى داخل المملكة" data-en="Data stays in the Kingdom">بياناتٌ تبقى داخل المملكة</div></div>
+  </div></div>
 </div>
 
 <!-- ABOUT -->
-<section id="about" class="value-section fade-in">
-    <div class="container">
-        <div class="value-grid">
-            <div class="value-text">
-                <div class="section-eyebrow">Who We Are</div>
-                <h2 class="section-title">Saudi Arabia's <span class="gradient-text">Robotics Studio</span></h2>
-                <p>Physical AI is the Kingdom's first venture studio dedicated to designing, manufacturing, and deploying intelligent robots. We build technology that speaks your language, understands your culture, and enhances your business &mdash; from day one.</p>
-                <p>Our robots are more than machines. They are brand ambassadors, guest companions, and tireless team members designed for the hospitality, education, and service sectors across Saudi Arabia and the Gulf.</p>
-                <div class="value-pillars">
-                    <div class="pillar">
-                        <i class="fa-solid fa-comments"></i>
-                        <h4>Saudi Dialect AI</h4>
-                        <p>Speaks, jokes, and connects in your guests' own dialect</p>
-                    </div>
-                    <div class="pillar">
-                        <i class="fa-solid fa-flag"></i>
-                        <h4>Made in KSA</h4>
-                        <p>Designed, assembled, and supported locally</p>
-                    </div>
-                    <div class="pillar">
-                        <i class="fa-solid fa-lock"></i>
-                        <h4>Data Stays Here</h4>
-                        <p>PDPL-compliant, on-kingdom data processing</p>
-                    </div>
-                    <div class="pillar">
-                        <i class="fa-solid fa-headset"></i>
-                        <h4>Full Support</h4>
-                        <p>Deployment, training, maintenance &mdash; we handle it all</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="vision-card">
-                    <h3><i class="fa-solid fa-lightbulb" style="color:var(--gold);margin-right:8px;"></i>Our Approach</h3>
-                    <p>We own the full stack: hardware design, AI software, Arabic NLP, cloud platform, and on-ground operations. Every robot is conceived in the Kingdom, for the Kingdom &mdash; then engineered for the world.</p>
-                    <div class="vision-badges">
-                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Vision 2030 Aligned</div>
-                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Arabic-First NLP</div>
-                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> MODON Manufacturing</div>
-                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Saudization</div>
-                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Full-Stack Robotics</div>
-                        <div class="v-badge"><i class="fa-solid fa-circle-check"></i> Local Content 40%+</div>
-                    </div>
-                </div>
-            </div>
+<section id="about" class="secalt">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="eyebrow"><span class="ln"></span><span data-ar="من نحن" data-en="Who we are">من نحن</span></div>
+        <h2 class="title" data-ar="استوديو السعودية للروبوتات" data-en="Saudi Arabia's robotics studio">استوديو السعودية للروبوتات</h2>
+        <p data-ar="Physical AI هو أول استوديو سعودي مختص بتصميم وتصنيع ونشر روبوتاتٍ ذكية. نبني تقنيةً تتحدّث لغة ضيوفك، وتفهم ثقافتك، وتُعزّز أعمالك — من اليوم الأول." data-en="Physical AI is the Kingdom's first venture studio dedicated to designing, manufacturing and deploying intelligent robots. We build technology that speaks your language, understands your culture, and enhances your business — from day one.">Physical AI هو أول استوديو سعودي مختص بتصميم وتصنيع ونشر روبوتاتٍ ذكية. نبني تقنيةً تتحدّث لغة ضيوفك، وتفهم ثقافتك، وتُعزّز أعمالك — من اليوم الأول.</p>
+        <p data-ar="روبوتاتنا أكثر من مجرّد آلات. هي سفراء للعلامة، ورفاق للضيوف، وأعضاء فريقٍ لا يكلّون — مصمّمة لقطاعات الضيافة والتعليم والخدمة في المملكة والخليج." data-en="Our robots are more than machines. They are brand ambassadors, guest companions, and tireless team members — built for hospitality, education and service across the Kingdom and the Gulf.">روبوتاتنا أكثر من مجرّد آلات. هي سفراء للعلامة، ورفاق للضيوف، وأعضاء فريقٍ لا يكلّون — مصمّمة لقطاعات الضيافة والتعليم والخدمة في المملكة والخليج.</p>
+        <div class="pillars">
+          <div class="pillar"><i class="fa-solid fa-comments"></i><h4 data-ar="ذكاء باللهجة" data-en="Saudi dialect AI">ذكاء باللهجة</h4><p data-ar="يتحدّث ويمزح بلهجة ضيوفك" data-en="Speaks & jokes in your guests' dialect">يتحدّث ويمزح بلهجة ضيوفك</p></div>
+          <div class="pillar"><i class="fa-solid fa-flag"></i><h4 data-ar="صُنع في السعودية" data-en="Made in KSA">صُنع في السعودية</h4><p data-ar="تصميمٌ وتجميعٌ ودعمٌ محلي" data-en="Designed, assembled & supported locally">تصميمٌ وتجميعٌ ودعمٌ محلي</p></div>
+          <div class="pillar"><i class="fa-solid fa-lock"></i><h4 data-ar="البيانات هنا" data-en="Data stays here">البيانات هنا</h4><p data-ar="معالجةٌ متوافقة مع نظام حماية البيانات" data-en="PDPL-compliant, on-kingdom processing">معالجةٌ متوافقة مع نظام حماية البيانات</p></div>
+          <div class="pillar"><i class="fa-solid fa-headset"></i><h4 data-ar="دعمٌ كامل" data-en="Full support">دعمٌ كامل</h4><p data-ar="نشرٌ وتدريبٌ وصيانة — نتكفّل بها" data-en="Deployment, training & maintenance — we handle it">نشرٌ وتدريبٌ وصيانة — نتكفّل بها</p></div>
         </div>
+      </div>
+      <div class="vision">
+        <h3><i class="fa-solid fa-lightbulb" style="color:var(--gold);margin-inline-end:8px"></i><span data-ar="نهجنا" data-en="Our approach">نهجنا</span></h3>
+        <p data-ar="نملك الطبقات كاملةً: تصميم العتاد، برمجيات الذكاء، معالجة اللهجة العربية، المنصّة السحابية، والعمليات الميدانية. كل روبوتٍ يُولد في المملكة، للمملكة، ثم يُهندَس للعالم." data-en="We own the full stack: hardware design, AI software, Arabic NLP, cloud platform and on-ground operations. Every robot is conceived in the Kingdom, for the Kingdom — then engineered for the world.">نملك الطبقات كاملةً: تصميم العتاد، برمجيات الذكاء، معالجة اللهجة العربية، المنصّة السحابية، والعمليات الميدانية. كل روبوتٍ يُولد في المملكة، للمملكة، ثم يُهندَس للعالم.</p>
+        <div class="badges">
+          <span class="vbadge"><i class="fa-solid fa-circle-check"></i><span data-ar="متوائم مع رؤية 2030" data-en="Vision 2030 aligned">متوائم مع رؤية 2030</span></span>
+          <span class="vbadge"><i class="fa-solid fa-circle-check"></i><span data-ar="ذكاء باللهجة العربية" data-en="Arabic-first NLP">ذكاء باللهجة العربية</span></span>
+          <span class="vbadge"><i class="fa-solid fa-circle-check"></i><span data-ar="تصنيع عبر مودن" data-en="MODON manufacturing">تصنيع عبر مودن</span></span>
+          <span class="vbadge"><i class="fa-solid fa-circle-check"></i><span data-ar="منظومة سعودية متكاملة" data-en="Saudi-founded">منظومة سعودية متكاملة</span></span>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- MINI BOT DEEP DIVE -->
-<section id="minibot" class="product-lineup-section fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Our Flagship</div>
-            <h2 class="section-title">Meet <span class="gradient-text">Mini Bot</span></h2>
-            <p class="section-sub">A tabletop AI companion that turns any table into an interactive experience. No app download. No screen on the robot. Just scan and play.</p>
+<!-- MINI BOT FLAGSHIP -->
+<section id="minibot">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="ln"></span><span data-ar="منتجنا الرئيسي" data-en="Our flagship">منتجنا الرئيسي</span></div>
+    <div class="prod-hero" style="margin-top:14px">
+      <div class="prod-info reveal">
+        <div class="prodbadge bdg-live"><i class="fa-solid fa-circle" style="font-size:7px"></i><span data-ar="متاح الآن" data-en="Now available">متاح الآن</span></div>
+        <h3 data-ar="تعرّف على الميني بوت" data-en="Meet Mini Bot">تعرّف على الميني بوت</h3>
+        <p data-ar="رفيقٌ ذكيٌّ مكتبي يحوّل أي طاولة إلى تجربة تفاعلية. يتفاعل الضيوف عبر هواتفهم — يلعبون، يطلبون، يكسبون مكافآت — بينما يتفاعل الروبوت، يرقص، ويُحيي المكان. ترفيهٌ وتعليمٌ وخدمةٌ في روبوتٍ واحد معبّر. لا تطبيق للتحميل، ولا شاشة على الروبوت: امسح الرمز والعب." data-en="A tabletop AI companion that turns any table into an interactive experience. Guests interact through their phones — playing games, ordering, earning rewards — while the robot reacts, dances and brings the space to life. Entertainment, education and service in one expressive robot. No app download, no screen on the robot: just scan and play.">رفيقٌ ذكيٌّ مكتبي يحوّل أي طاولة إلى تجربة تفاعلية. يتفاعل الضيوف عبر هواتفهم — يلعبون، يطلبون، يكسبون مكافآت — بينما يتفاعل الروبوت، يرقص، ويُحيي المكان. ترفيهٌ وتعليمٌ وخدمةٌ في روبوتٍ واحد معبّر. لا تطبيق للتحميل، ولا شاشة على الروبوت: امسح الرمز والعب.</p>
+        <div class="specs">
+          <div class="spec"><i class="fa-solid fa-qrcode"></i><span data-ar="واجهة عبر الهاتف" data-en="Phone QR interface">واجهة عبر الهاتف</span></div>
+          <div class="spec"><i class="fa-solid fa-gamepad"></i><span data-ar="ألعاب تفاعلية" data-en="Interactive games">ألعاب تفاعلية</span></div>
+          <div class="spec"><i class="fa-solid fa-utensils"></i><span data-ar="طلب ذكي" data-en="Smart ordering">طلب ذكي</span></div>
+          <div class="spec"><i class="fa-solid fa-trophy"></i><span data-ar="ولاء ومكافآت" data-en="Loyalty & rewards">ولاء ومكافآت</span></div>
+          <div class="spec"><i class="fa-solid fa-comments"></i><span data-ar="ذكاء باللهجة السعودية" data-en="Saudi dialect AI">ذكاء باللهجة السعودية</span></div>
+          <div class="spec"><i class="fa-solid fa-camera"></i><span data-ar="كاميرا HD 13MP" data-en="HD 13MP camera">كاميرا HD 13MP</span></div>
+          <div class="spec"><i class="fa-solid fa-gears"></i><span data-ar="14 محرّكاً دقيقاً" data-en="14 micro-motors">14 محرّكاً دقيقاً</span></div>
+          <div class="spec"><i class="fa-solid fa-chart-simple"></i><span data-ar="تحليلات للمنشأة" data-en="Venue analytics">تحليلات للمنشأة</span></div>
         </div>
-
-        <div class="product-hero-grid">
-            <div class="product-info">
-                <div class="product-badge badge-live"><i class="fa-solid fa-circle" style="font-size:0.45rem"></i> Now Available</div>
-                <h3>Your Smartest <span class="gradient-text">Team Member</span></h3>
-                <p>Mini Bot sits on the table and creates unforgettable moments. Guests interact through their phones &mdash; playing games, browsing menus, earning rewards &mdash; while the robot reacts, dances, and brings the space to life. It's entertainment, education, and service all in one expressive little robot.</p>
-                <div class="product-specs">
-                    <div class="p-spec"><i class="fa-solid fa-qrcode"></i> QR Phone Interface</div>
-                    <div class="p-spec"><i class="fa-solid fa-gamepad"></i> Interactive Games</div>
-                    <div class="p-spec"><i class="fa-solid fa-utensils"></i> Smart Ordering</div>
-                    <div class="p-spec"><i class="fa-solid fa-trophy"></i> Loyalty & Rewards</div>
-                    <div class="p-spec"><i class="fa-solid fa-comments"></i> Saudi Dialect AI</div>
-                    <div class="p-spec"><i class="fa-solid fa-chart-simple"></i> Venue Analytics</div>
-                    <div class="p-spec"><i class="fa-solid fa-camera"></i> HD Camera 13MP</div>
-                    <div class="p-spec"><i class="fa-solid fa-gears"></i> 14 Micro Motors</div>
-                </div>
-            </div>
-            <div class="product-media">
-                <div class="product-img-wrap">
-                    <img src="images/album_03.jpg" alt="Mini Bot at a cafe table">
-                </div>
-            </div>
-        </div>
+      </div>
+      <div class="prodimg reveal d1">
+        <img src="images/album_03.jpg" alt="Mini Bot at a cafe table">
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- VIDEO -->
-<section class="video-section fade-in" id="video">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">See It In Action</div>
-            <h2 class="section-title">Mini Bot <span class="gradient-text">Live Demo</span></h2>
-            <p class="section-sub">Watch how Mini Bot transforms a simple cafe visit into a memorable, interactive experience for every guest.</p>
-        </div>
-        <div class="video-wrapper">
-            <video controls poster="images/album_04.jpg">
-                <source src="images/minibot_video.mp4" type="video/mp4">
-            </video>
-        </div>
+<section id="video" class="sectint">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:46px">
+      <div class="eyebrow reveal" style="justify-content:center"><span class="ln"></span><span data-ar="شاهده يعمل" data-en="See it in action">شاهده يعمل</span></div>
+      <h2 class="title reveal" style="margin-inline:auto;text-align:center" data-ar="الميني بوت — عرض حيّ" data-en="Mini Bot — live demo">الميني بوت — عرض حيّ</h2>
+      <p class="lead reveal" style="margin-inline:auto" data-ar="شاهد كيف يحوّل الميني بوت زيارة مقهى بسيطة إلى تجربةٍ تفاعليةٍ لا تُنسى لكل ضيف." data-en="Watch how Mini Bot turns a simple cafe visit into a memorable, interactive experience for every guest.">شاهد كيف يحوّل الميني بوت زيارة مقهى بسيطة إلى تجربةٍ تفاعليةٍ لا تُنسى لكل ضيف.</p>
     </div>
+    <div class="videobox reveal">
+      <video controls poster="images/album_04.jpg"><source src="images/minibot_video.mp4" type="video/mp4"></video>
+    </div>
+  </div>
 </section>
 
-<!-- SCENARIOS: MINI BOT USE CASES -->
-<section id="scenarios" class="scenarios-section fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Where Mini Bot Shines</div>
-            <h2 class="section-title">One Robot. <span class="gradient-text">Endless Possibilities.</span></h2>
-            <p class="section-sub">From specialty coffee shops to living rooms, Mini Bot adapts to any environment and creates value for every user.</p>
-        </div>
-        <div class="scenario-grid">
-            <!-- Cafe -->
-            <div class="scenario-card fade-in fade-in-delay-1">
-                <div class="scenario-img">
-                    <img src="images/album_03.jpg" alt="Mini Bot in a cafe" loading="lazy">
-                    <span class="scenario-tag"><i class="fa-solid fa-mug-hot"></i>&ensp;Cafes</span>
-                </div>
-                <div class="scenario-body">
-                    <h3>Cafes &amp; Coffee Shops</h3>
-                    <p>Guests scan, play trivia, order food, and earn loyalty rewards &mdash; all while Mini Bot dances, celebrates wins, and keeps them at the table 40% longer.</p>
-                    <div class="scenario-benefits">
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> +40% dwell time</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Smart upselling</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Loyalty engine</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Restaurant -->
-            <div class="scenario-card fade-in fade-in-delay-2">
-                <div class="scenario-img">
-                    <img src="images/album_04.jpg" alt="Mini Bot in a restaurant" loading="lazy">
-                    <span class="scenario-tag"><i class="fa-solid fa-utensils"></i>&ensp;Restaurants</span>
-                </div>
-                <div class="scenario-body">
-                    <h3>Restaurants &amp; Dining</h3>
-                    <p>Interactive menu browsing, wait-time entertainment, and tableside ordering. Mini Bot turns waiting into playing and browsing into buying.</p>
-                    <div class="scenario-benefits">
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Digital menu</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Wait-time fun</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Higher check size</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Hotel -->
-            <div class="scenario-card fade-in fade-in-delay-3">
-                <div class="scenario-img">
-                    <img src="images/album_01.png" alt="Mini Bot in a hotel lobby" loading="lazy">
-                    <span class="scenario-tag"><i class="fa-solid fa-hotel"></i>&ensp;Hotels</span>
-                </div>
-                <div class="scenario-body">
-                    <h3>Hotels &amp; Resorts</h3>
-                    <p>Lobby concierge, in-room entertainment, and guest experience enhancement. Guests discover services and engage with the brand through interactive play.</p>
-                    <div class="scenario-benefits">
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Concierge</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Brand engagement</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Service discovery</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Kids at Home -->
-            <div class="scenario-card fade-in fade-in-delay-1">
-                <div class="scenario-img">
-                    <img src="images/album_05.png" alt="Mini Bot with children" loading="lazy">
-                    <span class="scenario-tag"><i class="fa-solid fa-children"></i>&ensp;Kids</span>
-                </div>
-                <div class="scenario-body">
-                    <h3>Home &mdash; Kids &amp; Education</h3>
-                    <p>A patient AI tutor that explains lessons in a child-friendly way, listens carefully, gently corrects mistakes, and makes learning feel like play. Arabic content aligned with Saudi curriculum.</p>
-                    <div class="scenario-benefits">
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Saudi curriculum</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Patient tutor</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Safe &amp; PDPL</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Adults at Home -->
-            <div class="scenario-card fade-in fade-in-delay-2">
-                <div class="scenario-img">
-                    <img src="images/album_07.jpg" alt="Mini Bot entertainment at home" loading="lazy">
-                    <span class="scenario-tag"><i class="fa-solid fa-house"></i>&ensp;Home</span>
-                </div>
-                <div class="scenario-body">
-                    <h3>Home &mdash; Adult Entertainment</h3>
-                    <p>Game nights, trivia parties, and interactive storytelling for adults. Mini Bot hosts the fun, keeps score, and makes every gathering more memorable.</p>
-                    <div class="scenario-benefits">
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Game night host</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Trivia battles</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Social catalyst</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Skills Assessment -->
-            <div class="scenario-card fade-in fade-in-delay-3">
-                <div class="scenario-img">
-                    <img src="images/album_08.jpg" alt="Mini Bot skills assessment" loading="lazy">
-                    <span class="scenario-tag"><i class="fa-solid fa-graduation-cap"></i>&ensp;Training</span>
-                </div>
-                <div class="scenario-body">
-                    <h3>Skills Assessment &amp; Training</h3>
-                    <p>Deployed in cafes for training academies &mdash; Mini Bot interacts with visitors in Saudi dialect, assesses skills, identifies gaps, and delivers personalized development reports.</p>
-                    <div class="scenario-benefits">
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> AI assessment</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Data reports</span>
-                        <span class="s-benefit"><i class="fa-solid fa-check"></i> Scalable</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- SCENARIOS -->
+<section id="scenarios">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:46px">
+      <div class="eyebrow reveal" style="justify-content:center"><span class="ln"></span><span data-ar="أين يتألّق الميني بوت" data-en="Where Mini Bot shines">أين يتألّق الميني بوت</span></div>
+      <h2 class="title reveal" style="margin-inline:auto;text-align:center" data-ar="روبوتٌ واحد. منافع لا تُحصى." data-en="One robot. Endless value.">روبوتٌ واحد. منافع لا تُحصى.</h2>
+      <p class="lead reveal" style="margin-inline:auto" data-ar="لكل نوعٍ من المستخدمين منفعةٌ مختلفة — تعرّف كيف يخدم الميني بوت المقاهي والمطاعم والفنادق والأسر والمؤسسات." data-en="Every type of user gains differently — see how Mini Bot serves cafes, restaurants, hotels, families and institutions.">لكل نوعٍ من المستخدمين منفعةٌ مختلفة — تعرّف كيف يخدم الميني بوت المقاهي والمطاعم والفنادق والأسر والمؤسسات.</p>
     </div>
+    <div class="grid3">
+      <div class="scen reveal">
+        <div class="img"><img src="images/album_03.jpg" alt="Cafe" loading="lazy"><span class="tag"><i class="fa-solid fa-mug-hot"></i><span data-ar="المقاهي" data-en="Cafes">المقاهي</span></span></div>
+        <div class="body"><h3 data-ar="المقاهي وأماكن القهوة" data-en="Cafes & coffee shops">المقاهي وأماكن القهوة</h3><p data-ar="يمسح الضيوف الرمز، يلعبون، يطلبون، ويكسبون نقاط ولاء — بينما يرقص الميني بوت ويحتفل بالفوز ويُبقيهم على الطاولة أطول بنسبة 40%." data-en="Guests scan, play trivia, order food and earn loyalty rewards — while Mini Bot dances, celebrates wins and keeps them at the table 40% longer.">يمسح الضيوف الرمز، يلعبون، يطلبون، ويكسبون نقاط ولاء — بينما يرقص الميني بوت ويحتفل بالفوز ويُبقيهم على الطاولة أطول بنسبة 40%.</p>
+          <div class="benefits"><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="+40% مدّة البقاء" data-en="+40% dwell time">+40% مدّة البقاء</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="بيعٌ تكميلي" data-en="Smart upsell">بيعٌ تكميلي</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="محرّك ولاء" data-en="Loyalty engine">محرّك ولاء</span></span></div></div>
+      </div>
+      <div class="scen reveal d1">
+        <div class="img"><img src="images/album_04.jpg" alt="Restaurant" loading="lazy"><span class="tag"><i class="fa-solid fa-utensils"></i><span data-ar="المطاعم" data-en="Restaurants">المطاعم</span></span></div>
+        <div class="body"><h3 data-ar="المطاعم وأماكن الطعام" data-en="Restaurants & dining">المطاعم وأماكن الطعام</h3><p data-ar="تصفّحٌ تفاعلي للقائمة، ترفيهٌ أثناء الانتظار، وطلبٌ من الطاولة. يحوّل الميني بوت الانتظار إلى لعب، والتصفّح إلى شراء." data-en="Interactive menu browsing, wait-time entertainment and tableside ordering. Mini Bot turns waiting into playing and browsing into buying.">تصفّحٌ تفاعلي للقائمة، ترفيهٌ أثناء الانتظار، وطلبٌ من الطاولة. يحوّل الميني بوت الانتظار إلى لعب، والتصفّح إلى شراء.</p>
+          <div class="benefits"><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="قائمة رقمية" data-en="Digital menu">قائمة رقمية</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="متعة الانتظار" data-en="Wait-time fun">متعة الانتظار</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="فاتورة أعلى" data-en="Higher check">فاتورة أعلى</span></span></div></div>
+      </div>
+      <div class="scen reveal d2">
+        <div class="img"><img src="images/album_01.png" alt="Hotel" loading="lazy"><span class="tag"><i class="fa-solid fa-hotel"></i><span data-ar="الفنادق" data-en="Hotels">الفنادق</span></span></div>
+        <div class="body"><h3 data-ar="الفنادق والمنتجعات" data-en="Hotels & resorts">الفنادق والمنتجعات</h3><p data-ar="كونسيرج في البهو، ترفيهٌ داخل الغرف، وتعزيزٌ لتجربة الضيف. يكتشف الضيوف الخدمات ويتفاعلون مع العلامة عبر اللعب." data-en="Lobby concierge, in-room entertainment and guest-experience enhancement. Guests discover services and engage with the brand through play.">كونسيرج في البهو، ترفيهٌ داخل الغرف، وتعزيزٌ لتجربة الضيف. يكتشف الضيوف الخدمات ويتفاعلون مع العلامة عبر اللعب.</p>
+          <div class="benefits"><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="كونسيرج" data-en="Concierge">كونسيرج</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="تفاعل مع العلامة" data-en="Brand engagement">تفاعل مع العلامة</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="اكتشاف الخدمات" data-en="Service discovery">اكتشاف الخدمات</span></span></div></div>
+      </div>
+      <div class="scen reveal">
+        <div class="img"><img src="images/album_05.png" alt="Kids" loading="lazy"><span class="tag"><i class="fa-solid fa-children"></i><span data-ar="الأطفال" data-en="Kids">الأطفال</span></span></div>
+        <div class="body"><h3 data-ar="المنزل — الأطفال والتعليم" data-en="Home — kids & education">المنزل — الأطفال والتعليم</h3><p data-ar="معلّمٌ ذكيٌّ صبور يشرح الدروس بأسلوبٍ قريبٍ للطفل، يُنصِت باهتمام، يُصحّح الأخطاء بلطف، ويجعل التعلّم لعباً — بمحتوى عربي يتوافق مع المنهج السعودي." data-en="A patient AI tutor that explains lessons in a child-friendly way, listens carefully, gently corrects mistakes and makes learning feel like play — with Arabic content aligned to the Saudi curriculum.">معلّمٌ ذكيٌّ صبور يشرح الدروس بأسلوبٍ قريبٍ للطفل، يُنصِت باهتمام، يُصحّح الأخطاء بلطف، ويجعل التعلّم لعباً — بمحتوى عربي يتوافق مع المنهج السعودي.</p>
+          <div class="benefits"><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="منهج سعودي" data-en="Saudi curriculum">منهج سعودي</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="معلّم صبور" data-en="Patient tutor">معلّم صبور</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="آمن ومتوافق" data-en="Safe & PDPL">آمن ومتوافق</span></span></div></div>
+      </div>
+      <div class="scen reveal d1">
+        <div class="img"><img src="images/album_07.jpg" alt="Home entertainment" loading="lazy"><span class="tag"><i class="fa-solid fa-house"></i><span data-ar="المنزل" data-en="Home">المنزل</span></span></div>
+        <div class="body"><h3 data-ar="المنزل — ترفيه الكبار" data-en="Home — adult entertainment">المنزل — ترفيه الكبار</h3><p data-ar="ليالي ألعاب، مسابقات معلومات، وقصصٌ تفاعلية للكبار. يستضيف الميني بوت المتعة، يحتسب النقاط، ويجعل كل لقاءٍ أكثر إمتاعاً." data-en="Game nights, trivia parties and interactive storytelling for adults. Mini Bot hosts the fun, keeps score, and makes every gathering more memorable.">ليالي ألعاب، مسابقات معلومات، وقصصٌ تفاعلية للكبار. يستضيف الميني بوت المتعة، يحتسب النقاط، ويجعل كل لقاءٍ أكثر إمتاعاً.</p>
+          <div class="benefits"><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="مُقدّم ليالي اللعب" data-en="Game-night host">مُقدّم ليالي اللعب</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="معارك معلومات" data-en="Trivia battles">معارك معلومات</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="محفّز اجتماعي" data-en="Social catalyst">محفّز اجتماعي</span></span></div></div>
+      </div>
+      <div class="scen reveal d2">
+        <div class="img"><img src="images/album_08.jpg" alt="Training" loading="lazy"><span class="tag"><i class="fa-solid fa-graduation-cap"></i><span data-ar="التدريب" data-en="Training">التدريب</span></span></div>
+        <div class="body"><h3 data-ar="تقييم المهارات والتدريب" data-en="Skills assessment & training">تقييم المهارات والتدريب</h3><p data-ar="يُنشَر في المقاهي لصالح أكاديميات التدريب — يتفاعل الميني بوت باللهجة السعودية، يقيّم المهارات، يحدّد الفجوات، ويُرسل تقارير تطويرٍ مخصّصة." data-en="Deployed in cafes for training academies — Mini Bot interacts in Saudi dialect, assesses skills, identifies gaps and delivers personalized development reports.">يُنشَر في المقاهي لصالح أكاديميات التدريب — يتفاعل الميني بوت باللهجة السعودية، يقيّم المهارات، يحدّد الفجوات، ويُرسل تقارير تطويرٍ مخصّصة.</p>
+          <div class="benefits"><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="تقييم بالذكاء" data-en="AI assessment">تقييم بالذكاء</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="تقارير بيانات" data-en="Data reports">تقارير بيانات</span></span><span class="benefit"><i class="fa-solid fa-check"></i><span data-ar="قابل للتوسّع" data-en="Scalable">قابل للتوسّع</span></span></div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how-section fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Seamless Experience</div>
-            <h2 class="section-title">How <span class="gradient-text">Mini Bot</span> Works</h2>
-            <p class="section-sub">No app download. No screen on the robot. Your phone is the interface &mdash; Mini Bot is the personality.</p>
-        </div>
-        <div class="steps-row">
-            <div class="step">
-                <div class="step-num">1</div>
-                <h3>Scan</h3>
-                <p>Scan Mini Bot's QR code &mdash; your phone connects instantly via the web.</p>
-            </div>
-            <div class="step">
-                <div class="step-num">2</div>
-                <h3>Play &amp; Order</h3>
-                <p>Challenge friends to games, browse the menu, and order directly from your phone.</p>
-            </div>
-            <div class="step">
-                <div class="step-num">3</div>
-                <h3>Mini Bot Reacts</h3>
-                <p>The robot celebrates your wins, dances, and creates unforgettable table moments.</p>
-            </div>
-            <div class="step">
-                <div class="step-num">4</div>
-                <h3>Earn &amp; Return</h3>
-                <p>Collect points, unlock rewards, climb leaderboards &mdash; reasons to come back.</p>
-            </div>
-        </div>
+<section class="sectint">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:46px">
+      <div class="eyebrow reveal" style="justify-content:center"><span class="ln"></span><span data-ar="تجربة سلسة" data-en="Seamless experience">تجربة سلسة</span></div>
+      <h2 class="title reveal" style="margin-inline:auto;text-align:center" data-ar="كيف يعمل الميني بوت" data-en="How Mini Bot works">كيف يعمل الميني بوت</h2>
+      <p class="lead reveal" style="margin-inline:auto" data-ar="لا تطبيق للتحميل، ولا شاشة على الروبوت. هاتفك هو الواجهة — والميني بوت هو الشخصية." data-en="No app download, no screen on the robot. Your phone is the interface — Mini Bot is the personality.">لا تطبيق للتحميل، ولا شاشة على الروبوت. هاتفك هو الواجهة — والميني بوت هو الشخصية.</p>
     </div>
+    <div class="steps reveal">
+      <div class="step"><div class="n">1</div><h4 data-ar="امسح" data-en="Scan">امسح</h4><p data-ar="امسح رمز QR — يتصل هاتفك فوراً عبر الويب." data-en="Scan Mini Bot's QR — your phone connects instantly via the web.">امسح رمز QR — يتصل هاتفك فوراً عبر الويب.</p></div>
+      <div class="step"><div class="n">2</div><h4 data-ar="العب واطلب" data-en="Play & order">العب واطلب</h4><p data-ar="تحدّى أصدقاءك، تصفّح القائمة، واطلب من هاتفك مباشرةً." data-en="Challenge friends, browse the menu and order directly from your phone.">تحدّى أصدقاءك، تصفّح القائمة، واطلب من هاتفك مباشرةً.</p></div>
+      <div class="step"><div class="n">3</div><h4 data-ar="يتفاعل الميني بوت" data-en="Mini Bot reacts">يتفاعل الميني بوت</h4><p data-ar="يحتفل بفوزك، يرقص، ويصنع لحظاتٍ لا تُنسى على الطاولة." data-en="It celebrates your wins, dances and creates unforgettable table moments.">يحتفل بفوزك، يرقص، ويصنع لحظاتٍ لا تُنسى على الطاولة.</p></div>
+      <div class="step"><div class="n">4</div><h4 data-ar="اكسب وعُد" data-en="Earn & return">اكسب وعُد</h4><p data-ar="اجمع النقاط، افتح المكافآت، وتصدّر لوحة المتصدّرين — أسبابٌ للعودة." data-en="Collect points, unlock rewards and climb the leaderboard — reasons to come back.">اجمع النقاط، افتح المكافآت، وتصدّر لوحة المتصدّرين — أسبابٌ للعودة.</p></div>
+    </div>
+  </div>
 </section>
 
-<!-- ENGAGEMENT -->
-<section class="fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Built-In Intelligence</div>
-            <h2 class="section-title">What Mini Bot <span class="gradient-text">Can Do</span></h2>
-            <p class="section-sub">A comprehensive platform of features designed to delight guests and deliver business value simultaneously.</p>
-        </div>
-        <div class="engage-grid">
-            <div class="engage-card">
-                <div class="engage-icon i1"><i class="fa-solid fa-brain"></i></div>
-                <div>
-                    <h3>Trivia &amp; Knowledge Games</h3>
-                    <p>Brand-themed quizzes, general knowledge, and custom questions &mdash; head-to-head or solo mode.</p>
-                </div>
-            </div>
-            <div class="engage-card">
-                <div class="engage-icon i2"><i class="fa-solid fa-utensils"></i></div>
-                <div>
-                    <h3>Smart Menu &amp; Ordering</h3>
-                    <p>Visual menu browsing with AI recommendations. Order and pay without waiting for a waiter.</p>
-                </div>
-            </div>
-            <div class="engage-card">
-                <div class="engage-icon i3"><i class="fa-solid fa-trophy"></i></div>
-                <div>
-                    <h3>Loyalty &amp; Leaderboards</h3>
-                    <p>Points, badges, and venue-wide leaderboards that gamify every visit and drive repeat traffic.</p>
-                </div>
-            </div>
-            <div class="engage-card">
-                <div class="engage-icon i4"><i class="fa-solid fa-graduation-cap"></i></div>
-                <div>
-                    <h3>Educational Content</h3>
-                    <p>Arabic curriculum-aligned lessons for kids. A tutor that explains, listens, and gently corrects.</p>
-                </div>
-            </div>
-            <div class="engage-card">
-                <div class="engage-icon i5"><i class="fa-solid fa-chart-column"></i></div>
-                <div>
-                    <h3>Venue Analytics</h3>
-                    <p>Real-time dashboard with guest preferences, dwell time, popular items, and visit patterns.</p>
-                </div>
-            </div>
-            <div class="engage-card">
-                <div class="engage-icon i6"><i class="fa-solid fa-palette"></i></div>
-                <div>
-                    <h3>Custom Branding</h3>
-                    <p>White-label the experience with your logo, colors, menu, and loyalty program.</p>
-                </div>
-            </div>
-        </div>
+<!-- FEATURES -->
+<section>
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:46px">
+      <div class="eyebrow reveal" style="justify-content:center"><span class="ln"></span><span data-ar="ذكاءٌ مدمج" data-en="Built-in intelligence">ذكاءٌ مدمج</span></div>
+      <h2 class="title reveal" style="margin-inline:auto;text-align:center" data-ar="ما الذي يستطيع الميني بوت فعله" data-en="What Mini Bot can do">ما الذي يستطيع الميني بوت فعله</h2>
     </div>
+    <div class="grid2">
+      <div class="feat reveal"><div class="ic" style="background:rgba(0,108,53,.1);color:var(--green)"><i class="fa-solid fa-brain"></i></div><div><h4 data-ar="ألعاب معرفة ومسابقات" data-en="Trivia & knowledge games">ألعاب معرفة ومسابقات</h4><p data-ar="أسئلة بعلامة المنشأة وعامة — فردية أو مواجهة." data-en="Brand-themed and general quizzes — head-to-head or solo.">أسئلة بعلامة المنشأة وعامة — فردية أو مواجهة.</p></div></div>
+      <div class="feat reveal d1"><div class="ic" style="background:var(--tech-soft);color:var(--tech)"><i class="fa-solid fa-utensils"></i></div><div><h4 data-ar="قائمة وطلب ذكي" data-en="Smart menu & ordering">قائمة وطلب ذكي</h4><p data-ar="تصفّح مرئي مع توصيات بالذكاء، وطلبٌ ودفعٌ دون انتظار." data-en="Visual browsing with AI recommendations, order & pay without waiting.">تصفّح مرئي مع توصيات بالذكاء، وطلبٌ ودفعٌ دون انتظار.</p></div></div>
+      <div class="feat reveal"><div class="ic" style="background:rgba(200,166,93,.15);color:var(--gold-deep)"><i class="fa-solid fa-trophy"></i></div><div><h4 data-ar="ولاء ولوحات متصدّرين" data-en="Loyalty & leaderboards">ولاء ولوحات متصدّرين</h4><p data-ar="نقاط وشارات ولوحات على مستوى المنشأة تُكثّر الزيارات." data-en="Points, badges and venue-wide leaderboards that drive repeat visits.">نقاط وشارات ولوحات على مستوى المنشأة تُكثّر الزيارات.</p></div></div>
+      <div class="feat reveal d1"><div class="ic" style="background:rgba(0,108,53,.1);color:var(--green)"><i class="fa-solid fa-graduation-cap"></i></div><div><h4 data-ar="محتوى تعليمي" data-en="Educational content">محتوى تعليمي</h4><p data-ar="دروسٌ عربية متوافقة مع المنهج، يشرح ويُنصِت ويُصحّح." data-en="Arabic curriculum-aligned lessons — explains, listens and corrects.">دروسٌ عربية متوافقة مع المنهج، يشرح ويُنصِت ويُصحّح.</p></div></div>
+      <div class="feat reveal"><div class="ic" style="background:var(--tech-soft);color:var(--tech)"><i class="fa-solid fa-chart-column"></i></div><div><h4 data-ar="تحليلات المنشأة" data-en="Venue analytics">تحليلات المنشأة</h4><p data-ar="لوحة لحظية بتفضيلات الضيوف ومدّة البقاء وأكثر الأصناف طلباً." data-en="Real-time dashboard of guest preferences, dwell time and popular items.">لوحة لحظية بتفضيلات الضيوف ومدّة البقاء وأكثر الأصناف طلباً.</p></div></div>
+      <div class="feat reveal d1"><div class="ic" style="background:rgba(200,166,93,.15);color:var(--gold-deep)"><i class="fa-solid fa-palette"></i></div><div><h4 data-ar="هوية مخصّصة" data-en="Custom branding">هوية مخصّصة</h4><p data-ar="خصّص التجربة بشعارك وألوانك وقائمتك وبرنامج ولائك." data-en="White-label with your logo, colors, menu and loyalty program.">خصّص التجربة بشعارك وألوانك وقائمتك وبرنامج ولائك.</p></div></div>
+    </div>
+  </div>
 </section>
 
 <!-- GALLERY -->
-<section id="gallery" class="gallery-section fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">In the Wild</div>
-            <h2 class="section-title">Moments with <span class="gradient-text">Our Robots</span></h2>
-            <p class="section-sub">From luxury lobbies to family tables &mdash; see how our robots create unforgettable experiences.</p>
-        </div>
-        <div class="gallery-masonry">
-            <div class="g-item g-tall">
-                <img src="images/noor_01.jpg" alt="Noor at a corporate lobby" loading="lazy">
-                <div class="g-caption"><span>Noor &mdash; Corporate Reception</span></div>
-            </div>
-            <div class="g-item">
-                <img src="images/album_06.jpg" alt="Interactive family time" loading="lazy">
-                <div class="g-caption"><span>Family Entertainment</span></div>
-            </div>
-            <div class="g-item">
-                <img src="images/album_07.jpg" alt="Friends playing trivia" loading="lazy">
-                <div class="g-caption"><span>Trivia Night</span></div>
-            </div>
-            <div class="g-item">
-                <img src="images/album_08.jpg" alt="Knowledge challenge" loading="lazy">
-                <div class="g-caption"><span>Knowledge Challenge</span></div>
-            </div>
-            <div class="g-item g-wide">
-                <img src="images/album_09.jpg" alt="Group activity" loading="lazy">
-                <div class="g-caption"><span>Group Activities &amp; Team Building</span></div>
-            </div>
-        </div>
+<section id="gallery" class="sectint">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:46px">
+      <div class="eyebrow reveal" style="justify-content:center"><span class="ln"></span><span data-ar="على أرض الواقع" data-en="In the wild">على أرض الواقع</span></div>
+      <h2 class="title reveal" style="margin-inline:auto;text-align:center" data-ar="لحظاتٌ مع روبوتاتنا" data-en="Moments with our robots">لحظاتٌ مع روبوتاتنا</h2>
     </div>
+    <div class="gallery reveal">
+      <div class="g-item g-tall"><img src="images/noor_01.jpg" alt="Noor lobby" loading="lazy"><div class="cap" data-ar="نور — استقبال المنشآت" data-en="Noor — Corporate Reception">نور — استقبال المنشآت</div></div>
+      <div class="g-item"><img src="images/album_06.jpg" alt="Family" loading="lazy"><div class="cap" data-ar="ترفيه عائلي" data-en="Family Entertainment">ترفيه عائلي</div></div>
+      <div class="g-item"><img src="images/album_07.jpg" alt="Trivia" loading="lazy"><div class="cap" data-ar="ليلة مسابقات" data-en="Trivia Night">ليلة مسابقات</div></div>
+      <div class="g-item"><img src="images/album_08.jpg" alt="Challenge" loading="lazy"><div class="cap" data-ar="تحدّي المعرفة" data-en="Knowledge Challenge">تحدّي المعرفة</div></div>
+      <div class="g-item g-wide"><img src="images/album_09.jpg" alt="Group" loading="lazy"><div class="cap" data-ar="أنشطة جماعية وبناء فرق" data-en="Group Activities & Team Building">أنشطة جماعية وبناء فرق</div></div>
+    </div>
+  </div>
 </section>
 
 <!-- NOOR & SAQR -->
-<section id="noor-saqr" class="fade-in">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Coming Soon</div>
-            <h2 class="section-title">More Robots. <span class="gradient-text">Bigger Impact.</span></h2>
-            <p class="section-sub">Mini Bot is just the beginning. Meet the next generation of Physical AI robots expanding into new spaces.</p>
-        </div>
-
-        <!-- NOOR -->
-        <div class="product-spotlight">
-            <div class="ps-info">
-                <div class="product-badge badge-dev"><i class="fa-solid fa-flask"></i> In Development</div>
-                <h3>Noor <span class="gradient-text">&mdash; The Face of Hospitality</span></h3>
-                <p>A humanoid reception robot with lifelike expressions, designed for hotel lobbies, corporate offices, and government service centers. Noor greets visitors by name, manages check-ins, provides wayfinding, and delivers concierge services &mdash; all in fluent Arabic dialect.</p>
-                <ul class="ps-uses">
-                    <li><i class="fa-solid fa-check"></i> <strong>Hotels:</strong> Welcome guests, manage check-in queues, recommend services, and provide 24/7 lobby presence.</li>
-                    <li><i class="fa-solid fa-check"></i> <strong>Corporate Offices:</strong> Visitor registration, badge printing, meeting room wayfinding, and employee notifications.</li>
-                    <li><i class="fa-solid fa-check"></i> <strong>Government Centers:</strong> Queue management, form assistance, multilingual support for citizens and residents.</li>
-                    <li><i class="fa-solid fa-check"></i> <strong>Healthcare:</strong> Patient check-in, department wayfinding, and appointment scheduling at hospital reception.</li>
-                </ul>
-            </div>
-            <div class="ps-media">
-                <div class="ps-img-wrap">
-                    <img src="images/noor_01.jpg" alt="Noor reception robot greeting visitors at a corporate lobby">
-                </div>
-            </div>
-        </div>
-
-        <!-- SAQR -->
-        <div class="product-spotlight reverse">
-            <div class="ps-info">
-                <div class="product-badge badge-dev"><i class="fa-solid fa-flask"></i> In Development</div>
-                <h3>Saqr <span style="background:linear-gradient(135deg,#fdcb6e,#e17055);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">&mdash; Service &amp; Delivery</span></h3>
-                <p>An autonomous multi-compartment service robot built for indoor logistics. Saqr navigates complex environments to deliver room service, transport goods between floors, and provide on-demand assistance &mdash; tirelessly and precisely.</p>
-                <ul class="ps-uses">
-                    <li><i class="fa-solid fa-check"></i> <strong>Hotels:</strong> Room service delivery, amenity transport, and housekeeping supply runs &mdash; 24/7 with no complaints.</li>
-                    <li><i class="fa-solid fa-check"></i> <strong>Restaurants:</strong> Food delivery from kitchen to table, dirty dish return, and multi-table serving in busy hours.</li>
-                    <li><i class="fa-solid fa-check"></i> <strong>Hospitals:</strong> Medicine delivery, lab sample transport, and supply distribution across departments.</li>
-                    <li><i class="fa-solid fa-check"></i> <strong>Malls &amp; Airports:</strong> Passenger assistance, last-mile delivery, and patrol &mdash; autonomous and always on.</li>
-                </ul>
-            </div>
-            <div class="ps-media">
-                <div class="ps-img-wrap">
-                    <img src="images/saqr_01.jpg" alt="Saqr autonomous service and delivery robot">
-                </div>
-            </div>
-        </div>
+<section id="robots">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:50px">
+      <div class="eyebrow reveal" style="justify-content:center"><span class="ln"></span><span data-ar="قريباً" data-en="Coming soon">قريباً</span></div>
+      <h2 class="title reveal" style="margin-inline:auto;text-align:center" data-ar="روبوتاتٌ أكثر. أثرٌ أكبر." data-en="More robots. Bigger impact.">روبوتاتٌ أكثر. أثرٌ أكبر.</h2>
+      <p class="lead reveal" style="margin-inline:auto" data-ar="الميني بوت مجرّد البداية. تعرّف على الجيل القادم من روبوتات Physical AI الموجّهة لمساحاتٍ جديدة." data-en="Mini Bot is just the beginning. Meet the next generation of Physical AI robots expanding into new spaces.">الميني بوت مجرّد البداية. تعرّف على الجيل القادم من روبوتات Physical AI الموجّهة لمساحاتٍ جديدة.</p>
     </div>
+
+    <div class="spot reveal">
+      <div class="si">
+        <div class="prodbadge bdg-dev"><i class="fa-solid fa-flask"></i><span data-ar="تحت التطوير" data-en="In development">تحت التطوير</span></div>
+        <h3 data-ar="نور — واجهة الضيافة الراقية" data-en="Noor — the face of hospitality">نور — واجهة الضيافة الراقية</h3>
+        <p data-ar="روبوت استقبالٍ بشريّ الملامح بتعابير حيّة، مصمّم لبهو الفنادق والمكاتب ومراكز الخدمات الحكومية. يستقبل نور الزوار بأسمائهم، يدير تسجيل الدخول، يقدّم الإرشاد، ويوفّر خدمات الكونسيرج — كلها بلهجةٍ عربية طليقة." data-en="A humanoid reception robot with lifelike expressions, designed for hotel lobbies, corporate offices and government service centers. Noor greets visitors by name, manages check-ins, provides wayfinding and delivers concierge services — all in fluent Arabic dialect.">روبوت استقبالٍ بشريّ الملامح بتعابير حيّة، مصمّم لبهو الفنادق والمكاتب ومراكز الخدمات الحكومية. يستقبل نور الزوار بأسمائهم، يدير تسجيل الدخول، يقدّم الإرشاد، ويوفّر خدمات الكونسيرج — كلها بلهجةٍ عربية طليقة.</p>
+        <ul class="uses">
+          <li><i class="fa-solid fa-check"></i><span data-ar="<strong>الفنادق:</strong> الترحيب بالضيوف، إدارة طوابير تسجيل الدخول، التوصية بالخدمات، وحضورٌ في البهو على مدار الساعة." data-en="<strong>Hotels:</strong> welcome guests, manage check-in queues, recommend services and provide 24/7 lobby presence."><strong>الفنادق:</strong> الترحيب بالضيوف، إدارة طوابير تسجيل الدخول، التوصية بالخدمات، وحضورٌ في البهو على مدار الساعة.</span></li>
+          <li><i class="fa-solid fa-check"></i><span data-ar="<strong>المكاتب:</strong> تسجيل الزوار، طباعة البطاقات، إرشاد قاعات الاجتماعات، وإشعار الموظفين." data-en="<strong>Corporate offices:</strong> visitor registration, badge printing, meeting-room wayfinding and employee notifications."><strong>المكاتب:</strong> تسجيل الزوار، طباعة البطاقات، إرشاد قاعات الاجتماعات، وإشعار الموظفين.</span></li>
+          <li><i class="fa-solid fa-check"></i><span data-ar="<strong>المراكز الحكومية:</strong> إدارة الطوابير، المساعدة في النماذج، ودعمٌ متعدّد اللغات للمواطنين والمقيمين." data-en="<strong>Government centers:</strong> queue management, form assistance and multilingual support for citizens and residents."><strong>المراكز الحكومية:</strong> إدارة الطوابير، المساعدة في النماذج، ودعمٌ متعدّد اللغات للمواطنين والمقيمين.</span></li>
+          <li><i class="fa-solid fa-check"></i><span data-ar="<strong>الرعاية الصحية:</strong> تسجيل دخول المرضى، إرشاد الأقسام، وجدولة المواعيد في استقبال المستشفى." data-en="<strong>Healthcare:</strong> patient check-in, department wayfinding and appointment scheduling at hospital reception."><strong>الرعاية الصحية:</strong> تسجيل دخول المرضى، إرشاد الأقسام، وجدولة المواعيد في استقبال المستشفى.</span></li>
+        </ul>
+      </div>
+      <div class="sm"><img src="images/noor_01.jpg" alt="Noor reception robot"></div>
+    </div>
+
+    <div class="spot rev reveal">
+      <div class="si">
+        <div class="prodbadge bdg-dev"><i class="fa-solid fa-flask"></i><span data-ar="تحت التطوير" data-en="In development">تحت التطوير</span></div>
+        <h3 data-ar="صقر — الخدمة والتوصيل والتعقيم" data-en="Saqr — service, delivery & sanitization">صقر — الخدمة والتوصيل والتعقيم</h3>
+        <p data-ar="روبوت خدمةٍ متعدّد الأقسام ذاتي القيادة، مبنيٌّ للوجستيات الداخلية. يتنقّل صقر في البيئات المعقّدة ليوصّل خدمة الغرف، وينقل البضائع بين الطوابق، ويقوم بالدوريات والتعقيم، ويقدّم المساعدة عند الطلب — بلا كللٍ وبدقّة." data-en="An autonomous multi-compartment service robot built for indoor logistics. Saqr navigates complex environments to deliver room service, transport goods between floors, patrol and sanitize, and provide on-demand assistance — tirelessly and precisely.">روبوت خدمةٍ متعدّد الأقسام ذاتي القيادة، مبنيٌّ للوجستيات الداخلية. يتنقّل صقر في البيئات المعقّدة ليوصّل خدمة الغرف، وينقل البضائع بين الطوابق، ويقوم بالدوريات والتعقيم، ويقدّم المساعدة عند الطلب — بلا كللٍ وبدقّة.</p>
+        <ul class="uses">
+          <li><i class="fa-solid fa-check"></i><span data-ar="<strong>الفنادق:</strong> توصيل خدمة الغرف، نقل المستلزمات، وإمدادات التدبير الفندقي — 24/7 بلا شكاوى." data-en="<strong>Hotels:</strong> room-service delivery, amenity transport and housekeeping supply runs — 24/7 with no complaints."><strong>الفنادق:</strong> توصيل خدمة الغرف، نقل المستلزمات، وإمدادات التدبير الفندقي — 24/7 بلا شكاوى.</span></li>
+          <li><i class="fa-solid fa-check"></i><span data-ar="<strong>المطاعم:</strong> توصيل الطعام من المطبخ إلى الطاولة، إعادة الأطباق، وخدمة طاولاتٍ متعدّدة في أوقات الذروة." data-en="<strong>Restaurants:</strong> food delivery from kitchen to table, dirty-dish return and multi-table serving in busy hours."><strong>المطاعم:</strong> توصيل الطعام من المطبخ إلى الطاولة، إعادة الأطباق، وخدمة طاولاتٍ متعدّدة في أوقات الذروة.</span></li>
+          <li><i class="fa-solid fa-check"></i><span data-ar="<strong>المستشفيات:</strong> توصيل الأدوية، نقل عيّنات المختبر، وتوزيع المستلزمات بين الأقسام." data-en="<strong>Hospitals:</strong> medicine delivery, lab-sample transport and supply distribution across departments."><strong>المستشفيات:</strong> توصيل الأدوية، نقل عيّنات المختبر، وتوزيع المستلزمات بين الأقسام.</span></li>
+          <li><i class="fa-solid fa-check"></i><span data-ar="<strong>المولات والمطارات:</strong> مساعدة الزوّار، توصيل الميل الأخير، والدوريات — ذاتيٌّ ودائم العمل." data-en="<strong>Malls & airports:</strong> passenger assistance, last-mile delivery and patrol — autonomous and always on."><strong>المولات والمطارات:</strong> مساعدة الزوّار، توصيل الميل الأخير، والدوريات — ذاتيٌّ ودائم العمل.</span></li>
+        </ul>
+      </div>
+      <div class="sm"><img src="images/saqr_01.jpg" alt="Saqr service robot"></div>
+    </div>
+  </div>
 </section>
 
 <!-- TEAM -->
-<section id="team" class="fade-in" style="background:var(--bg-subtle);">
-    <div class="container">
-        <div class="section-header centered">
-            <div class="section-eyebrow">Leadership</div>
-            <h2 class="section-title">The <span class="gradient-text">Team</span></h2>
-            <p class="section-sub">A Saudi-based team at the intersection of AI, robotics, and hospitality innovation.</p>
-        </div>
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="team-photo"><img src="images/mahmoud_sultan.jpg" alt="Mahmoud Sultan"></div>
-                <div class="team-info">
-                    <h3>Mahmoud Sultan</h3>
-                    <div class="team-role">CEO & Founder</div>
-                    <p class="team-desc">Visionary entrepreneur driving Physical AI's strategy, product vision, and partnerships across the MENA region.</p>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="team-photo"><img src="images/ahmad_zalat.jpg" alt="Dr. Ahmad Zalat"></div>
-                <div class="team-info">
-                    <h3>Dr. Ahmad Zalat</h3>
-                    <div class="team-role">COO</div>
-                    <p class="team-desc">Operations leader overseeing supply chain, manufacturing partnerships, and go-to-market execution.</p>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="team-photo"><img src="images/saleh_gheznawy.jpg" alt="Saleh Al Gheznawy"></div>
-                <div class="team-info">
-                    <h3>Saleh Al Gheznawy</h3>
-                    <div class="team-role">CTO</div>
-                    <p class="team-desc">Full-stack technologist leading AI/ML systems, Arabic NLP, and hardware-software integration.</p>
-                </div>
-            </div>
-        </div>
+<section id="team" class="sectint">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:50px">
+      <div class="eyebrow reveal" style="justify-content:center"><span class="ln"></span><span data-ar="القيادة" data-en="Leadership">القيادة</span></div>
+      <h2 class="title reveal" style="margin-inline:auto;text-align:center" data-ar="الفريق" data-en="The team">الفريق</h2>
+      <p class="lead reveal" style="margin-inline:auto" data-ar="فريقٌ سعودي عند تقاطع الذكاء الاصطناعي والروبوتات وابتكار الضيافة." data-en="A Saudi-based team at the intersection of AI, robotics and hospitality innovation.">فريقٌ سعودي عند تقاطع الذكاء الاصطناعي والروبوتات وابتكار الضيافة.</p>
     </div>
+    <div class="team">
+      <div class="tcard reveal"><div class="tphoto"><img src="images/mahmoud_sultan.jpg" alt="Mahmoud Sultan"></div><div class="tinfo"><h3 data-ar="محمود سلطان" data-en="Mahmoud Sultan">محمود سلطان</h3><div class="role" data-ar="الرئيس التنفيذي والمؤسس" data-en="CEO & Founder">الرئيس التنفيذي والمؤسس</div><p data-ar="رائد أعمالٍ يقود استراتيجية Physical AI ورؤية المنتج والشراكات عبر المنطقة." data-en="Visionary entrepreneur driving Physical AI's strategy, product vision and partnerships across the region.">رائد أعمالٍ يقود استراتيجية Physical AI ورؤية المنتج والشراكات عبر المنطقة.</p></div></div>
+      <div class="tcard reveal d1"><div class="tphoto"><img src="images/ahmad_zalat.jpg" alt="Dr. Ahmad Zalat"></div><div class="tinfo"><h3 data-ar="د. أحمد زلط" data-en="Dr. Ahmad Zalat">د. أحمد زلط</h3><div class="role" data-ar="الرئيس التشغيلي" data-en="COO">الرئيس التشغيلي</div><p data-ar="قائد عملياتٍ يشرف على سلسلة التوريد وشراكات التصنيع وتنفيذ خطط السوق." data-en="Operations leader overseeing supply chain, manufacturing partnerships and go-to-market execution.">قائد عملياتٍ يشرف على سلسلة التوريد وشراكات التصنيع وتنفيذ خطط السوق.</p></div></div>
+      <div class="tcard reveal d2"><div class="tphoto"><img src="images/saleh_gheznawy.jpg" alt="Saleh Al Gheznawy"></div><div class="tinfo"><h3 data-ar="صالح الغزناوي" data-en="Saleh Al Gheznawy">صالح الغزناوي</h3><div class="role" data-ar="الرئيس التقني" data-en="CTO">الرئيس التقني</div><p data-ar="تقنيٌّ شامل يقود أنظمة الذكاء ومعالجة اللهجة العربية وتكامل العتاد والبرمجيات." data-en="Full-stack technologist leading AI/ML systems, Arabic NLP and hardware-software integration.">تقنيٌّ شامل يقود أنظمة الذكاء ومعالجة اللهجة العربية وتكامل العتاد والبرمجيات.</p></div></div>
+    </div>
+  </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section fade-in" id="contact">
-    <div class="container">
-        <div class="section-eyebrow" style="justify-content:center;">Let's Talk</div>
-        <h2>Ready to Bring <span class="gradient-text">AI to Your Space?</span></h2>
-        <p>Whether you run a cafe, manage a hotel, lead a school, or want Mini Bot at home &mdash; we'd love to show you what's possible.</p>
-        <div class="cta-buttons">
-            <a href="mailto:sultan@uvaii.com" class="btn-primary"><i class="fa-solid fa-envelope"></i>&ensp;Email Us</a>
-            <a href="tel:+9660558590710" class="btn-outline"><i class="fa-solid fa-phone"></i>&ensp;Call Us</a>
-        </div>
-        <div class="cta-contact-info">
-            <div class="cta-contact-item">
-                <i class="fa-solid fa-envelope"></i>
-                <span>sultan@uvaii.com</span>
-            </div>
-            <div class="cta-contact-item">
-                <i class="fa-solid fa-phone"></i>
-                <span>+966 055 859 0710</span>
-            </div>
-        </div>
-        <div class="cta-badges">
-            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> Vision 2030 Aligned</div>
-            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> PDPL-Compliant</div>
-            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> Made in Saudi Arabia</div>
-            <div class="cta-badge"><i class="fa-solid fa-circle-check"></i> Arabic-First AI</div>
-        </div>
+<!-- CONTACT CTA -->
+<section id="contact">
+  <div class="wrap">
+    <div class="callout reveal">
+      <div class="eyebrow"><span class="ln" style="background:var(--gold)"></span><span data-ar="لنتحدّث" data-en="Let's talk">لنتحدّث</span></div>
+      <h2 data-ar="جاهز لإدخال الذكاء إلى مساحتك؟" data-en="Ready to bring AI to your space?">جاهز لإدخال الذكاء إلى مساحتك؟</h2>
+      <p data-ar="سواء كنت تدير مقهى، أو فندقاً، أو مدرسة، أو ترغب بالميني بوت في منزلك — يسعدنا أن نريك ما هو ممكن." data-en="Whether you run a cafe, manage a hotel, lead a school, or want Mini Bot at home — we'd love to show you what's possible.">سواء كنت تدير مقهى، أو فندقاً، أو مدرسة، أو ترغب بالميني بوت في منزلك — يسعدنا أن نريك ما هو ممكن.</p>
+      <div class="contact-btns">
+        <a href="mailto:sultan@uvaii.com" class="cbtn"><i class="fa-solid fa-envelope"></i><span data-ar="راسلنا بالبريد" data-en="Email us">راسلنا بالبريد</span></a>
+        <a href="tel:+9660558590710" class="cbtn gold"><i class="fa-solid fa-phone"></i><span data-ar="اتّصل بنا" data-en="Call us">اتّصل بنا</span></a>
+      </div>
+      <div class="contact-info">
+        <div class="cinfo"><i class="fa-solid fa-envelope"></i><span dir="ltr">sultan@uvaii.com</span></div>
+        <div class="cinfo"><i class="fa-solid fa-phone"></i><span dir="ltr">+966 0558590710</span></div>
+      </div>
+      <div class="cbadges">
+        <div class="cbadge"><i class="fa-solid fa-circle-check"></i><span data-ar="متوائم مع رؤية 2030" data-en="Vision 2030 aligned">متوائم مع رؤية 2030</span></div>
+        <div class="cbadge"><i class="fa-solid fa-circle-check"></i><span data-ar="متوافق مع نظام حماية البيانات" data-en="PDPL-compliant">متوافق مع نظام حماية البيانات</span></div>
+        <div class="cbadge"><i class="fa-solid fa-circle-check"></i><span data-ar="صُنع في السعودية" data-en="Made in Saudi Arabia">صُنع في السعودية</span></div>
+        <div class="cbadge"><i class="fa-solid fa-circle-check"></i><span data-ar="ذكاء باللهجة العربية" data-en="Arabic-first AI">ذكاء باللهجة العربية</span></div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- FOOTER -->
-<footer>
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand-block">
-                <div class="footer-brand-name"><span class="gradient-text">Physical AI</span></div>
-                <p>Saudi Arabia's first robotics venture studio. Designing, manufacturing, and deploying intelligent robots for hospitality, education, and service.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Robots</h4>
-                <a href="#minibot">Mini Bot</a>
-                <a href="#noor-saqr">Noor</a>
-                <a href="#noor-saqr">Saqr</a>
-            </div>
-            <div class="footer-col">
-                <h4>Company</h4>
-                <a href="#about">About</a>
-                <a href="#team">Team</a>
-                <a href="#scenarios">Use Cases</a>
-            </div>
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <a href="mailto:sultan@uvaii.com">sultan@uvaii.com</a>
-                <a href="tel:+9660558590710">+966 055 859 0710</a>
-                <a href="#contact">Request Demo</a>
-            </div>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand">
+          <svg width="34" height="34" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#0E5B3E"/><circle cx="20" cy="15" r="6" fill="#C8A65D"/><rect x="12" y="22" width="16" height="11" rx="3" fill="#fff"/><circle cx="16" cy="14" r="1.6" fill="#0A3D2E"/><circle cx="24" cy="14" r="1.6" fill="#0A3D2E"/></svg>
+          Physical AI
         </div>
-        <div class="footer-bottom">
-            <div class="footer-copy">&copy; 2025 Physical AI &mdash; UVAII Venture Studio. All rights reserved. Made with care in Saudi Arabia.</div>
-            <div class="footer-socials">
-                <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-        </div>
+        <p class="desc" data-ar="أول استوديو سعودي للروبوتات — نصمّم ونُصنّع وننشر روبوتاتٍ ذكية للضيافة والتعليم والخدمة." data-en="Saudi Arabia's first robotics venture studio — designing, manufacturing and deploying intelligent robots for hospitality, education and service.">أول استوديو سعودي للروبوتات — نصمّم ونُصنّع وننشر روبوتاتٍ ذكية للضيافة والتعليم والخدمة.</p>
+      </div>
+      <div class="foot-col"><h4 data-ar="الروبوتات" data-en="Robots">الروبوتات</h4>
+        <a href="#minibot" data-ar="الميني بوت" data-en="Mini Bot">الميني بوت</a>
+        <a href="#robots" data-ar="نور" data-en="Noor">نور</a>
+        <a href="#robots" data-ar="صقر" data-en="Saqr">صقر</a>
+      </div>
+      <div class="foot-col"><h4 data-ar="الشركة" data-en="Company">الشركة</h4>
+        <a href="#about" data-ar="من نحن" data-en="About">من نحن</a>
+        <a href="#team" data-ar="الفريق" data-en="Team">الفريق</a>
+        <a href="#scenarios" data-ar="حالات الاستخدام" data-en="Use cases">حالات الاستخدام</a>
+      </div>
+      <div class="foot-col"><h4 data-ar="تواصل" data-en="Contact">تواصل</h4>
+        <a href="mailto:sultan@uvaii.com" dir="ltr">sultan@uvaii.com</a>
+        <a href="tel:+9660558590710" dir="ltr">+966 0558590710</a>
+        <a href="#contact" data-ar="اطلب عرضاً" data-en="Request demo">اطلب عرضاً</a>
+      </div>
     </div>
+    <div class="foot-bottom">
+      <span data-ar="© 2025 Physical AI — استوديو UVAII. جميع الحقوق محفوظة. صُنع في السعودية." data-en="© 2025 Physical AI — UVAII Venture Studio. All rights reserved. Made in Saudi Arabia.">© 2025 Physical AI — استوديو UVAII. جميع الحقوق محفوظة. صُنع في السعودية.</span>
+      <div class="fsoc">
+        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <script>
-// Particles
-(function() {
-    const c = document.getElementById('particles');
-    const ctx = c.getContext('2d');
-    let pts = [];
-    function resize() { c.width = c.parentElement.offsetWidth; c.height = c.parentElement.offsetHeight; }
-    resize(); window.addEventListener('resize', resize);
-    for (let i = 0; i < 50; i++) {
-        pts.push({
-            x: Math.random() * c.width, y: Math.random() * c.height,
-            r: Math.random() * 1.2 + 0.4,
-            dx: (Math.random() - 0.5) * 0.3, dy: (Math.random() - 0.5) * 0.3,
-            o: Math.random() * 0.25 + 0.05
-        });
-    }
-    function draw() {
-        ctx.clearRect(0, 0, c.width, c.height);
-        pts.forEach(p => {
-            ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(162,155,254,${p.o})`; ctx.fill();
-            p.x += p.dx; p.y += p.dy;
-            if (p.x < 0 || p.x > c.width) p.dx *= -1;
-            if (p.y < 0 || p.y > c.height) p.dy *= -1;
-        });
-        requestAnimationFrame(draw);
-    }
-    draw();
-})();
+// progress + nav show
+const prog=document.getElementById('prog'),topnav=document.getElementById('topnav');
+window.addEventListener('scroll',()=>{const h=document.documentElement,sc=h.scrollTop,mx=h.scrollHeight-h.clientHeight;
+  prog.style.width=(mx>0?sc/mx*100:0)+'%';topnav.classList.toggle('show',sc>40);},{passive:true});
 
-// Scroll fade-in
-const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-}, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+// reveal
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-// Nav scroll
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 50); });
+// language toggle
+const langtog=document.getElementById('langtog'),langlabel=document.getElementById('langlabel'),heroarrow=document.getElementById('heroarrow');
+function setLang(lang){
+  document.documentElement.lang=lang;
+  document.documentElement.dir = lang==='ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-ar]').forEach(el=>{ el.innerHTML = el.getAttribute('data-'+lang); });
+  langlabel.textContent = lang==='ar' ? 'EN' : 'عربي';
+  if(heroarrow) heroarrow.className = lang==='ar' ? 'fa-solid fa-arrow-left' : 'fa-solid fa-arrow-right';
+  document.title = lang==='ar' ? 'Physical AI — روبوتات ذكية للضيافة والتعليم والخدمة' : 'Physical AI — Intelligent Robots for Hospitality, Education & Service';
+  try{ localStorage.setItem('lang',lang); }catch(e){}
+}
+langtog.addEventListener('click',()=>{ setLang(document.documentElement.lang==='ar'?'en':'ar'); });
+let saved='ar'; try{ saved=localStorage.getItem('lang')||'ar'; }catch(e){}
+setLang(saved);
 
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); document.getElementById('navLinks').classList.remove('active'); }
-    });
-});
+// mobile nav
+const mob=document.getElementById('mobnav');
+document.getElementById('hamburger').addEventListener('click',()=>mob.classList.add('open'));
+document.getElementById('mobclose').addEventListener('click',()=>mob.classList.remove('open'));
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
 </script>
 </body>
 </html>
