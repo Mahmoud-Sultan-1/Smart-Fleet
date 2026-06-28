@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiniBot — Physical AI for the Real World</title>
+    <title>UVAII Mini Bot — The Tabletop AI Companion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -27,8 +27,9 @@
             --green: #22c55e;
             --cyan: #06b6d4;
             --orange: #f97316;
+            --gold: #eab308;
             --radius: 16px;
-            --radius-sm: 10px;
+            --radius-sm: 8px;
         }
 
         html { scroll-behavior: smooth; }
@@ -39,894 +40,788 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* ─── Utility ─── */
+        a { color: var(--accent-light); text-decoration: none; }
+
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        .gradient-text {
-            background: linear-gradient(135deg, #818cf8, #6366f1, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .badge {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 14px; border-radius: 100px;
-            background: var(--accent-glow); border: 1px solid rgba(99,102,241,0.2);
-            color: var(--accent-light); font-size: 13px; font-weight: 500;
-            letter-spacing: 0.02em;
-        }
-        .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-dot 2s infinite; }
-        @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* ─── Navigation ─── */
+        /* NAV */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            background: rgba(9, 9, 11, 0.8); backdrop-filter: blur(20px) saturate(1.5);
+            background: rgba(9,9,11,0.85);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
+            padding: 16px 0;
         }
-        .nav-inner {
-            max-width: 1200px; margin: 0 auto; padding: 0 24px;
-            display: flex; align-items: center; justify-content: space-between; height: 64px;
-        }
-        .nav-logo { font-weight: 800; font-size: 20px; letter-spacing: -0.03em; display: flex; align-items: center; gap: 10px; }
-        .nav-logo-icon {
-            width: 32px; height: 32px; border-radius: 8px;
-            background: linear-gradient(135deg, var(--accent), #a78bfa);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px; color: white;
-        }
-        .nav-links { display: flex; gap: 32px; list-style: none; }
-        .nav-links a {
-            color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500;
-            transition: color 0.2s;
-        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
+        .nav-logo span { color: var(--accent-light); }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: var(--text); }
         .nav-cta {
-            padding: 8px 20px; border-radius: 8px;
-            background: var(--accent); color: white; font-weight: 600; font-size: 14px;
-            border: none; cursor: pointer; transition: all 0.2s;
-            text-decoration: none;
+            background: var(--accent); color: #fff !important; padding: 8px 20px;
+            border-radius: 999px; font-weight: 600; font-size: 0.85rem;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .nav-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
-        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); cursor: pointer; padding: 8px; }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow-strong); }
+        .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
 
-        /* ─── Hero ─── */
+        /* HERO */
         .hero {
-            padding: 160px 0 120px; position: relative; text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
             overflow: hidden;
         }
         .hero::before {
-            content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
-            width: 800px; height: 800px; border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-glow-strong) 0%, transparent 70%);
+            content: '';
+            position: absolute; top: -50%; left: -20%; width: 140%; height: 200%;
+            background: radial-gradient(ellipse at 50% 30%, var(--accent-glow) 0%, transparent 60%);
             pointer-events: none;
         }
-        .hero-grid {
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 30%, transparent 100%);
+        .hero .container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
         }
-        .hero-content { position: relative; z-index: 1; }
-        .hero h1 {
-            font-size: clamp(48px, 7vw, 80px); font-weight: 900; letter-spacing: -0.04em;
-            line-height: 1.05; margin: 24px 0;
+        .hero-text h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-light), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .hero p {
-            font-size: clamp(17px, 2vw, 20px); color: var(--text-muted);
-            max-width: 640px; margin: 0 auto 40px; line-height: 1.7;
+        .hero-text .tagline {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 400;
         }
-        .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .hero-text .sub {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-bottom: 36px;
+            max-width: 500px;
+        }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
         .btn-primary {
-            padding: 14px 32px; border-radius: var(--radius-sm);
-            background: var(--accent); color: white; font-weight: 600; font-size: 16px;
-            border: none; cursor: pointer; transition: all 0.25s;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow-strong); }
         .btn-secondary {
-            padding: 14px 32px; border-radius: var(--radius-sm);
-            background: var(--surface); color: var(--text); font-weight: 600; font-size: 16px;
-            border: 1px solid var(--border); cursor: pointer; transition: all 0.25s;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            background: var(--surface);
+            color: var(--text);
+            padding: 14px 32px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        .btn-secondary:hover { background: var(--surface-hover); border-color: var(--border-light); transform: translateY(-2px); }
+        .btn-secondary:hover { border-color: var(--accent); background: var(--surface-hover); }
+        .hero-image { position: relative; }
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .hero-badge {
+            position: absolute;
+            bottom: -16px; left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+        }
+        .hero-badge span { color: var(--green); font-weight: 600; }
 
-        /* ─── Metrics Bar ─── */
-        .metrics {
-            padding: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+        /* STATS BAR */
+        .stats-bar {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
             background: var(--bg-subtle);
         }
-        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-        .metric-value { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; }
-        .metric-label { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+        .stat-item .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-light), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-item .stat-label { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
 
-        /* ─── Section ─── */
-        section { padding: 120px 0; }
-        .section-label { font-size: 13px; font-weight: 600; color: var(--accent-light); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
-        .section-title { font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
-        .section-desc { font-size: 18px; color: var(--text-muted); max-width: 600px; line-height: 1.7; }
-        .section-header { margin-bottom: 64px; }
-        .section-header.center { text-align: center; }
-        .section-header.center .section-desc { margin: 0 auto; }
+        /* SECTIONS */
+        section { padding: 100px 0; }
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .section-sub {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 60px;
+        }
 
-        /* ─── 3D Robot Visual ─── */
-        .robot-showcase { padding: 80px 0 0; position: relative; }
-        .robot-container {
-            max-width: 900px; margin: 0 auto; position: relative;
-            background: var(--bg-subtle); border: 1px solid var(--border);
-            border-radius: 24px; overflow: hidden;
-        }
-        .robot-visual {
-            height: 500px; display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
-        }
-        .robot-visual::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(ellipse 60% 50% at 50% 60%, var(--accent-glow) 0%, transparent 70%);
-        }
-        .robot-ascii {
-            font-family: 'JetBrains Mono', monospace; font-size: 14px;
-            color: var(--accent-light); line-height: 1.4; text-align: center;
-            position: relative; z-index: 1; white-space: pre;
-            text-shadow: 0 0 30px rgba(99,102,241,0.3);
-        }
-        .robot-info-bar {
-            display: flex; justify-content: space-around; padding: 20px 40px;
-            border-top: 1px solid var(--border); background: var(--surface);
-        }
-        .robot-info-item { text-align: center; }
-        .robot-info-item .label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
-        .robot-info-item .value { font-size: 16px; font-weight: 700; color: var(--text); font-family: 'JetBrains Mono', monospace; }
-
-        /* ─── Features Grid ─── */
-        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .feature-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 32px;
-            transition: all 0.3s ease; position: relative; overflow: hidden;
-        }
-        .feature-card:hover {
-            border-color: var(--accent); transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(99,102,241,0.1);
-        }
-        .feature-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .feature-card:hover::before { opacity: 1; }
-        .feature-icon {
-            width: 48px; height: 48px; border-radius: 12px;
-            background: var(--accent-glow); border: 1px solid rgba(99,102,241,0.15);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px; margin-bottom: 20px;
-        }
-        .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-        .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
-
-        /* ─── Capabilities Section ─── */
-        .capability-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-            align-items: center; padding: 80px 0;
-        }
-        .capability-row:not(:last-child) { border-bottom: 1px solid var(--border); }
-        .capability-row.reverse { direction: rtl; }
-        .capability-row.reverse > * { direction: ltr; }
-        .capability-visual {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); height: 400px;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
-        }
-        .capability-visual::after {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 30% 70%, var(--accent-glow) 0%, transparent 60%);
-        }
-        .terminal-window {
-            background: var(--bg); border: 1px solid var(--border);
-            border-radius: 12px; padding: 0; width: 85%; position: relative; z-index: 1;
+        /* VIDEO SECTION */
+        .video-section { background: var(--bg-subtle); }
+        .video-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: var(--radius);
             overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
         }
-        .terminal-bar {
-            display: flex; align-items: center; gap: 8px; padding: 12px 16px;
-            background: var(--surface); border-bottom: 1px solid var(--border);
-        }
-        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .terminal-dot.red { background: #ef4444; }
-        .terminal-dot.yellow { background: #eab308; }
-        .terminal-dot.green { background: #22c55e; }
-        .terminal-title { font-size: 12px; color: var(--text-dim); margin-left: 8px; font-family: 'JetBrains Mono', monospace; }
-        .terminal-body {
-            padding: 20px; font-family: 'JetBrains Mono', monospace;
-            font-size: 13px; line-height: 1.8; color: var(--text-muted);
-        }
-        .terminal-body .prompt { color: var(--green); }
-        .terminal-body .command { color: var(--text); }
-        .terminal-body .output { color: var(--text-dim); }
-        .terminal-body .highlight { color: var(--accent-light); }
-        .terminal-body .warning { color: var(--orange); }
+        .video-wrapper video { width: 100%; display: block; }
 
-        .capability-text h3 { font-size: 28px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
-        .capability-text p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 24px; }
-        .capability-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-        .capability-list li {
-            display: flex; align-items: center; gap: 12px;
-            font-size: 15px; color: var(--text-muted);
+        /* PROBLEM SECTION */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
         }
-        .capability-list .check {
-            width: 20px; height: 20px; border-radius: 6px;
-            background: rgba(34,197,94,0.15); color: var(--green);
+        .problem-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .problem-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .problem-card .icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        .problem-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .problem-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* HOW IT WORKS */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        .step-card {
+            text-align: center;
+            padding: 32px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            position: relative;
+        }
+        .step-number {
+            width: 48px; height: 48px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 12px; flex-shrink: 0;
+            font-weight: 800; font-size: 1.2rem;
+            margin: 0 auto 16px;
+        }
+        .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+        .step-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* GALLERY */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .gallery-grid img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gallery-grid img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
         }
 
-        /* ─── Specs Table ─── */
-        .specs { background: var(--bg-subtle); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .specs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-        .spec-group h3 {
-            font-size: 14px; font-weight: 600; color: var(--accent-light);
-            text-transform: uppercase; letter-spacing: 0.06em;
-            padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px;
+        /* ENGAGEMENT */
+        .engagement-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
-        .spec-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(39,39,42,0.5); }
-        .spec-row .spec-key { color: var(--text-muted); font-size: 14px; }
-        .spec-row .spec-val { color: var(--text); font-weight: 600; font-size: 14px; font-family: 'JetBrains Mono', monospace; }
+        .engage-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: border-color 0.3s;
+        }
+        .engage-card:hover { border-color: var(--accent); }
+        .engage-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        .engage-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+        .engage-card p { font-size: 0.9rem; color: var(--text-muted); }
 
-        /* ─── Use Cases ─── */
-        .use-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .use-case-card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 40px 32px;
-            text-align: center; transition: all 0.3s;
+        /* USE CASES */
+        .usecases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
-        .use-case-card:hover { border-color: var(--border-light); transform: translateY(-4px); }
-        .use-case-icon { font-size: 48px; margin-bottom: 20px; display: block; }
-        .use-case-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
-        .use-case-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+        .usecase-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .usecase-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .usecase-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .usecase-card .card-body { padding: 24px; }
+        .usecase-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+        .usecase-card p { font-size: 0.9rem; color: var(--text-muted); }
 
-        /* ─── Timeline / Roadmap ─── */
-        .roadmap-list { position: relative; padding-left: 40px; }
-        .roadmap-list::before {
-            content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
-            width: 2px; background: linear-gradient(to bottom, var(--accent), var(--border));
+        /* BUSINESS MODEL */
+        .biz-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
-        .roadmap-item { position: relative; padding: 0 0 48px; }
-        .roadmap-item:last-child { padding-bottom: 0; }
-        .roadmap-dot {
-            position: absolute; left: -33px; top: 4px;
-            width: 12px; height: 12px; border-radius: 50%;
-            background: var(--accent); border: 3px solid var(--bg);
-            box-shadow: 0 0 0 2px var(--accent);
+        .biz-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            text-align: center;
+            transition: border-color 0.3s;
         }
-        .roadmap-item.future .roadmap-dot { background: var(--border); box-shadow: 0 0 0 2px var(--border); }
-        .roadmap-phase { font-size: 12px; font-weight: 600; color: var(--accent-light); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
-        .roadmap-item h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-        .roadmap-item p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+        .biz-card:hover { border-color: var(--accent); }
+        .biz-card .biz-icon { font-size: 1.8rem; margin-bottom: 12px; }
+        .biz-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+        .biz-card p { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* ─── CTA Section ─── */
+        /* TEAM */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 800px;
+        }
+        .team-card { text-align: center; }
+        .team-avatar {
+            width: 100px; height: 100px;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; font-weight: 800; color: #fff;
+            margin: 0 auto 16px;
+        }
+        .team-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+        .team-card .role { font-size: 0.85rem; color: var(--accent-light); margin-bottom: 6px; }
+        .team-card p { font-size: 0.8rem; color: var(--text-dim); }
+
+        /* CTA */
         .cta-section {
-            text-align: center; padding: 120px 0;
-            position: relative; overflow: hidden;
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-subtle) 0%, var(--bg) 100%);
+            position: relative;
         }
         .cta-section::before {
-            content: ''; position: absolute; bottom: -20%; left: 50%; transform: translateX(-50%);
-            width: 1000px; height: 600px; border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-glow-strong) 0%, transparent 60%);
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
             pointer-events: none;
         }
-        .cta-section h2 { font-size: clamp(36px, 5vw, 56px); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 16px; position: relative; }
-        .cta-section p { font-size: 18px; color: var(--text-muted); max-width: 500px; margin: 0 auto 40px; position: relative; }
-
-        /* ─── Footer ─── */
-        footer {
-            border-top: 1px solid var(--border); padding: 64px 0 32px;
-            background: var(--bg);
+        .cta-section .container { position: relative; z-index: 1; }
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
         }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-        .footer-brand p { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-top: 12px; }
-        .footer-col h4 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-bottom: 16px; }
-        .footer-col a { display: block; color: var(--text-muted); text-decoration: none; font-size: 14px; padding: 4px 0; transition: color 0.2s; }
-        .footer-col a:hover { color: var(--text); }
-        .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
-        .footer-bottom p { color: var(--text-dim); font-size: 13px; }
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-        /* ─── Animations ─── */
+        /* FOOTER */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        footer .brand { font-weight: 700; color: var(--text-muted); margin-bottom: 8px; font-size: 1rem; }
+        footer .brand span { color: var(--accent-light); }
+
+        /* FADE-IN */
         .fade-in {
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
         }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .fade-in-delay-1 { transition-delay: 0.1s; }
-        .fade-in-delay-2 { transition-delay: 0.2s; }
-        .fade-in-delay-3 { transition-delay: 0.3s; }
-        .fade-in-delay-4 { transition-delay: 0.4s; }
-        .fade-in-delay-5 { transition-delay: 0.5s; }
 
-        /* ─── Floating particles ─── */
-        .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+        /* PARTICLES */
+        .particles {
+            position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+        }
         .particle {
-            position: absolute; width: 2px; height: 2px; border-radius: 50%;
-            background: var(--accent-light); opacity: 0;
-            animation: float-particle linear infinite;
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 8s infinite ease-in-out;
         }
-        @keyframes float-particle {
-            0% { opacity: 0; transform: translateY(100vh) scale(0); }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
-            100% { opacity: 0; transform: translateY(-20vh) scale(1); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+            50% { transform: translateY(-80px) translateX(30px); opacity: 0.5; }
         }
 
-        /* ─── Responsive ─── */
-        @media (max-width: 1024px) {
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
-            .capability-row { grid-template-columns: 1fr; gap: 40px; }
-            .capability-row.reverse { direction: ltr; }
-            .specs-grid { grid-template-columns: 1fr; }
-            .use-cases-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .nav-cta { display: none; }
-            .hero { padding: 120px 0 80px; }
-            .features-grid { grid-template-columns: 1fr; }
-            .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-            .use-cases-grid { grid-template-columns: 1fr; }
-            .robot-visual { height: 350px; }
-            .robot-ascii { font-size: 10px; }
-            .footer-grid { grid-template-columns: 1fr; }
-            section { padding: 80px 0; }
-            .robot-info-bar { flex-wrap: wrap; gap: 16px; padding: 20px; }
-        }
-        @media (max-width: 480px) {
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-            .metrics-grid { grid-template-columns: 1fr; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0; right: 0;
+                background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                padding: 24px;
+                gap: 16px;
+            }
+            .hamburger { display: block; }
+            .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-text .sub { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-image { order: -1; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .problem-grid, .steps-grid, .biz-grid, .team-grid { grid-template-columns: 1fr; }
+            .engagement-grid, .usecases-grid, .gallery-grid { grid-template-columns: 1fr; }
         }
 
-        /* ─── Mobile Menu ─── */
-        .mobile-menu {
-            display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
-            background: rgba(9,9,11,0.98); backdrop-filter: blur(20px);
-            z-index: 99; padding: 40px 24px;
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
         }
-        .mobile-menu.open { display: flex; flex-direction: column; gap: 8px; }
-        .mobile-menu a {
-            color: var(--text); text-decoration: none; font-size: 24px; font-weight: 600;
-            padding: 16px 0; border-bottom: 1px solid var(--border); transition: color 0.2s;
-        }
-        .mobile-menu a:hover { color: var(--accent-light); }
     </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- NAV -->
 <nav>
-    <div class="nav-inner">
-        <div class="nav-logo">
-            <div class="nav-logo-icon">M</div>
-            MiniBot
+    <div class="container">
+        <div class="nav-logo"><span>UVAII</span> Mini Bot</div>
+        <div class="nav-links" id="navLinks">
+            <a href="#about">About</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#use-cases">Use Cases</a>
+            <a href="#business">Business</a>
+            <a href="#team">Team</a>
+            <a href="#contact" class="nav-cta">Get In Touch</a>
         </div>
-        <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#capabilities">Capabilities</a></li>
-            <li><a href="#specs">Specifications</a></li>
-            <li><a href="#use-cases">Use Cases</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
-        </ul>
-        <a href="#contact" class="nav-cta">Get Early Access</a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="3" y1="6" x2="21" y2="6"/>
-                <line x1="3" y1="12" x2="21" y2="12"/>
-                <line x1="3" y1="18" x2="21" y2="18"/>
-            </svg>
-        </button>
+        <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('active')">&#9776;</button>
     </div>
 </nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-    <a href="#features" onclick="toggleMenu()">Features</a>
-    <a href="#capabilities" onclick="toggleMenu()">Capabilities</a>
-    <a href="#specs" onclick="toggleMenu()">Specifications</a>
-    <a href="#use-cases" onclick="toggleMenu()">Use Cases</a>
-    <a href="#roadmap" onclick="toggleMenu()">Roadmap</a>
-    <a href="#contact" onclick="toggleMenu()">Get Early Access</a>
-</div>
-
-<!-- Hero -->
+<!-- HERO -->
 <section class="hero">
-    <div class="hero-grid"></div>
     <div class="particles" id="particles"></div>
-    <div class="container hero-content">
-        <span class="badge fade-in"><span class="dot"></span> Physical AI — Now in Development</span>
-        <h1 class="fade-in fade-in-delay-1">Meet <span class="gradient-text">MiniBot</span>.<br>Intelligence in Motion.</h1>
-        <p class="fade-in fade-in-delay-2">A compact, autonomous physical AI agent designed to perceive, reason, and act in the real world. Built for industrial automation, smart logistics, and next-generation fleet operations.</p>
-        <div class="hero-buttons fade-in fade-in-delay-3">
-            <a href="#contact" class="btn-primary">
-                Request Demo
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-            <a href="#capabilities" class="btn-secondary">
-                See Capabilities
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M4 9l4 4 4-4"/></svg>
-            </a>
+    <div class="container">
+        <div class="hero-text">
+            <p class="tagline">The Tabletop AI Companion</p>
+            <h1>Turns Every Seat Into an <span class="highlight">Experience</span></h1>
+            <p class="sub">Mini Bot is an AI-powered tabletop companion that brings interactive games, smart ordering, and loyalty rewards to cafes, hotels, and homes &mdash; all through your phone.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">Request a Demo &#8594;</a>
+                <a href="#video" class="btn-secondary">&#9654; Watch Video</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="images/album_01.png" alt="UVAII Mini Bot in a luxury lobby">
+            <div class="hero-badge"><span>&#9679;</span> Made in Saudi Arabia &bull; Arabic-First AI</div>
         </div>
     </div>
 </section>
 
-<!-- Robot Showcase -->
-<div class="robot-showcase">
+<!-- STATS -->
+<div class="stats-bar fade-in">
     <div class="container">
-        <div class="robot-container fade-in">
-            <div class="robot-visual">
-                <div class="robot-ascii">
-         ┌─────────────────────┐
-         │    ╔═══════════╗    │
-         │    ║  ◉     ◉  ║    │
-         │    ║     ▽     ║    │
-         │    ║  ╰─────╯  ║    │
-         │    ╚═══════════╝    │
-         │   ╔═══════════════╗ │
-         │   ║  M I N I B O T║ │
-         │   ╚═══════════════╝ │
-         │  ┌───┐       ┌───┐  │
-         │  │ ◈ │       │ ◈ │  │
-         │  └─┬─┘       └─┬─┘  │
-         │    │    ┌─┐    │    │
-         │    └────┤ ├────┘    │
-         │         └─┘         │
-         │   ┌───┐     ┌───┐   │
-         │   │▓▓▓│     │▓▓▓│   │
-         │   └───┘     └───┘   │
-         └─────────────────────┘
-                </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">5,130+</div>
+                <div class="stat-label">Branded Coffee Outlets in KSA</div>
             </div>
-            <div class="robot-info-bar">
-                <div class="robot-info-item">
-                    <div class="label">Height</div>
-                    <div class="value">45 cm</div>
-                </div>
-                <div class="robot-info-item">
-                    <div class="label">Weight</div>
-                    <div class="value">3.2 kg</div>
-                </div>
-                <div class="robot-info-item">
-                    <div class="label">Battery</div>
-                    <div class="value">8 hrs</div>
-                </div>
-                <div class="robot-info-item">
-                    <div class="label">Sensors</div>
-                    <div class="value">12 array</div>
-                </div>
-                <div class="robot-info-item">
-                    <div class="label">Compute</div>
-                    <div class="value">40 TOPS</div>
-                </div>
+            <div class="stat-item">
+                <div class="stat-number">36M</div>
+                <div class="stat-label">Cups of Coffee per Day</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">~70%</div>
+                <div class="stat-label">Saudis Under 35</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">$12B</div>
+                <div class="stat-label">Total Addressable Market</div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Metrics -->
-<section class="metrics">
+<!-- VIDEO -->
+<section class="video-section fade-in" id="video">
+    <div class="container" style="text-align:center;">
+        <div class="section-label">See It In Action</div>
+        <h2 class="section-title">Meet Mini Bot</h2>
+        <p class="section-sub" style="margin-left:auto;margin-right:auto;">A friendly AI companion that sits on your table, reacts to your games, helps you order, and keeps you coming back.</p>
+        <div class="video-wrapper">
+            <video controls poster="images/album_03.jpg">
+                <source src="images/minibot_video.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section id="about" class="fade-in">
     <div class="container">
-        <div class="metrics-grid">
-            <div class="fade-in">
-                <div class="metric-value gradient-text">40 TOPS</div>
-                <div class="metric-label">Edge AI Processing</div>
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Cafes & Venues Are Losing the Engagement Battle</h2>
+        <p class="section-sub">Hospitality venues struggle with low dwell time, weak loyalty, and no data on guest preferences. Customers scroll their phones instead of connecting with the brand.</p>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="icon">&#128337;</div>
+                <h3>Low Dwell Time</h3>
+                <p>Average cafe visit lasts under 30 minutes. Short visits mean less revenue per customer.</p>
             </div>
-            <div class="fade-in fade-in-delay-1">
-                <div class="metric-value gradient-text">12</div>
-                <div class="metric-label">Sensor Array</div>
+            <div class="problem-card">
+                <div class="icon">&#128100;</div>
+                <h3>Weak Loyalty</h3>
+                <p>Paper stamp cards and generic apps fail to keep customers engaged or returning.</p>
             </div>
-            <div class="fade-in fade-in-delay-2">
-                <div class="metric-value gradient-text">360°</div>
-                <div class="metric-label">Spatial Awareness</div>
-            </div>
-            <div class="fade-in fade-in-delay-3">
-                <div class="metric-value gradient-text">8 hrs</div>
-                <div class="metric-label">Continuous Operation</div>
+            <div class="problem-card">
+                <div class="icon">&#128202;</div>
+                <h3>Zero Guest Data</h3>
+                <p>Venues have no insight into preferences, visit patterns, or what drives repeat visits.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features -->
-<section id="features">
+<!-- HOW IT WORKS -->
+<section id="how-it-works" style="background:var(--bg-subtle);" class="fade-in">
     <div class="container">
-        <div class="section-header center">
-            <div class="section-label fade-in">Core Features</div>
-            <h2 class="section-title fade-in fade-in-delay-1">Engineered for the <span class="gradient-text">Physical World</span></h2>
-            <p class="section-desc fade-in fade-in-delay-2">Every component designed from the ground up for real-world autonomy, perception, and intelligent action.</p>
+        <div class="section-label">Phone-First Architecture</div>
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-sub">No screen on the robot. Guests scan a QR code and their phone becomes the interface.</p>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Scan</h3>
+                <p>Scan the QR code on Mini Bot. Your phone connects instantly &mdash; no app download needed.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Play & Order</h3>
+                <p>Challenge friends to trivia, browse the menu, and place orders from your phone.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Mini Bot Reacts</h3>
+                <p>The robot celebrates your wins, dances, and brings the table to life with expressive animations.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Earn & Return</h3>
+                <p>Collect points, unlock rewards, and climb leaderboards that keep you coming back.</p>
+            </div>
         </div>
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <div class="feature-icon">🧠</div>
-                <h3>Neural Perception Engine</h3>
-                <p>Multi-modal sensor fusion combining LiDAR, depth cameras, IMU, and thermal imaging for real-time 3D environment understanding.</p>
-            </div>
-            <div class="feature-card fade-in fade-in-delay-1">
-                <div class="feature-icon">🤖</div>
-                <h3>Autonomous Navigation</h3>
-                <p>SLAM-based pathfinding with dynamic obstacle avoidance. Operates in GPS-denied indoor environments and complex outdoor terrain.</p>
-            </div>
-            <div class="feature-card fade-in fade-in-delay-2">
-                <div class="feature-icon">⚡</div>
-                <h3>Edge AI Processing</h3>
-                <p>40 TOPS on-device compute for real-time inference. No cloud dependency — decisions are made in milliseconds at the edge.</p>
-            </div>
-            <div class="feature-card fade-in fade-in-delay-3">
-                <div class="feature-icon">🔗</div>
-                <h3>Fleet Integration</h3>
-                <p>Seamless connectivity with the Smart Fleet platform. Real-time telemetry, task assignment, and coordinated multi-robot operations.</p>
-            </div>
-            <div class="feature-card fade-in fade-in-delay-4">
-                <div class="feature-icon">🛡️</div>
-                <h3>Industrial-Grade Build</h3>
-                <p>IP65 rated, operating from -10°C to 55°C. Designed for warehouses, construction sites, logistics hubs, and desert environments.</p>
-            </div>
-            <div class="feature-card fade-in fade-in-delay-5">
-                <div class="feature-icon">📡</div>
-                <h3>Multi-Protocol Comms</h3>
-                <p>5G, Wi-Fi 6E, BLE 5.3, and mesh networking. Always connected with automatic failover and edge-to-cloud sync.</p>
-            </div>
+        <div class="gallery-grid">
+            <img src="images/album_03.jpg" alt="Mini Bot greeting a guest at a cafe" loading="lazy">
+            <img src="images/album_04.jpg" alt="Mini Bot with food menu on phone" loading="lazy">
+            <img src="images/album_05.png" alt="Mini Bot high-fiving a child" loading="lazy">
         </div>
     </div>
 </section>
 
-<!-- Capabilities -->
-<section id="capabilities" style="background: var(--bg-subtle); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+<!-- ENGAGEMENT ENGINE -->
+<section class="fade-in">
     <div class="container">
-        <div class="section-header center">
-            <div class="section-label fade-in">Deep Dive</div>
-            <h2 class="section-title fade-in fade-in-delay-1">What MiniBot <span class="gradient-text">Can Do</span></h2>
-            <p class="section-desc fade-in fade-in-delay-2">From autonomous inspection to real-time fleet coordination — built for tasks that matter.</p>
-        </div>
-
-        <div class="capability-row fade-in">
-            <div class="capability-text">
-                <h3>Autonomous Inspection & Monitoring</h3>
-                <p>MiniBot navigates complex environments autonomously, using its sensor array to inspect equipment, detect anomalies, and report findings in real-time. Ideal for warehouse inventory, facility monitoring, and perimeter security.</p>
-                <ul class="capability-list">
-                    <li><span class="check">✓</span> Thermal anomaly detection with 0.1°C accuracy</li>
-                    <li><span class="check">✓</span> Automated inventory counting via computer vision</li>
-                    <li><span class="check">✓</span> Gas leak and environmental hazard sensing</li>
-                    <li><span class="check">✓</span> Scheduled patrol routes with deviation alerts</li>
-                </ul>
-            </div>
-            <div class="capability-visual">
-                <div class="terminal-window">
-                    <div class="terminal-bar">
-                        <span class="terminal-dot red"></span>
-                        <span class="terminal-dot yellow"></span>
-                        <span class="terminal-dot green"></span>
-                        <span class="terminal-title">minibot-cli — inspection</span>
-                    </div>
-                    <div class="terminal-body">
-                        <div><span class="prompt">$</span> <span class="command">minibot inspect --zone warehouse-A</span></div>
-                        <div><span class="output">▸ Initializing sensor array...</span></div>
-                        <div><span class="output">▸ LiDAR calibrated. Depth OK.</span></div>
-                        <div><span class="output">▸ Thermal camera online.</span></div>
-                        <div><span class="highlight">▸ Route planned: 42 waypoints</span></div>
-                        <div><span class="output">▸ Scanning sector 1/8...</span></div>
-                        <div><span class="warning">⚠ Anomaly detected: Rack B-14</span></div>
-                        <div><span class="warning">  Temp: 47.2°C (threshold: 40°C)</span></div>
-                        <div><span class="highlight">▸ Alert dispatched to fleet mgr.</span></div>
-                        <div><span class="output">▸ Continuing patrol...</span></div>
-                    </div>
+        <div class="section-label">Engagement Engine</div>
+        <h2 class="section-title">Games That Keep Guests at the Table</h2>
+        <p class="section-sub">A library of interactive games designed to boost dwell time, spark social moments, and drive repeat visits.</p>
+        <div class="engagement-grid">
+            <div class="engage-card">
+                <div class="engage-icon">&#129504;</div>
+                <div>
+                    <h3>Trivia Challenges</h3>
+                    <p>Brand-themed and general knowledge questions that guests play head-to-head or solo.</p>
                 </div>
             </div>
-        </div>
-
-        <div class="capability-row reverse fade-in">
-            <div class="capability-text">
-                <h3>Smart Fleet Coordination</h3>
-                <p>Multiple MiniBots work as a coordinated swarm, communicating through mesh networking to cover large areas efficiently. The Smart Fleet platform acts as the central nervous system for task orchestration.</p>
-                <ul class="capability-list">
-                    <li><span class="check">✓</span> Multi-robot task allocation via AI scheduler</li>
-                    <li><span class="check">✓</span> Real-time formation control and path deconfliction</li>
-                    <li><span class="check">✓</span> Shared spatial mapping across all units</li>
-                    <li><span class="check">✓</span> Automatic load balancing and battery management</li>
-                </ul>
-            </div>
-            <div class="capability-visual">
-                <div class="terminal-window">
-                    <div class="terminal-bar">
-                        <span class="terminal-dot red"></span>
-                        <span class="terminal-dot yellow"></span>
-                        <span class="terminal-dot green"></span>
-                        <span class="terminal-title">fleet-controller — swarm</span>
-                    </div>
-                    <div class="terminal-body">
-                        <div><span class="prompt">$</span> <span class="command">fleet status --swarm alpha</span></div>
-                        <div><span class="output">┌──────┬────────┬─────┬────────┐</span></div>
-                        <div><span class="output">│ Unit │ Status │ Bat │ Zone   │</span></div>
-                        <div><span class="output">├──────┼────────┼─────┼────────┤</span></div>
-                        <div><span class="highlight">│ MB-01│ Active │ 87% │ Dock-A │</span></div>
-                        <div><span class="highlight">│ MB-02│ Active │ 92% │ Yard-C │</span></div>
-                        <div><span class="warning">│ MB-03│ Charge │ 14% │ Bay-01 │</span></div>
-                        <div><span class="highlight">│ MB-04│ Active │ 71% │ Dock-B │</span></div>
-                        <div><span class="output">└──────┴────────┴─────┴────────┘</span></div>
-                        <div><span class="output">Coverage: <span class="highlight">94.2%</span> | Efficiency: <span class="highlight">↑12%</span></span></div>
-                    </div>
+            <div class="engage-card">
+                <div class="engage-icon">&#9876;&#65039;</div>
+                <div>
+                    <h3>Head-to-Head VS</h3>
+                    <p>Compete against the table or the whole cafe in real-time multiplayer showdowns.</p>
                 </div>
             </div>
-        </div>
-
-        <div class="capability-row fade-in">
-            <div class="capability-text">
-                <h3>Predictive Maintenance Intelligence</h3>
-                <p>MiniBot continuously monitors its own systems and surrounding equipment using AI models trained on millions of operational data points. It predicts failures before they happen, reducing downtime by up to 40%.</p>
-                <ul class="capability-list">
-                    <li><span class="check">✓</span> Vibration analysis for motor and bearing health</li>
-                    <li><span class="check">✓</span> Visual defect detection using deep learning</li>
-                    <li><span class="check">✓</span> Predictive failure scoring with 90%+ accuracy</li>
-                    <li><span class="check">✓</span> Automated maintenance scheduling integration</li>
-                </ul>
+            <div class="engage-card">
+                <div class="engage-icon">&#127922;</div>
+                <div>
+                    <h3>Memory Match</h3>
+                    <p>Classic memory games with branded cards that reinforce menu items and promotions.</p>
+                </div>
             </div>
-            <div class="capability-visual">
-                <div class="terminal-window">
-                    <div class="terminal-bar">
-                        <span class="terminal-dot red"></span>
-                        <span class="terminal-dot yellow"></span>
-                        <span class="terminal-dot green"></span>
-                        <span class="terminal-title">minibot-ai — diagnostics</span>
-                    </div>
-                    <div class="terminal-body">
-                        <div><span class="prompt">$</span> <span class="command">minibot diagnose --target conveyor-7</span></div>
-                        <div><span class="output">▸ Vibration profile captured.</span></div>
-                        <div><span class="output">▸ Running spectral analysis...</span></div>
-                        <div><span class="highlight">▸ Model: bearing-fault-v3.2</span></div>
-                        <div><span class="output">▸ Confidence: <span class="highlight">94.7%</span></span></div>
-                        <div><span class="warning">⚠ Bearing wear detected</span></div>
-                        <div><span class="warning">  Est. remaining life: 120 hrs</span></div>
-                        <div><span class="highlight">▸ Work order #4281 created.</span></div>
-                        <div><span class="output">▸ Parts auto-ordered: SKF-6205</span></div>
-                    </div>
+            <div class="engage-card">
+                <div class="engage-icon">&#128106;</div>
+                <div>
+                    <h3>Kids & Family</h3>
+                    <p>Age-appropriate games that keep families entertained and ordering longer.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Specifications -->
-<section id="specs" class="specs">
+<!-- GALLERY -->
+<section style="background:var(--bg-subtle);" class="fade-in">
     <div class="container">
-        <div class="section-header center">
-            <div class="section-label fade-in">Technical Specifications</div>
-            <h2 class="section-title fade-in fade-in-delay-1">Built to <span class="gradient-text">Perform</span></h2>
+        <div class="section-label">In Action</div>
+        <h2 class="section-title">Mini Bot Moments</h2>
+        <p class="section-sub">From family fun to friendly competition &mdash; see how Mini Bot transforms everyday visits.</p>
+        <div class="gallery-grid">
+            <img src="images/album_06.jpg" alt="Interactive family entertainment" loading="lazy">
+            <img src="images/album_07.jpg" alt="Friends playing trivia" loading="lazy">
+            <img src="images/album_08.jpg" alt="Leaderboard competition" loading="lazy">
+            <img src="images/album_09.jpg" alt="Knowledge quiz at family table" loading="lazy">
+            <img src="images/album_02.png" alt="Smart receptionist at Al Olaya Tower" loading="lazy">
+            <img src="images/album_01.png" alt="Mini Bot in luxury lobby" loading="lazy">
         </div>
-        <div class="specs-grid fade-in">
-            <div class="spec-group">
-                <h3>Compute & AI</h3>
-                <div class="spec-row"><span class="spec-key">AI Accelerator</span><span class="spec-val">40 TOPS NPU</span></div>
-                <div class="spec-row"><span class="spec-key">CPU</span><span class="spec-val">8-core ARM Cortex-A78AE</span></div>
-                <div class="spec-row"><span class="spec-key">Memory</span><span class="spec-val">16 GB LPDDR5</span></div>
-                <div class="spec-row"><span class="spec-key">Storage</span><span class="spec-val">128 GB NVMe</span></div>
-                <div class="spec-row"><span class="spec-key">OS</span><span class="spec-val">MiniBot OS (Linux-based)</span></div>
-                <div class="spec-row"><span class="spec-key">ML Framework</span><span class="spec-val">ONNX / TensorRT</span></div>
+    </div>
+</section>
+
+<!-- USE CASES -->
+<section id="use-cases" class="fade-in">
+    <div class="container">
+        <div class="section-label">Where Mini Bot Lives</div>
+        <h2 class="section-title">Built for Every Venue</h2>
+        <p class="section-sub">From specialty coffee shops to luxury hotel lobbies, Mini Bot adapts to any hospitality setting.</p>
+        <div class="usecases-grid">
+            <div class="usecase-card">
+                <img src="images/album_03.jpg" alt="Cafe setting">
+                <div class="card-body">
+                    <h3>Cafes & Restaurants</h3>
+                    <p>Boost dwell time by 40%+, drive upsells through interactive menu recommendations, and build loyalty that keeps guests returning.</p>
+                </div>
             </div>
-            <div class="spec-group">
-                <h3>Sensors & Perception</h3>
-                <div class="spec-row"><span class="spec-key">LiDAR</span><span class="spec-val">360° 3D, 30m range</span></div>
-                <div class="spec-row"><span class="spec-key">Cameras</span><span class="spec-val">4x RGB + 2x Depth</span></div>
-                <div class="spec-row"><span class="spec-key">Thermal</span><span class="spec-val">FLIR Lepton 3.5</span></div>
-                <div class="spec-row"><span class="spec-key">IMU</span><span class="spec-val">9-axis, 1kHz</span></div>
-                <div class="spec-row"><span class="spec-key">Ultrasonic</span><span class="spec-val">4x proximity, 5m</span></div>
-                <div class="spec-row"><span class="spec-key">Microphone</span><span class="spec-val">4-array MEMS</span></div>
+            <div class="usecase-card">
+                <img src="images/album_02.png" alt="Hotel setting">
+                <div class="card-body">
+                    <h3>Hotels & Resorts</h3>
+                    <p>Smart concierge at lobby and lounge tables. Guests discover services, book experiences, and engage with the brand through play.</p>
+                </div>
             </div>
-            <div class="spec-group">
-                <h3>Physical</h3>
-                <div class="spec-row"><span class="spec-key">Dimensions</span><span class="spec-val">30 x 30 x 45 cm</span></div>
-                <div class="spec-row"><span class="spec-key">Weight</span><span class="spec-val">3.2 kg</span></div>
-                <div class="spec-row"><span class="spec-key">Protection</span><span class="spec-val">IP65</span></div>
-                <div class="spec-row"><span class="spec-key">Operating Temp</span><span class="spec-val">-10°C to 55°C</span></div>
-                <div class="spec-row"><span class="spec-key">Max Speed</span><span class="spec-val">2.5 m/s</span></div>
-                <div class="spec-row"><span class="spec-key">Payload</span><span class="spec-val">1.5 kg</span></div>
+            <div class="usecase-card">
+                <img src="images/album_05.png" alt="Mall setting">
+                <div class="card-body">
+                    <h3>Malls & Entertainment</h3>
+                    <p>Attract foot traffic with interactive experiences at food courts, waiting areas, and family zones throughout the venue.</p>
+                </div>
             </div>
-            <div class="spec-group">
-                <h3>Power & Connectivity</h3>
-                <div class="spec-row"><span class="spec-key">Battery</span><span class="spec-val">Li-Po 72 Wh</span></div>
-                <div class="spec-row"><span class="spec-key">Runtime</span><span class="spec-val">Up to 8 hours</span></div>
-                <div class="spec-row"><span class="spec-key">Charging</span><span class="spec-val">Auto-dock, 90 min</span></div>
-                <div class="spec-row"><span class="spec-key">Wireless</span><span class="spec-val">5G / Wi-Fi 6E / BLE 5.3</span></div>
-                <div class="spec-row"><span class="spec-key">Mesh</span><span class="spec-val">Robot-to-robot mesh</span></div>
-                <div class="spec-row"><span class="spec-key">API</span><span class="spec-val">REST + gRPC + MQTT</span></div>
+            <div class="usecase-card">
+                <img src="images/album_06.jpg" alt="Home setting">
+                <div class="card-body">
+                    <h3>Home Companion</h3>
+                    <p>A personal AI companion for your living room. Family game nights, educational content for kids, and smart home integration. SAR 1,099 + SAR 39/mo.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Use Cases -->
-<section id="use-cases">
+<!-- BUSINESS MODEL -->
+<section id="business" style="background:var(--bg-subtle);" class="fade-in">
     <div class="container">
-        <div class="section-header center">
-            <div class="section-label fade-in">Applications</div>
-            <h2 class="section-title fade-in fade-in-delay-1">Built for <span class="gradient-text">Every Industry</span></h2>
-            <p class="section-desc fade-in fade-in-delay-2">From logistics hubs to construction sites, MiniBot adapts to your operational needs.</p>
+        <div class="section-label">Business Model</div>
+        <h2 class="section-title">Robot-as-a-Service</h2>
+        <p class="section-sub">B2B subscription model starting at SAR 1,200/month. 8 revenue streams, EBITDA-positive by Year 3.</p>
+        <div class="biz-grid">
+            <div class="biz-card">
+                <div class="biz-icon">&#9749;</div>
+                <h4>F&B Commissions</h4>
+                <p>Earn a cut on every order placed through Mini Bot's integrated menu.</p>
+            </div>
+            <div class="biz-card">
+                <div class="biz-icon">&#128257;</div>
+                <h4>SaaS / RaaS</h4>
+                <p>Monthly subscription for hardware + software platform access.</p>
+            </div>
+            <div class="biz-card">
+                <div class="biz-icon">&#127918;</div>
+                <h4>Sponsored Games</h4>
+                <p>Brands sponsor in-game content, trivia themes, and reward campaigns.</p>
+            </div>
+            <div class="biz-card">
+                <div class="biz-icon">&#128200;</div>
+                <h4>Data Products</h4>
+                <p>Anonymized guest insights for venue operators and brand partners.</p>
+            </div>
+            <div class="biz-card">
+                <div class="biz-icon">&#127942;</div>
+                <h4>Loyalty & Rewards</h4>
+                <p>Platform fees on loyalty program integrations and reward redemptions.</p>
+            </div>
+            <div class="biz-card">
+                <div class="biz-icon">&#128722;</div>
+                <h4>In-App Purchases</h4>
+                <p>Premium game modes, avatar customization, and special event access.</p>
+            </div>
         </div>
-        <div class="use-cases-grid">
-            <div class="use-case-card fade-in">
-                <span class="use-case-icon">🏭</span>
-                <h3>Warehouse & Logistics</h3>
-                <p>Autonomous inventory scanning, package tracking, and facility monitoring. 24/7 operations with zero human intervention.</p>
-            </div>
-            <div class="use-case-card fade-in fade-in-delay-1">
-                <span class="use-case-icon">🏗️</span>
-                <h3>Construction Sites</h3>
-                <p>Progress monitoring, safety compliance checks, and equipment inspection across large-scale construction projects.</p>
-            </div>
-            <div class="use-case-card fade-in fade-in-delay-2">
-                <span class="use-case-icon">🛢️</span>
-                <h3>Oil & Gas</h3>
-                <p>Pipeline inspection, leak detection, and facility monitoring in hazardous environments too dangerous for human workers.</p>
-            </div>
-            <div class="use-case-card fade-in fade-in-delay-3">
-                <span class="use-case-icon">🚢</span>
-                <h3>Ports & Shipping</h3>
-                <p>Container yard monitoring, cargo inspection, and port security operations with coordinated multi-robot coverage.</p>
-            </div>
-            <div class="use-case-card fade-in fade-in-delay-4">
-                <span class="use-case-icon">🏥</span>
-                <h3>Healthcare Facilities</h3>
-                <p>Contactless delivery of supplies, environmental monitoring, and facility disinfection in hospitals and clinics.</p>
-            </div>
-            <div class="use-case-card fade-in fade-in-delay-5">
-                <span class="use-case-icon">🌾</span>
-                <h3>Smart Agriculture</h3>
-                <p>Crop monitoring, soil analysis, and automated inspection of agricultural facilities and greenhouse environments.</p>
+        <div style="text-align:center; margin-top:48px;">
+            <div style="display:inline-grid; grid-template-columns:repeat(3,1fr); gap:40px; text-align:center;">
+                <div>
+                    <div style="font-size:2rem;font-weight:800;color:var(--green);">$65M</div>
+                    <div style="font-size:0.8rem;color:var(--text-dim);">Serviceable Obtainable Market</div>
+                </div>
+                <div>
+                    <div style="font-size:2rem;font-weight:800;color:var(--orange);">~68%</div>
+                    <div style="font-size:0.8rem;color:var(--text-dim);">Gross Margin</div>
+                </div>
+                <div>
+                    <div style="font-size:2rem;font-weight:800;color:var(--accent-light);">$67M</div>
+                    <div style="font-size:0.8rem;color:var(--text-dim);">Year 5 Revenue Target</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Roadmap -->
-<section id="roadmap" style="background: var(--bg-subtle); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+<!-- TEAM -->
+<section id="team" class="fade-in">
     <div class="container">
-        <div class="section-header">
-            <div class="section-label fade-in">Development Roadmap</div>
-            <h2 class="section-title fade-in fade-in-delay-1">The Path <span class="gradient-text">Forward</span></h2>
-            <p class="section-desc fade-in fade-in-delay-2">From prototype to production — our roadmap to deploying Physical AI at scale.</p>
-        </div>
-        <div class="roadmap-list fade-in">
-            <div class="roadmap-item">
-                <div class="roadmap-dot"></div>
-                <div class="roadmap-phase">Phase 1 — Foundation</div>
-                <h3>Core Hardware & Perception</h3>
-                <p>Custom PCB design, sensor integration, motor control systems, and the foundational perception stack. SLAM navigation in controlled indoor environments.</p>
+        <div class="section-label">Leadership</div>
+        <h2 class="section-title">The Team</h2>
+        <p class="section-sub">Built by UVAII Venture Studio &mdash; a Saudi-based team at the intersection of AI, robotics, and hospitality.</p>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">MS</div>
+                <h3>Mahmoud Sultan</h3>
+                <div class="role">CEO & Founder</div>
+                <p>Strategy, product vision, and investor relations</p>
             </div>
-            <div class="roadmap-item">
-                <div class="roadmap-dot"></div>
-                <div class="roadmap-phase">Phase 2 — Intelligence</div>
-                <h3>AI Models & Autonomy</h3>
-                <p>Training and deploying on-device ML models for object detection, anomaly recognition, and predictive maintenance. Autonomous task execution without human oversight.</p>
+            <div class="team-card">
+                <div class="team-avatar">AZ</div>
+                <h3>Dr. Ahmad Zalat</h3>
+                <div class="role">COO</div>
+                <p>Operations, partnerships, and go-to-market execution</p>
             </div>
-            <div class="roadmap-item">
-                <div class="roadmap-dot"></div>
-                <div class="roadmap-phase">Phase 3 — Integration</div>
-                <h3>Fleet Platform & Multi-Robot Ops</h3>
-                <p>Deep integration with Smart Fleet platform. Multi-robot coordination, mesh networking, and centralized fleet management dashboard.</p>
-            </div>
-            <div class="roadmap-item future">
-                <div class="roadmap-dot"></div>
-                <div class="roadmap-phase">Phase 4 — Scale</div>
-                <h3>Pilot Deployments & Production</h3>
-                <p>Pilot programs with strategic partners across logistics, oil & gas, and construction sectors. Manufacturing optimization and production-grade hardware.</p>
-            </div>
-            <div class="roadmap-item future">
-                <div class="roadmap-dot"></div>
-                <div class="roadmap-phase">Phase 5 — Expand</div>
-                <h3>Regional Expansion & Ecosystem</h3>
-                <p>Full-scale deployment across KSA and GCC. Developer SDK, third-party integrations, and an open ecosystem for industry-specific modules.</p>
+            <div class="team-card">
+                <div class="team-avatar">SG</div>
+                <h3>Saleh Al Gheznawy</h3>
+                <div class="role">CTO</div>
+                <p>Engineering, AI/ML platform, and hardware integration</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section" id="contact">
+<section class="cta-section fade-in" id="contact">
     <div class="container">
-        <span class="badge fade-in"><span class="dot"></span> Limited Early Access</span>
-        <h2 class="fade-in fade-in-delay-1">Ready to Deploy <span class="gradient-text">Physical AI</span>?</h2>
-        <p class="fade-in fade-in-delay-2">Join our early access program and be among the first to integrate MiniBot into your operations.</p>
-        <div class="hero-buttons fade-in fade-in-delay-3">
-            <a href="mailto:contact@minibot.ai" class="btn-primary">
-                Contact Us
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-            <a href="#specs" class="btn-secondary">
-                View Full Specs
-            </a>
+        <div class="section-label">Get Started</div>
+        <h2>Bring Mini Bot to Your Venue</h2>
+        <p>We're raising $1.5M to scale across KSA. Whether you're a venue operator, investor, or partner &mdash; let's talk.</p>
+        <div class="cta-buttons">
+            <a href="mailto:info@uvaii.com" class="btn-primary">Contact Us &#8594;</a>
+            <a href="#video" class="btn-secondary">&#9654; Watch the Demo</a>
         </div>
     </div>
 </section>
 
-<!-- Footer -->
+<!-- FOOTER -->
 <footer>
     <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="nav-logo">
-                    <div class="nav-logo-icon">M</div>
-                    MiniBot
-                </div>
-                <p>Physical AI for the real world. Autonomous robots that perceive, reason, and act — built for industrial-scale operations.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Product</h4>
-                <a href="#features">Features</a>
-                <a href="#capabilities">Capabilities</a>
-                <a href="#specs">Specifications</a>
-                <a href="#use-cases">Use Cases</a>
-            </div>
-            <div class="footer-col">
-                <h4>Company</h4>
-                <a href="#">About</a>
-                <a href="#">Careers</a>
-                <a href="#">Blog</a>
-                <a href="#">Press</a>
-            </div>
-            <div class="footer-col">
-                <h4>Resources</h4>
-                <a href="#">Documentation</a>
-                <a href="#">API Reference</a>
-                <a href="#roadmap">Roadmap</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 MiniBot — Smart Fleet Platform. All rights reserved.</p>
-            <p>Built in Saudi Arabia 🇸🇦</p>
-        </div>
+        <div class="brand"><span>UVAII</span> Mini Bot</div>
+        <p>&copy; 2024 UVAII Venture Studio. Made in Saudi Arabia. Vision 2030 Aligned.</p>
+        <p style="margin-top:4px;">Arabic-First AI &bull; PDPL-Ready &bull; Manufactured via MODON</p>
     </div>
 </footer>
 
 <script>
-    // Mobile menu toggle
-    function toggleMenu() {
-        document.getElementById('mobileMenu').classList.toggle('open');
-    }
-
-    // Scroll-triggered fade-in animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Floating particles
-    (function createParticles() {
-        const container = document.getElementById('particles');
-        if (!container) return;
-        for (let i = 0; i < 30; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.left = Math.random() * 100 + '%';
-            p.style.animationDuration = (8 + Math.random() * 12) + 's';
-            p.style.animationDelay = Math.random() * 10 + 's';
-            p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
-            container.appendChild(p);
-        }
-    })();
-
-    // Nav background on scroll
-    window.addEventListener('scroll', () => {
-        const nav = document.querySelector('nav');
-        nav.style.borderBottomColor = window.scrollY > 50 ? 'var(--border)' : 'transparent';
-    });
+    // Particles
+    const pc = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 8 + 's';
+        p.style.animationDuration = (6 + Math.random() * 6) + 's';
+        pc.appendChild(p);
+    }
 </script>
-
 </body>
 </html>
