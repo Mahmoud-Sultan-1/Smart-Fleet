@@ -485,28 +485,24 @@
         .team-card {
             text-align: center; background: var(--surface);
             border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 36px 20px; transition: all 0.4s;
+            transition: all 0.4s;
             position: relative; overflow: hidden;
         }
-        .team-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 70px;
-            background: linear-gradient(135deg, rgba(108,92,231,0.07), rgba(0,206,201,0.04));
-        }
         .team-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-        .team-avatar {
-            width: 90px; height: 90px; border-radius: 50%;
-            margin: 0 auto 16px; position: relative; z-index: 1;
-            border: 3px solid var(--border); overflow: hidden;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex; align-items: center; justify-content: center;
+        .team-photo {
+            width: 100%; aspect-ratio: 4 / 5; overflow: hidden;
+            background: var(--bg-card); position: relative;
         }
-        .team-avatar .initials {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.6rem; font-weight: 700; color: #fff;
+        .team-photo img {
+            width: 100%; height: 100%; object-fit: cover;
+            object-position: center top; display: block;
+            transition: transform 0.5s;
         }
-        .team-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; position: relative; z-index: 1; }
-        .team-role { font-size: 0.78rem; color: var(--primary-light); margin-bottom: 8px; font-weight: 600; }
-        .team-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.6; }
+        .team-card:hover .team-photo img { transform: scale(1.04); }
+        .team-info { padding: 24px 22px 28px; }
+        .team-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 3px; }
+        .team-role { font-size: 0.8rem; color: var(--primary-light); margin-bottom: 10px; font-weight: 600; }
+        .team-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
 
         /* CTA */
         .cta-section {
@@ -1114,22 +1110,28 @@
         </div>
         <div class="team-grid">
             <div class="team-card">
-                <div class="team-avatar"><img src="images/mahmoud_sultan.jpg" alt="Mahmoud Sultan"></div>
-                <h3>Mahmoud Sultan</h3>
-                <div class="team-role">CEO & Founder</div>
-                <p class="team-desc">Visionary entrepreneur driving Physical AI's strategy, product vision, and partnerships across the MENA region.</p>
+                <div class="team-photo"><img src="images/mahmoud_sultan.jpg" alt="Mahmoud Sultan"></div>
+                <div class="team-info">
+                    <h3>Mahmoud Sultan</h3>
+                    <div class="team-role">CEO & Founder</div>
+                    <p class="team-desc">Visionary entrepreneur driving Physical AI's strategy, product vision, and partnerships across the MENA region.</p>
+                </div>
             </div>
             <div class="team-card">
-                <div class="team-avatar"><img src="images/ahmad_zalat.jpg" alt="Dr. Ahmad Zalat"></div>
-                <h3>Dr. Ahmad Zalat</h3>
-                <div class="team-role">COO</div>
-                <p class="team-desc">Operations leader overseeing supply chain, manufacturing partnerships, and go-to-market execution.</p>
+                <div class="team-photo"><img src="images/ahmad_zalat.jpg" alt="Dr. Ahmad Zalat"></div>
+                <div class="team-info">
+                    <h3>Dr. Ahmad Zalat</h3>
+                    <div class="team-role">COO</div>
+                    <p class="team-desc">Operations leader overseeing supply chain, manufacturing partnerships, and go-to-market execution.</p>
+                </div>
             </div>
             <div class="team-card">
-                <div class="team-avatar"><img src="images/saleh_gheznawy.jpg" alt="Saleh Al Gheznawy"></div>
-                <h3>Saleh Al Gheznawy</h3>
-                <div class="team-role">CTO</div>
-                <p class="team-desc">Full-stack technologist leading AI/ML systems, Arabic NLP, and hardware-software integration.</p>
+                <div class="team-photo"><img src="images/saleh_gheznawy.jpg" alt="Saleh Al Gheznawy"></div>
+                <div class="team-info">
+                    <h3>Saleh Al Gheznawy</h3>
+                    <div class="team-role">CTO</div>
+                    <p class="team-desc">Full-stack technologist leading AI/ML systems, Arabic NLP, and hardware-software integration.</p>
+                </div>
             </div>
         </div>
     </div>
