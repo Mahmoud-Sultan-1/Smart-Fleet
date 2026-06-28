@@ -12,16 +12,16 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #010108;
-            --bg-subtle: #060612;
-            --bg-card: #0a0a1a;
-            --surface: rgba(255,255,255,0.025);
+            --bg: #0b0c0f;
+            --bg-subtle: #121317;
+            --bg-card: #181a1f;
+            --surface: rgba(255,255,255,0.022);
             --surface-hover: rgba(255,255,255,0.05);
-            --border: rgba(255,255,255,0.06);
-            --border-light: rgba(255,255,255,0.1);
-            --text: #eef0f6;
-            --text-muted: #8b8da0;
-            --text-dim: #52536a;
+            --border: rgba(255,255,255,0.07);
+            --border-light: rgba(255,255,255,0.12);
+            --text: #f0f1f5;
+            --text-muted: #9a9cab;
+            --text-dim: #5e6070;
             --primary: #6c5ce7;
             --primary-light: #a29bfe;
             --primary-glow: rgba(108,92,231,0.12);
@@ -61,7 +61,7 @@
             padding: 18px 0; transition: all 0.4s;
         }
         nav.scrolled {
-            background: rgba(1,1,8,0.94); backdrop-filter: blur(30px);
+            background: rgba(8,9,12,0.94); backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-bottom: 1px solid var(--border); padding: 12px 0;
         }
@@ -168,7 +168,7 @@
         }
         .hero-img-wrapper::after {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(1,1,8,0.5) 100%);
+            background: linear-gradient(180deg, transparent 60%, rgba(8,9,12,0.5) 100%);
             pointer-events: none;
         }
         .hero-img-wrapper img { width: 100%; display: block; }
@@ -348,7 +348,7 @@
         .scenario-card:hover .scenario-img img { transform: scale(1.06); }
         .scenario-tag {
             position: absolute; top: 12px; left: 12px;
-            background: rgba(1,1,8,0.8); backdrop-filter: blur(10px);
+            background: rgba(8,9,12,0.8); backdrop-filter: blur(10px);
             padding: 4px 12px; border-radius: 999px;
             font-size: 0.7rem; font-weight: 600; color: var(--primary-light);
             border: 1px solid var(--border);
@@ -446,7 +446,7 @@
         .g-item .g-caption {
             position: absolute; bottom: 0; left: 0; right: 0;
             padding: 16px;
-            background: linear-gradient(transparent, rgba(1,1,8,0.85));
+            background: linear-gradient(transparent, rgba(8,9,12,0.85));
             opacity: 0; transition: opacity 0.3s;
         }
         .g-item:hover .g-caption { opacity: 1; }
@@ -603,7 +603,7 @@
             .nav-links.active {
                 display: flex; flex-direction: column;
                 position: absolute; top: 100%; left: 0; right: 0;
-                background: rgba(1,1,8,0.97); backdrop-filter: blur(30px);
+                background: rgba(8,9,12,0.97); backdrop-filter: blur(30px);
                 border-bottom: 1px solid var(--border);
                 padding: 20px 32px; gap: 14px;
             }
@@ -1030,7 +1030,7 @@
         </div>
         <div class="gallery-masonry">
             <div class="g-item g-tall">
-                <img src="images/album_02.png" alt="Noor at a corporate lobby" loading="lazy">
+                <img src="images/noor_01.jpg" alt="Noor at a corporate lobby" loading="lazy">
                 <div class="g-caption"><span>Noor &mdash; Corporate Reception</span></div>
             </div>
             <div class="g-item">
@@ -1077,7 +1077,7 @@
             </div>
             <div class="ps-media">
                 <div class="ps-img-wrap">
-                    <img src="images/album_02.png" alt="Noor reception robot in action">
+                    <img src="images/noor_01.jpg" alt="Noor reception robot greeting visitors at a corporate lobby">
                 </div>
             </div>
         </div>
@@ -1097,7 +1097,7 @@
             </div>
             <div class="ps-media">
                 <div class="ps-img-wrap">
-                    <img src="images/album_01.png" alt="Saqr delivery robot">
+                    <img src="images/saqr_01.jpg" alt="Saqr autonomous service and delivery robot">
                 </div>
             </div>
         </div>
@@ -1114,19 +1114,19 @@
         </div>
         <div class="team-grid">
             <div class="team-card">
-                <div class="team-avatar"><span class="initials">MS</span></div>
+                <div class="team-avatar"><img src="images/mahmoud_sultan.jpg" alt="Mahmoud Sultan"></div>
                 <h3>Mahmoud Sultan</h3>
                 <div class="team-role">CEO & Founder</div>
                 <p class="team-desc">Visionary entrepreneur driving Physical AI's strategy, product vision, and partnerships across the MENA region.</p>
             </div>
             <div class="team-card">
-                <div class="team-avatar"><span class="initials">AZ</span></div>
+                <div class="team-avatar"><img src="images/ahmad_zalat.jpg" alt="Dr. Ahmad Zalat"></div>
                 <h3>Dr. Ahmad Zalat</h3>
                 <div class="team-role">COO</div>
                 <p class="team-desc">Operations leader overseeing supply chain, manufacturing partnerships, and go-to-market execution.</p>
             </div>
             <div class="team-card">
-                <div class="team-avatar"><span class="initials">SG</span></div>
+                <div class="team-avatar"><img src="images/saleh_gheznawy.jpg" alt="Saleh Al Gheznawy"></div>
                 <h3>Saleh Al Gheznawy</h3>
                 <div class="team-role">CTO</div>
                 <p class="team-desc">Full-stack technologist leading AI/ML systems, Arabic NLP, and hardware-software integration.</p>
